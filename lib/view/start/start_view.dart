@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
 import '../../components/custom_button.dart';
 import '../../resources/color_pattern.dart';
 
 class StartPage extends StatefulWidget {
-  const StartPage({ Key? key }) : super(key: key);
+  const StartPage({Key? key}) : super(key: key);
+
 
   @override
   State<StartPage> createState() => _StartPageState();
@@ -21,7 +22,7 @@ class _StartPageState extends State<StartPage> {
           children: [
             CustomButton(
               onPressed: () {
-                print("Iniciou");
+                Navigator.pushNamed(context, '/home');
               },
               title: const Text(
                 "START",
