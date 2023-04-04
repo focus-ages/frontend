@@ -18,94 +18,90 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPattern.darkMode,
-      body: Center(
-          child: Column(
-        mainAxisSize: MainAxisSize.min,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(padding: EdgeInsets.only(top: 25.0)),
-          const LogoFocus(),
-          const Text(
-            'Olá ______',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontSize: 36,
-              color: Colors.white
-
-          )),
-          const Switchbutton(),
-          const CountdownTimer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomButton(
-                
-                onPressed: () {
-              
-                },
-                title: const Text(
-                  "Alterar Metas",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: ColorPattern.darkMode,
-                  ),
-                ),
-              ),
-              const Padding(padding: EdgeInsets.all(7.0)),
-              CustomButton(
-                onPressed: () {
-                 
-                },
-                title: const Text(
-                  "Frase Rápida",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: ColorPattern.darkMode,
-                  ),
-                ),
-              ),
-            ],
+          const Padding(padding: EdgeInsets.all(25.0)),
+          const Center(child: LogoFocus()),
+          // ignore: prefer_const_constructors
+          Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: const Text('Olá ______',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 36, color: Colors.white)),
           ),
-          const Padding(padding: EdgeInsets.all(7.0)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Center(
+              child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              CustomButton(
-                onPressed: () {
-      
-                },
-                title: const Text(
-                  "Objetivos",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: ColorPattern.darkMode,
+              const CountdownTimer(),
+              const Switchbutton(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomButton(
+                    onPressed: () {},
+                    title: const Text(
+                      "Alterar Metas",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: ColorPattern.darkMode,
+                      ),
+                    ),
                   ),
-                ),
+                  const Padding(padding: EdgeInsets.all(7.0)),
+                  CustomButton(
+                    onPressed: () {},
+                    title: const Text(
+                      "Frase Rápida",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: ColorPattern.darkMode,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const Padding(padding: EdgeInsets.all(7.0)),
-              CustomButton(
-                onPressed: () {
-             
-                },
-                title: const Text(
-                  "Frases",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: ColorPattern.darkMode,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomButton(
+                    onPressed: () {},
+                    title: const Text(
+                      "Objetivos",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: ColorPattern.darkMode,
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                  const Padding(padding: EdgeInsets.all(7.0)),
+                  CustomButton(
+                    onPressed: () {},
+                    title: const Text(
+                      "Frases",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: ColorPattern.darkMode,
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
-          )
+          )),
         ],
-      )),
+      ),
     );
   }
 }
+
