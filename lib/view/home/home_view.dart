@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/components/card_frases/card_frases.dart';
 import 'package:front/components/countdown_timer.dart';
 import 'package:front/components/logo_text.dart';
 import 'package:front/components/objective_button.dart';
@@ -140,25 +141,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           const Padding(padding: EdgeInsets.symmetric(vertical: 25.0)),
-          Center(
-            child: Container(
-              width: 320,
-              height: 120,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: ColorPattern.darkCard,
-              ),
-              child: const Text(
-                "Frases Placeholder",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          )
+         const CardFrases(),
         ],
       ),
     );
