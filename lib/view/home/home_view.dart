@@ -22,104 +22,38 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 25.0),
-            child: Center(child: LogoFocus()),
-          ),
           // ignore: prefer_const_constructors
           Padding(
-            padding: const EdgeInsets.only(left: 45.0),
+            padding: const EdgeInsets.only(left: 45.0, top: 80),
             child: const Text('Olá ______',
                 textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 36, color: Colors.white)),
+                style: TextStyle(fontSize: 25, color: Colors.white)),
           ),
-          Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 80.0, bottom: 40.0, left: 60.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CountdownTimer(),
-                    Padding(padding: EdgeInsets.symmetric(vertical: 25.0)),
-                    Text('Tempo Usado',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    Text('Meta Diária',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 18,
-                        )),
-                  ],
-                ),
-              ),
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 25.0)),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Objetivos',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-                  Wrap(
-                    direction: Axis.vertical,
-                    runSpacing: 10,
-                    spacing: 10,
-                    children: <Widget>[
-                      ObjectiveButton(
-                        onPressed: () {},
-                        title: const Text(
-                          "Estudar",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: ColorPattern.darkMode,
-                          ),
-                        ),
-                      ),
-                      ObjectiveButton(
-                        onPressed: () {},
-                        title: const Text(
-                          "Estudar",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: ColorPattern.darkMode,
-                          ),
-                        ),
-                      ),
-                      ObjectiveButton(
-                        onPressed: () {},
-                        title: const Text(
-                          "Estudar",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: ColorPattern.darkMode,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+          const Padding(padding: EdgeInsets.only(bottom: 30)),
+          Center(
+              child: Column(
+            children: const [
+              CountdownTimer(),
+              Padding(padding: EdgeInsets.only(bottom: 30)),
+              Text('Tempo Usado',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  )),
+              Text('Meta Diária',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 18,
+                  )),
             ],
-          ),
+          )),
 
           const Switchbutton('Linha Progressiva'),
           const Switchbutton('Greyscale'),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: const [
               Text(
                 "Tempo de Notificação",
                 textAlign: TextAlign.left,
@@ -130,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Text(
-                "10 Minutos",
+                "10 Min",
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontSize: 18,
@@ -140,8 +74,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          const Padding(padding: EdgeInsets.symmetric(vertical: 25.0)),
-         const CardFrases(),
+          const CardFrases(),
         ],
       ),
     );

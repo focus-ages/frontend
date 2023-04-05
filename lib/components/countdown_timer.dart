@@ -13,29 +13,28 @@ class CountdownTimer extends StatefulWidget {
 }
 
 class _CountdownTimerState extends State<CountdownTimer> {
-  final int _duration=10;
+  final int _duration = 10;
   @override
   Widget build(BuildContext context) {
     return CircularCountDownTimer(
       //width: MediaQuery.of(context).size.width / 2,
       //height: MediaQuery.of(context).size.height / 2,
-      width:125,
-      height:125,
+      width: 200,
+      height: 200,
       duration: _duration,
       fillColor: ColorPattern.green,
       ringColor: ColorPattern.darkCard,
       strokeCap: StrokeCap.round,
-      strokeWidth: 35.0,
+      strokeWidth: 20.0,
       isTimerTextShown: true,
-      fillGradient: const LinearGradient(
-            colors: [
-    
-              Color(0xff23B854),
-              Color(0xff346B47),
-              Color(0xff2DEB6C),
-              Color(0xff75EE9D),
-              Color(0xff27CC5D),]),
-    
+      fillGradient: const LinearGradient(colors: [
+        Color(0xff23B854),
+        Color(0xff346B47),
+        Color(0xff2DEB6C),
+        Color(0xff75EE9D),
+        Color(0xff27CC5D),
+      ]),
+
       textStyle: const TextStyle(
         fontSize: 36,
         color: Colors.white,
@@ -43,5 +42,3 @@ class _CountdownTimerState extends State<CountdownTimer> {
     );
   }
 }
-
-
