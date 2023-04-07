@@ -19,15 +19,15 @@ class _CountdownTimerState extends State<CountdownTimer> {
     return CircularCountDownTimer(
       //width: MediaQuery.of(context).size.width / 2,
       //height: MediaQuery.of(context).size.height / 2,
-      width: 200,
-      height: 200,
+      width: 180,
+      height: 180,
       duration: _duration,
       fillColor: ColorPattern.green,
       ringColor: ColorPattern.darkCard,
       strokeCap: StrokeCap.round,
       strokeWidth: 20.0,
       isTimerTextShown: true,
-      fillGradient: const LinearGradient(colors: [
+      fillGradient: LinearGradient(colors: const [
         Color(0xff23B854),
         Color(0xff346B47),
         Color(0xff2DEB6C),

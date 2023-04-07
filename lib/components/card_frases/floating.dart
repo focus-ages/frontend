@@ -5,12 +5,13 @@ import '../../resources/color_pattern.dart';
 class FloatingButton extends StatefulWidget {
   
   final Color color;
+  final Icon icon;
   final Function() onPressed;
   const FloatingButton(
     { Key? key,
     
     this.color = ColorPattern.green,
-    required this.onPressed})
+    required this.onPressed, required this.icon})
     : super(key: key);
 
   @override
@@ -33,12 +34,7 @@ class _FloatingButtonState extends State<FloatingButton> {
           alignment: Alignment.center,
           
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
-          child: const Icon(
-            Icons.add,
-            color: ColorPattern.darkCard,
-            size: 15,
-
-          ),
+          child: widget.icon,
         ),
       ),
     );

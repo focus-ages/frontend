@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:front/components/card_frases/card_frases.dart';
 import 'package:front/components/countdown_timer.dart';
-import 'package:front/components/logo_text.dart';
-import 'package:front/components/objective_button.dart';
 import 'package:front/components/switch_button.dart';
 
+import '../../components/card_frases/floating.dart';
 import '../../resources/color_pattern.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,51 +28,114 @@ class _HomePageState extends State<HomePage> {
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 25, color: Colors.white)),
           ),
-          const Padding(padding: EdgeInsets.only(bottom: 30)),
+          const Padding(padding: EdgeInsets.only(bottom: 40)),
           Center(
               child: Column(
-            children: const [
-              CountdownTimer(),
-              Padding(padding: EdgeInsets.only(bottom: 30)),
-              Text('Tempo Usado',
+            children: [
+              const CountdownTimer(),
+              const Padding(padding: EdgeInsets.only(bottom: 20)),
+              const Text('Tempo Usado',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: ColorPattern.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   )),
-              Text('Meta Diária',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 18,
-                  )),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                      Padding(padding: EdgeInsets.only(left: 5)),
+
+                  Text('Meta Diária',
+                      style: TextStyle(
+                        color: ColorPattern.gray,
+                        fontSize: 18,
+                      )),
+                  Icon(Icons.edit, color: ColorPattern.gray, size: 18),
+                ],
+              ),
+              const Padding(padding: EdgeInsets.only(bottom: 20)),
             ],
           )),
+          Padding(
+              padding: const EdgeInsets.only(left: 35),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'Barra de progresso',
+                        style: TextStyle(
+                          color: ColorPattern.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      CustomSwitcher(),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'GrayScale',
+                        style: TextStyle(
+                          color: ColorPattern.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.only(left: 60)),
+                      CustomSwitcher(),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "Tempo de \nNotificação",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.only(left: 60)),
+                      Text(
+                        "10 Min",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.only(left: 3)),
+                      Icon(Icons.edit, color: ColorPattern.white, size: 18),
+                    ],
+                  ),
+                  const Padding(padding: EdgeInsets.only(bottom: 10)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Objetivos",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Padding(padding: EdgeInsets.only(left: 75)),
+                      FloatingButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.add_task,
+                            color: ColorPattern.darkCard, size: 15),
+                      ),
+                    ],
+                  ),
+                ],
+              )),
 
-          const Switchbutton('Linha Progressiva'),
-          const Switchbutton('Greyscale'),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              Text(
-                "Tempo de Notificação",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                "10 Min",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
           const CardFrases(),
         ],
       ),

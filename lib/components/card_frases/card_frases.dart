@@ -12,7 +12,7 @@ class CardFrases extends StatefulWidget {
 class _CardFrasesState extends State<CardFrases> {
   @override
   Widget build(BuildContext context) {
-    return  Card(
+    return Card(
       elevation: 10,
       color: ColorPattern.darkCard,
       margin: const EdgeInsets.all(30),
@@ -30,7 +30,7 @@ class _CardFrasesState extends State<CardFrases> {
             ),
             const Padding(padding: EdgeInsets.all(7)),
             const Text(
-              "O uso do celular sem equilíbrio e disciplina, \n faz dele o maior ladrão do seu bem mais precioso,\n o seu tempo.",
+              "  O uso do celular sem equilíbrio e disciplina, \n faz dele o maior ladrão do seu bem mais \n precioso, o seu tempo.",
               style: TextStyle(
                   color: ColorPattern.white,
                   fontSize: 12,
@@ -38,11 +38,13 @@ class _CardFrasesState extends State<CardFrases> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children:<Widget> [
+              children: <Widget>[
                 FloatingButton(
-                  onPressed: () {}
-                  ),
-                ],
+                  onPressed: () {},
+                  icon: const Icon(Icons.add,
+                      color: ColorPattern.darkCard, size: 15),
+                ),
+              ],
             ),
           ],
         ),
