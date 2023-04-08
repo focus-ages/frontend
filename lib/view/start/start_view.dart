@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import '../../components/custom_button.dart';
+import '../../components/home_componenets/custom_button.dart';
 import '../../resources/color_pattern.dart';
 
 class StartPage extends StatefulWidget {

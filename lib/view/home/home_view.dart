@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:front/components/card_frases/card_frases.dart';
-import 'package:front/components/countdown_timer.dart';
-import 'package:front/components/switch_button.dart';
+import 'package:front/components/home_componenets/card_frases/card_frases.dart';
+import 'package:front/components/home_componenets/countdown_timer.dart';
+import 'package:front/components/home_componenets/switch_button.dart';
 
-import '../../components/card_frases/floating.dart';
-import '../../components/notification_button.dart';
+import '../../components/home_componenets/card_frases/floating.dart';
+import '../../components/home_componenets/notification_button.dart';
 import '../../resources/color_pattern.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: ColorPattern.darkMode,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +36,6 @@ class _HomePageState extends State<HomePage> {
           Center(
               child: Column(
             children: [
-              
               const CountdownTimer(),
               const Padding(padding: EdgeInsets.only(bottom: 20)),
               const Text('Tempo Usado',
@@ -46,11 +46,10 @@ class _HomePageState extends State<HomePage> {
                   )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children:  [
-                      const Padding(padding: EdgeInsets.only(left: 5)),
-
+                children: [
+                  const Padding(padding: EdgeInsets.only(left: 5)),
                   TextButton(
-                    onPressed: (){},
+                    onPressed: () {},
                     child: const Text('Meta Diária',
                         style: TextStyle(
                           color: ColorPattern.gray,
@@ -77,6 +76,8 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      Padding(padding: EdgeInsets.only(left: 5)),
+
                       CustomSwitcher(),
                     ],
                   ),
@@ -91,14 +92,14 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Padding(padding: EdgeInsets.only(left: 60)),
+                      Padding(padding: EdgeInsets.only(left: 65)),
                       CustomSwitcher(),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children:  [
-                       const Text(
+                    children: [
+                      const Text(
                         "Tempo de \nNotificação",
                         style: TextStyle(
                           fontSize: 15,
@@ -109,7 +110,6 @@ class _HomePageState extends State<HomePage> {
                       const Padding(padding: EdgeInsets.only(left: 60)),
                       // ignore: prefer_const_constructors
                       NotificationButton(),
-                      
                     ],
                   ),
                   const Padding(padding: EdgeInsets.only(bottom: 10)),
@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.white,
                         ),
                       ),
-                      const Padding(padding: EdgeInsets.only(left: 75)),
+                      const Padding(padding: EdgeInsets.only(left: 82)),
                       FloatingButton(
                         onPressed: () {},
                         icon: const Icon(Icons.add_task,

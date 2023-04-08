@@ -1,11 +1,8 @@
-import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
-import '../resources/color_pattern.dart';
+import '../../resources/color_pattern.dart';
 
 class CountdownTimer extends StatefulWidget {
   const CountdownTimer({Key? key}) : super(key: key);
@@ -15,7 +12,7 @@ class CountdownTimer extends StatefulWidget {
 }
 
 class _CountdownTimerState extends State<CountdownTimer> {
-  final int _duration = 10;
+  final int _duration = 50;
   int currentDuration = 0;
   @override
   Widget build(BuildContext context) {
@@ -31,7 +28,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
         strokeCap: StrokeCap.round,
         strokeWidth: 20.0,
         isTimerTextShown: true,
-        fillGradient: LinearGradient(colors: const [
+        fillGradient: const LinearGradient(colors: [
           Color(0xff23B854),
           Color(0xff346B47),
           Color(0xff2DEB6C),
@@ -44,7 +41,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             setState(() {
               currentDuration = int.parse(timeStamp);
-            });
+            }); 
           });
 
         },
@@ -52,14 +49,14 @@ class _CountdownTimerState extends State<CountdownTimer> {
       Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(currentDuration.toString() + " Min",
+          Text(currentDuration.toString() + " seg",
               style: const TextStyle(
-                fontSize: 36,
+                fontSize: 20,
                 color: ColorPattern.white,
               )),
-          Text(_duration.toString() + " Min",
+          Text(_duration.toString() + " seg",
           style: const TextStyle(
-            fontSize: 24,
+            fontSize: 16,
             color: ColorPattern.gray,
           )),
         ],

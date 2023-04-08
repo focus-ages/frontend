@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../resources/color_pattern.dart';
+import '../../../resources/color_pattern.dart';
 
 class FloatingButton extends StatefulWidget {
   

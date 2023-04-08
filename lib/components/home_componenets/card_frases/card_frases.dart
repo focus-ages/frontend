@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:front/components/card_frases/floating.dart';
+import 'package:front/components/home_componenets/card_frases/floating.dart';
 import 'package:front/resources/color_pattern.dart';
 
 class CardFrases extends StatefulWidget {
