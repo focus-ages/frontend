@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: ColorPattern.white,
                         ),
                       ),
                       const Padding(padding: EdgeInsets.only(left: 60)),
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: ColorPattern.white,
                         ),
                       ),
                       const Padding(padding: EdgeInsets.only(left: 82)),

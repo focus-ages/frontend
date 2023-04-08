@@ -78,7 +78,7 @@ class _NotificationButtonState extends State<NotificationButton> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: ColorPattern.white,
                     )),
               ],
             ),
