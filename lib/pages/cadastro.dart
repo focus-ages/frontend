@@ -1,14 +1,13 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:front/components/input_text.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 import '../resources/color_pattern.dart';
 
 class Cadastro extends StatefulWidget {
-  const Cadastro({Key? key, required this.title}) : super(key: key);
+  const Cadastro({Key? key}) : super(key: key);
 
-  final String title;
+  //final String title;
 
   @override
   State<Cadastro> createState() => _CadastroState();
@@ -16,6 +15,7 @@ class Cadastro extends StatefulWidget {
 
 class _CadastroState extends State<Cadastro> {
   static const customizedGreen = ColorPattern.green;
+  final formKey = GlobalKey<FormState>();
 
   /*void navigateToNextScreen() {
     Navigator.push(context,
@@ -25,100 +25,142 @@ class _CadastroState extends State<Cadastro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorPattern.darkMode,
-        centerTitle: true,
-        title: Text('Focus',
-            style: TextStyle(fontWeight: FontWeight.w400, fontSize: 36)),
-      ),
       body: IntroductionScreen(
           pages: [
             PageViewModel(
-              title: 'A Rotina Merece\n Ser Cuidada',
+              title: '',
               //decoration: ,
               bodyWidget: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(height: 16),
-                  Center(
-                    child: Text(
-                      'Notar e Anotar ajuda a cuidar da rotina de sua família Ensine desde cedo as crianças',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                          fontSize: 14),
-                    ),
-                  ),
+                children: [
+                  const SizedBox(height: 250),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Padding(padding: EdgeInsets.only(right: 10)),
+                        Text(
+                          'Olá,',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                              fontSize: 32),
+                        ),
+                        InputText(),
+                      ]),
                 ],
               ),
               //decoration: getPageDecoration(),
             ),
             PageViewModel(
-              title: 'Organize Sua Rotina',
+              title: '',
               bodyWidget: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(height: 16),
-                  Center(
-                    child: Text(
-                      'Programe a semana!\nEvite imprevistos e confusões em sua casa \nValorize seu tempo!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey,
-                          fontSize: 14),
-                    ),
+                children: [
+                  const SizedBox(height: 166),
+                  const Text(
+                    'Após quantos\nminutos devo lhe\nlembrar de sair do\ncelular ? ',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                        fontSize: 32),
                   ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Padding(padding: EdgeInsets.only(right: 10)),
+                        Text(
+                          'Minutos:',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                              fontSize: 24),
+                        ),
+                        InputText(),
+                      ]),
                 ],
               ),
               decoration: getPageDecoration(),
             ),
             PageViewModel(
-              title: 'Valorize cada conquista \nde seu filho!',
+              title: '',
               bodyWidget: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(height: 16),
-                  Center(
-                    child: Text(
-                      'Reconheça e elogie! \nEstimule seu filho nas tarefas do dia a dia',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey,
-                          fontSize: 14),
-                    ),
+                children: [
+                  const SizedBox(height: 166),
+                  const Text(
+                    'Qual a sua meta\ndiária ideal para\npassar no celular ? ',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                        fontSize: 32),
                   ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: const [
+                        Padding(padding: EdgeInsets.only(right: 10)),
+                        Text(
+                          'Horas:',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                              fontSize: 24),
+                        ),
+                        InputText(),
+                      ]),
                 ],
               ),
               decoration: getPageDecoration(),
             )
           ],
-          done: Text(
-            'PRONTO',
+          done: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: ColorPattern.darkMode),
+            onPressed: () {
+              formKey.currentState?.validate();
+            },
+            child: const Text(
+              'PRONTO',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: customizedGreen,
+                  fontSize: 15),
+            ),
+          ),
+          onDone: () => "", //goToHome(context),
+          globalFooter: const Text(
+            'Não pare agora!',
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: customizedGreen,
-                fontSize: 15),
+                fontSize: 18),
           ),
-          onDone: () => "", //goToLogin(context),
-          showSkipButton: true,
-          skip: Text(
-            'Pular',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
+          showBackButton: true,
+          back: Row(
+            children: const [
+              Icon(
+                Icons.chevron_left_outlined,
                 color: customizedGreen,
-                fontSize: 15),
+              ),
+              Text(
+                'Voltar',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: customizedGreen,
+                    fontSize: 12),
+              ),
+            ],
           ),
+          showNextButton: true,
           next: Row(
-            children: [
+            children: const [
               Text(
                 'Próximo',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: customizedGreen,
-                    fontSize: 15),
+                    fontSize: 12),
               ),
               Icon(
                 Icons.chevron_right_outlined,
@@ -132,7 +174,7 @@ class _CadastroState extends State<Cadastro> {
     );
   }
 
-  DotsDecorator getDotDecorator() => DotsDecorator(
+  DotsDecorator getDotDecorator() => const DotsDecorator(
         color: Colors.white,
         size: Size(10, 10),
         activeSize: Size(15, 15),
@@ -146,12 +188,12 @@ class _CadastroState extends State<Cadastro> {
       Center(child: Image.asset(path, width: 500));*/
 
   PageDecoration getPageDecoration() => PageDecoration(
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
             fontSize: 28, fontWeight: FontWeight.bold, color: customizedGreen),
-        bodyTextStyle: TextStyle(fontSize: 20),
-        titlePadding: EdgeInsets.all(8).copyWith(top: 0),
+        bodyTextStyle: const TextStyle(fontSize: 20),
+        titlePadding: const EdgeInsets.all(8).copyWith(top: 0),
         //descriptionPadding: EdgeInsets.all(8).copyWith(bottom: 0),
-        imagePadding: EdgeInsets.all(8),
-        pageColor: Colors.white,
+        imagePadding: const EdgeInsets.all(8),
+        //pageColor: Colors.white,
       );
 }
