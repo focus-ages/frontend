@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:front/pages/cadastro.dart';
+import 'package:front/view/home/home_view.dart';
 
 import 'start/start_view.dart';
 
@@ -12,7 +12,7 @@ class AppWidget extends StatelessWidget {
       initialRoute: '/cadastro',
       routes: {
         '/': (context) => const StartPage(),
-        '/cadastro': (context) => const Cadastro(),
+        '/home':(context) => const HomePage(),
       },
     );
   }

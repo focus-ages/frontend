@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../resources/color_pattern.dart';
+import '../../resources/color_pattern.dart';
 
 class CustomButton extends StatefulWidget {
   final Widget title;
@@ -22,17 +22,17 @@ class _CustomButtonState extends State<CustomButton> {
   Widget build(BuildContext context) {
     return Material(
       color: widget.color,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(6),
       child: InkWell(
         onTap: widget.onPressed,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(6),
         child: Container(
-          width: 200,
-          height: 80,
+          width: MediaQuery.of(context).size.width / 3,
+          height: MediaQuery.of(context).size.width / 5,
           //color: widget.color,
           alignment: Alignment.center,
           child: widget.title,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
         ),
       ),
     );
