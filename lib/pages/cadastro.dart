@@ -16,6 +16,7 @@ class Cadastro extends StatefulWidget {
 class _CadastroState extends State<Cadastro> {
   static const customizedGreen = ColorPattern.green;
   final formKey = GlobalKey<FormState>();
+  String nome = '';
 
   /*void navigateToNextScreen() {
     Navigator.push(context,
@@ -36,6 +37,7 @@ class _CadastroState extends State<Cadastro> {
                   const SizedBox(height: 250),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: const [
                         Padding(padding: EdgeInsets.only(right: 10)),
                         Text(
@@ -49,7 +51,7 @@ class _CadastroState extends State<Cadastro> {
                       ]),
                 ],
               ),
-              //decoration: getPageDecoration(),
+              decoration: getPageDecoration(),
             ),
             PageViewModel(
               title: '',
@@ -63,18 +65,19 @@ class _CadastroState extends State<Cadastro> {
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
-                        fontSize: 32),
+                        fontSize: 36),
                   ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: const [
-                        Padding(padding: EdgeInsets.only(right: 10)),
+                        Padding(padding: EdgeInsets.only(right: 4)),
                         Text(
                           'Minutos:',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
-                              fontSize: 24),
+                              fontSize: 32),
                         ),
                         InputText(),
                       ]),
@@ -94,18 +97,19 @@ class _CadastroState extends State<Cadastro> {
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
-                        fontSize: 32),
+                        fontSize: 36),
                   ),
                   Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      //mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: const [
-                        Padding(padding: EdgeInsets.only(right: 10)),
+                        Padding(padding: EdgeInsets.only(right: 24)),
                         Text(
                           'Horas:',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
-                              fontSize: 24),
+                              fontSize: 32),
                         ),
                         InputText(),
                       ]),

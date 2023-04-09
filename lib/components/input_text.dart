@@ -12,6 +12,7 @@ class InputText extends StatefulWidget {
 class _InputTextState extends State<InputText> {
   final _formKey = GlobalKey<FormState>();
   String _inputValue = '';
+  final _nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +24,14 @@ class _InputTextState extends State<InputText> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: TextFormField(
+            controller: _nameController,
+            style: const TextStyle(
+              color: ColorPattern.green,
+              fontSize: 28,
+            ),
             decoration: const InputDecoration(
-              hintText: 'Fulano',
-              hintStyle: TextStyle(color: ColorPattern.green, fontSize: 24),
+              hintText: 'Digite Aqui',
+              hintStyle: TextStyle(color: Colors.grey, fontSize: 19),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -34,7 +40,8 @@ class _InputTextState extends State<InputText> {
               return null;
             },
             onSaved: (value) {
-              _inputValue = value!;
+              //_inputValue = value!;
+              //MaterialPageRoute(builder: builder)
             },
           ),
         ),
