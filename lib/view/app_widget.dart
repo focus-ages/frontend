@@ -9,7 +9,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/cadastro',
       routes: {
         '/': (context) => const StartPage(),
         '/home':(context) => const HomePage(),
@@ -17,6 +17,3 @@ class AppWidget extends StatelessWidget {
     );
   }
 }
-
-
-  
