@@ -10,7 +10,7 @@ class NotificationButton extends StatefulWidget {
 }
 
 class _NotificationButtonState extends State<NotificationButton> {
-  int minutos = 0;
+  int minutos = 20;
 
   void edit() {
     showDialog(
@@ -71,7 +71,7 @@ class _NotificationButtonState extends State<NotificationButton> {
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.green,
+                      color: ColorPattern.green,
                     )),
                 const TextSpan(
                     text: ' Min',

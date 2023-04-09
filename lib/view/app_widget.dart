@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:front/view/cadastro/form_view.dart';
 import 'package:front/view/home/home_view.dart';
 
-import 'start/start_view.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -11,8 +11,9 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/cadastro',
       routes: {
-        '/': (context) => const StartPage(),
         '/home':(context) => const HomePage(),
+        '/cadastro':(context) => const Cadastro(),
+
       },
     );
   }

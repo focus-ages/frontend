@@ -16,7 +16,7 @@ class LogoFocus extends StatelessWidget {
       width: 320,
       child: const Text("Let's Focus!",
           style: TextStyle(
-            color: Colors.white,
+            color: ColorPattern.white,
             fontSize: 36,
             fontWeight: FontWeight.bold
           )),

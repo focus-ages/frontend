@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:front/components/input_text.dart';
+import 'package:flutter/material.dart';
+import 'package:front/components/cadastro/input_text.dart';
+import 'package:front/components/cadastro/logo_text.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-import '../resources/color_pattern.dart';
+import '../../resources/color_pattern.dart';
 
 class Cadastro extends StatefulWidget {
   const Cadastro({Key? key}) : super(key: key);
@@ -18,11 +20,6 @@ class _CadastroState extends State<Cadastro> {
   final formKey = GlobalKey<FormState>();
   String nome = '';
 
-  /*void navigateToNextScreen() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => RoutinePeriodSelection()));
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +31,9 @@ class _CadastroState extends State<Cadastro> {
               bodyWidget: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 250),
+                  const SizedBox(height: 20),
+                  const LogoFocus(),
+                  const SizedBox(height: 230),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -44,7 +43,7 @@ class _CadastroState extends State<Cadastro> {
                           'Olá,',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                              color: ColorPattern.white,
                               fontSize: 32),
                         ),
                         InputText(),
@@ -58,13 +57,13 @@ class _CadastroState extends State<Cadastro> {
               bodyWidget: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 166),
+                  const SizedBox(height: 145),
                   const Text(
                     'Após quantos\nminutos devo lhe\nlembrar de sair do\ncelular ? ',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                        color: ColorPattern.white,
                         fontSize: 36),
                   ),
                   Row(
@@ -76,7 +75,7 @@ class _CadastroState extends State<Cadastro> {
                           'Minutos:',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                              color: ColorPattern.white,
                               fontSize: 32),
                         ),
                         InputText(),
@@ -90,13 +89,13 @@ class _CadastroState extends State<Cadastro> {
               bodyWidget: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 166),
+                  const SizedBox(height: 145),
                   const Text(
                     'Qual a sua meta\ndiária ideal para\npassar no celular ? ',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                        color: ColorPattern.white,
                         fontSize: 36),
                   ),
                   Row(
@@ -105,10 +104,10 @@ class _CadastroState extends State<Cadastro> {
                       children: const [
                         Padding(padding: EdgeInsets.only(right: 24)),
                         Text(
-                          'Horas:',
+                          'Tempo:',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                              color: ColorPattern.white,
                               fontSize: 32),
                         ),
                         InputText(),
@@ -122,7 +121,7 @@ class _CadastroState extends State<Cadastro> {
             style: ElevatedButton.styleFrom(
                 backgroundColor: ColorPattern.darkMode),
             onPressed: () {
-              formKey.currentState?.validate();
+              Navigator.pushNamed(context, '/home');
             },
             child: const Text(
               'PRONTO',
@@ -179,17 +178,11 @@ class _CadastroState extends State<Cadastro> {
   }
 
   DotsDecorator getDotDecorator() => const DotsDecorator(
-        color: Colors.white,
+        color: ColorPattern.white,
         size: Size(10, 10),
         activeSize: Size(15, 15),
         activeColor: customizedGreen,
       );
-
-  /*void goToLogin(context) => Navigator.push(
-      context, MaterialPageRoute(builder: (context) => LoginPage()));
-
-  Widget buildImage(String path) =>
-      Center(child: Image.asset(path, width: 500));*/
 
   PageDecoration getPageDecoration() => PageDecoration(
         titleTextStyle: const TextStyle(
@@ -198,6 +191,5 @@ class _CadastroState extends State<Cadastro> {
         titlePadding: const EdgeInsets.all(8).copyWith(top: 0),
         //descriptionPadding: EdgeInsets.all(8).copyWith(bottom: 0),
         imagePadding: const EdgeInsets.all(8),
-        //pageColor: Colors.white,
       );
 }

@@ -28,9 +28,9 @@ class _HomePageState extends State<HomePage> {
           // ignore: prefer_const_constructors
           Padding(
             padding: const EdgeInsets.only(left: 45.0, top: 80),
-            child: const Text('Olá ______',
+            child: const Text('Olá, Lucas \u{1F44B}',
                 textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 25, color: Colors.white)),
+                style: TextStyle(fontSize: 25, color: ColorPattern.white)),
           ),
           const Padding(padding: EdgeInsets.only(bottom: 40)),
           Center(

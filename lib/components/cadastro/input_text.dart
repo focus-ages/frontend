@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../resources/color_pattern.dart';
+import '../../resources/color_pattern.dart';
 
 class InputText extends StatefulWidget {
   const InputText({Key? key}) : super(key: key);
@@ -11,7 +11,6 @@ class InputText extends StatefulWidget {
 
 class _InputTextState extends State<InputText> {
   final _formKey = GlobalKey<FormState>();
-  String _inputValue = '';
   final _nameController = TextEditingController();
 
   @override
@@ -31,7 +30,7 @@ class _InputTextState extends State<InputText> {
             ),
             decoration: const InputDecoration(
               hintText: 'Digite Aqui',
-              hintStyle: TextStyle(color: Colors.grey, fontSize: 19),
+              hintStyle: TextStyle(color: ColorPattern.gray, fontSize: 19),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -41,7 +40,6 @@ class _InputTextState extends State<InputText> {
             },
             onSaved: (value) {
               //_inputValue = value!;
-              //MaterialPageRoute(builder: builder)
             },
           ),
         ),
