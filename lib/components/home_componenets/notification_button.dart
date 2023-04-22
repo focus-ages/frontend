@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../resources/color_pattern.dart';
 
 class NotificationButton extends StatefulWidget {
-  const NotificationButton({Key? key}) : super(key: key);
+  var popupC;
+
+  NotificationButton({Key? key, this.popupC}) : super(key: key);
 
   @override
   State<NotificationButton> createState() => _NotificationButtonState();
@@ -13,25 +15,46 @@ class _NotificationButtonState extends State<NotificationButton> {
   int minutos = 20;
 
   void edit() {
+    String title = "";
+    String time = "";
+
+    if (widget.popupC == 1) {
+      title = "Tempo de notificações:";
+      time = "Digite o tempo em minutos";
+    } else {
+      title = "Meta diária:";
+      time = "Horas";
+    }
+
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: ColorPattern.darkCard,
-            title: const Text('Editar Tempo',
-                style: TextStyle(color: ColorPattern.white)),
-            content: TextField(
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                hintText: 'Digite o tempo em minutos',
-                hintStyle: TextStyle(color: ColorPattern.white)
+            title: Text(
+              title,
+              style: const TextStyle(color: ColorPattern.white),
+              textAlign: TextAlign.center,
+            ),
+            content: Container(
+              width: double.infinity,
+              height: 50,
+              decoration: BoxDecoration(
+                  color: ColorPattern.darkMode,
+                  borderRadius: BorderRadius.circular(10)),
+              child: TextField(
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: ColorPattern.white),
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                    hintText: time,
+                    hintStyle: const TextStyle(color: ColorPattern.white)),
+                onChanged: (String value) {
+                  setState(() {
+                    minutos = int.parse(value);
+                  });
+                },
               ),
-              onChanged: (String value) {
-                setState(() {
-                  minutos = int.parse(value);
-                });
-              },
-              
             ),
             actions: [
               TextButton(
@@ -39,8 +62,7 @@ class _NotificationButtonState extends State<NotificationButton> {
                   Navigator.of(context).pop();
                 },
                 child: const Text('Cancelar',
-                    style: TextStyle(color: ColorPattern.green)
-                    ),
+                    style: TextStyle(color: ColorPattern.green)),
               ),
               TextButton(
                 onPressed: () {

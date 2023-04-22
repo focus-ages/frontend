@@ -56,7 +56,10 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 18,
                         )),
                   ),
-                  const Icon(Icons.edit, color: ColorPattern.gray, size: 18),
+                  NotificationButton(
+                    popupC: 2,
+                  ),
+                  //const Icon(Icons.edit, color: ColorPattern.gray, size: 18),
                 ],
               ),
             ],
@@ -77,7 +80,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Padding(padding: EdgeInsets.only(left: 5)),
-
                       CustomSwitcher(),
                     ],
                   ),
@@ -109,7 +111,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const Padding(padding: EdgeInsets.only(left: 60)),
                       // ignore: prefer_const_constructors
-                      NotificationButton(),
+                      NotificationButton(
+                        popupC: 1,
+                      ),
                     ],
                   ),
                   const Padding(padding: EdgeInsets.only(bottom: 10)),
