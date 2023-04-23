@@ -1,14 +1,8 @@
 
 <h3 align="center">
   <img src="https://img.shields.io/badge/flutter-3.7.1-blue" />
-  <img src="https://img.shields.io/badge/platform-Android%20%7C%20iOS-blue" />
-  <img src="https://img.shields.io/badge/platform-windows%20%7C%20linux%20%7C%20macos-blue" />
-
-  </a>
-  <p></p>
-  <p align="center">PUCRS - Escola Politécnica - 2023/1</p>
-  <p align="center">Agência Experimental de Engenharia de Software</p>
-  <p align="center">Projeto FOCUS</p>
+  <img src="https://img.shields.io/badge/sistem-Android%20%7C%20iOS-blue" />
+  <img src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20MacOS-blue" />
 </h3>
 
 # Configurações
