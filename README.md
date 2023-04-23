@@ -1,7 +1,7 @@
 
 <h3 align="center">
   <img src="https://img.shields.io/badge/flutter-3.7.1-blue" />
-  <img src="https://img.shields.io/badge/sistem-Android%20%7C%20iOS-blue" />
+  <img src="https://img.shields.io/badge/system-Android%20%7C%20iOS-blue" />
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20MacOS-blue" />
 </h3>
 
