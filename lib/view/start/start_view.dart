@@ -22,7 +22,7 @@ class _StartPageState extends State<StartPage> {
           children: [
             CustomButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/home');
+                Navigator.pushNamed(context, '/mensagens');
               },
               title: const Text(
                 "START",
