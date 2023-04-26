@@ -1,4 +1,3 @@
-
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +11,7 @@ class CountdownTimer extends StatefulWidget {
 }
 
 class _CountdownTimerState extends State<CountdownTimer> {
-  final int _duration = 50;
+  final int _duration = 10;
   int currentDuration = 0;
   @override
   Widget build(BuildContext context) {
@@ -37,13 +36,11 @@ class _CountdownTimerState extends State<CountdownTimer> {
         ]),
         //faz isso funcionar
         onChange: (String timeStamp) {
-
           WidgetsBinding.instance.addPostFrameCallback((_) {
             setState(() {
               currentDuration = int.parse(timeStamp);
-            }); 
+            });
           });
-
         },
       ),
       Column(
@@ -54,14 +51,13 @@ class _CountdownTimerState extends State<CountdownTimer> {
                 fontSize: 20,
                 color: ColorPattern.white,
               )),
-          Text(_duration.toString() + " seg",
-          style: const TextStyle(
-            fontSize: 16,
-            color: ColorPattern.gray,
-          )),
+          Text(_duration.toString() + ":00",
+              style: const TextStyle(
+                fontSize: 16,
+                color: ColorPattern.gray,
+              )),
         ],
       ),
-      
     ]);
   }
 }

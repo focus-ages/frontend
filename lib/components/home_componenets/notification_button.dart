@@ -20,10 +20,10 @@ class _NotificationButtonState extends State<NotificationButton> {
 
     if (widget.popupC == 1) {
       title = "Tempo de notificações:";
-      time = minutos.toString() + " minutos";
+      time = minutos.toString() + " Minutos";
     } else {
       title = "Meta diária:";
-      time = minutos.toString() + " horas";
+      time = minutos.toString() + " Horas";
     }
 
     showDialog(
@@ -37,7 +37,7 @@ class _NotificationButtonState extends State<NotificationButton> {
               textAlign: TextAlign.center,
             ),
             content: Container(
-              width: double.infinity,
+              width: 10,
               height: 55,
               decoration: BoxDecoration(
                   color: ColorPattern.whiteOpacity,
@@ -47,13 +47,12 @@ class _NotificationButtonState extends State<NotificationButton> {
                 style: const TextStyle(color: ColorPattern.white),
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
+                    border: InputBorder.none,
                     hintText: time,
-                    hintStyle: const TextStyle(color: ColorPattern.white)),
+                    hintStyle: const TextStyle(color: ColorPattern.gray)),
                 onChanged: (String value) {
                   setState(() {
-                    if (minutos < 24) {
-                      minutos = int.parse(value);
-                    }
+                    minutos = int.parse(value);
                   });
                 },
               ),
