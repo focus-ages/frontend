@@ -30,10 +30,12 @@ class _NotificationButtonState extends State<NotificationButton> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            shape: ContinuousRectangleBorder(
+                borderRadius: BorderRadius.circular(40)),
             backgroundColor: ColorPattern.darkCard,
             title: Text(
               title,
-              style: const TextStyle(color: ColorPattern.white),
+              style: const TextStyle(color: ColorPattern.white, fontSize: 16),
               textAlign: TextAlign.center,
             ),
             content: Container(
