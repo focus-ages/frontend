@@ -173,6 +173,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.7"
+  is_lock_screen:
+    dependency: "direct main"
+    description:
+      name: is_lock_screen
+      sha256: "7f45c22b1bb4bd9849aa699bc45b5b9473ada262a4266e1d7d51babdf50c0c83"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   js:
     dependency: transitive
     description:
@@ -221,6 +229,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
+  pausable_timer:
+    dependency: "direct main"
+    description:
+      name: pausable_timer
+      sha256: "1897e2c6a4e73b9486e4ff943bfd08585bc231400e6ae924a92f5b9fd8efc0a6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0+7"
   plugin_platform_interface:
     dependency: transitive
     description:

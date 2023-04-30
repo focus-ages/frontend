@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front/view/cadastro/form_view.dart';
 import 'package:front/view/home/home_view.dart';
+import 'package:front/view/start/start_view.dart';
 
 
 class AppWidget extends StatelessWidget {
@@ -9,8 +10,9 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/cadastro',
+      initialRoute: '/start',
       routes: {
+        '/start':(context) => const StartPage(),
         '/home':(context) => const HomePage(),
         '/cadastro':(context) => const Cadastro(),
 
