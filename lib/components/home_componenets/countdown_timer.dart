@@ -49,12 +49,12 @@ class _CountdownTimerState extends State<CountdownTimer> {
       Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(currentDuration.toString() + " seg",
+          Text("$currentDuration seg",
               style: const TextStyle(
                 fontSize: 20,
                 color: ColorPattern.white,
               )),
-          Text(_duration.toString() + " seg",
+          Text("$_duration seg",
           style: const TextStyle(
             fontSize: 16,
             color: ColorPattern.gray,

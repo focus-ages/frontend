@@ -31,8 +31,8 @@ class _CustomButtonState extends State<CustomButton> {
           height: MediaQuery.of(context).size.width / 5,
           //color: widget.color,
           alignment: Alignment.center,
-          child: widget.title,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
+          child: widget.title,
         ),
       ),
     );

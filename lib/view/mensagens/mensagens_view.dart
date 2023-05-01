@@ -10,6 +10,9 @@ class Mensagens extends StatefulWidget{
 }
 
 class _MensagensState extends State<Mensagens>{
+
+  List<String> frases = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,8 +20,8 @@ class _MensagensState extends State<Mensagens>{
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 70),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 70),
             child: Text('Frases',
                 style: TextStyle(
                   color: Colors.white,
