@@ -18,7 +18,7 @@ class _MensagensState extends State<Mensagens>{
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-              padding: const EdgeInsets.fromLTRB(156, 80, 156, 70),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 70),
             child: Text('Frases',
                 style: TextStyle(
                   color: Colors.white,
@@ -26,7 +26,7 @@ class _MensagensState extends State<Mensagens>{
               ),
             ),
           ),
-          const Padding(padding: EdgeInsets.only()),
+          //const Padding(padding: EdgeInsets.fromLTRB(10, 10, 20, 20)),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
