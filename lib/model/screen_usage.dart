@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:is_lock_screen/is_lock_screen.dart';
 import 'package:pausable_timer/pausable_timer.dart';
-import '../../components/home_componenets/custom_button.dart';
-import '../../resources/color_pattern.dart';
 
 int tempo = 60;
 
-class Funciona with WidgetsBindingObserver {
- // State<Funciona> createState() => _FuncionaState();
-
-
-//class _FuncionaState extends State<Funciona> with WidgetsBindingObserver {
+void colectScreenData() {
   final timer = PausableTimer(Duration(seconds: tempo), () => {});
-  
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    super.didChangeAppLifecycleState(state);
+  WidgetsBinding.instance.addPostFrameCallback((_) async {
     while (true) {
       if (timer.isExpired) {
         print('envia pro db -ficou o tempo todo ---------- $timer.elapsed');
@@ -33,5 +24,5 @@ class Funciona with WidgetsBindingObserver {
         }
       }
     }
-  }
+  });
 }
