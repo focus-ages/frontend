@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:front/components/cadastro/input_text.dart';
 import 'package:front/components/cadastro/logo_text.dart';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -172,6 +171,7 @@ class _CadastroState extends State<Cadastro> {
             ],
           ),
           dotsDecorator: getDotDecorator(),
+          // ignore: avoid_print
           onChange: (index) => print('page $index selected'),
           globalBackgroundColor: ColorPattern.darkMode),
     );

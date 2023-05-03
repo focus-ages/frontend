@@ -28,6 +28,7 @@ class _InputTextState extends State<InputText> {
               color: ColorPattern.green,
               fontSize: 28,
             ),
+
             decoration: const InputDecoration(
               hintText: 'Digite Aqui',
               hintStyle: TextStyle(color: ColorPattern.gray, fontSize: 19),

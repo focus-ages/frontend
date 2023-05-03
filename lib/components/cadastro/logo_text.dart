@@ -19,7 +19,8 @@ class LogoFocus extends StatelessWidget {
             color: ColorPattern.white,
             fontSize: 36,
             fontWeight: FontWeight.bold
-          )),
+          ),
+      ),
     );
   }
 }
