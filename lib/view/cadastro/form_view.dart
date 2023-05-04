@@ -2,22 +2,60 @@ import 'package:flutter/material.dart';
 import 'package:front/components/cadastro/input_text.dart';
 import 'package:front/components/cadastro/logo_text.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../resources/color_pattern.dart';
+
+
 
 class Cadastro extends StatefulWidget {
   const Cadastro({Key? key}) : super(key: key);
+
+  
+
+  
 
   //final String title;
 
   @override
   State<Cadastro> createState() => _CadastroState();
+  
 }
 
 class _CadastroState extends State<Cadastro> {
+
+
   static const customizedGreen = ColorPattern.green;
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController nomeController = TextEditingController();
   String nome = '';
+  int minutosLembrete = 0;
+  int tempoIdeal = 0;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+void _submitForm() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      String nome = nomeController.text;
+      try {
+        await firestore.collection('usuarios').add({
+          'nome': nome,
+          'minutosLembrete': minutosLembrete,
+          'tempoIdeal': tempoIdeal,
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Cadastro realizado com sucesso!'),
+          ),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Erro ao realizar cadastro. Tente novamente mais tarde.'),
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +84,10 @@ class _CadastroState extends State<Cadastro> {
                               fontSize: 32),
                         ),
                         InputText(),
-                      ]),
+                       
+                      ]
+
+                      ),
                 ],
               ),
               decoration: getPageDecoration(),
@@ -120,6 +161,7 @@ class _CadastroState extends State<Cadastro> {
             style: ElevatedButton.styleFrom(
                 backgroundColor: ColorPattern.darkMode),
             onPressed: () {
+              _submitForm();
               Navigator.pushNamed(context, '/home');
             },
             child: const Text(
@@ -130,7 +172,8 @@ class _CadastroState extends State<Cadastro> {
                   fontSize: 15),
             ),
           ),
-          onDone: () => "", //goToHome(context),
+          onDone: () => "",
+           //goToHome(context),
           globalFooter: const Text(
             'Não pare agora!',
             style: TextStyle(
@@ -192,4 +235,6 @@ class _CadastroState extends State<Cadastro> {
         //descriptionPadding: EdgeInsets.all(8).copyWith(bottom: 0),
         imagePadding: const EdgeInsets.all(8),
       );
+
+  
 }
