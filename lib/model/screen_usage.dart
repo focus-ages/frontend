@@ -1,28 +1,31 @@
-import 'package:flutter/material.dart';
-import 'package:is_lock_screen/is_lock_screen.dart';
+import 'dart:async';
+import 'package:screen_state/screen_state.dart';
 import 'package:pausable_timer/pausable_timer.dart';
 
 int tempo = 60;
+final timer = PausableTimer(Duration(seconds: tempo), () => {resetTimer()});
+void collectScreenData() async {
 
-void colectScreenData() {
-  final timer = PausableTimer(Duration(seconds: tempo), () => {});
-
-  WidgetsBinding.instance.addPostFrameCallback((_) async {
-    while (true) {
-      if (timer.isExpired) {
-        print('envia pro db -ficou o tempo todo ---------- $timer.elapsed');
-        timer.reset();
-      } else if (timer.isActive && await isLockScreen() == true) {
-        print('envia pro db- terminou antes -------------- $timer.elapsed');
+  late StreamSubscription<ScreenStateEvent> _subscription;
+  Screen _screen = Screen();
+  _subscription = _screen.screenStateStream!.listen((ScreenStateEvent event) {
+    if (event == ScreenStateEvent.SCREEN_ON) {
+      if (!timer.isActive) {
+        timer.start();
+        print('tela on ----------');
+      }
+    } else if (event == ScreenStateEvent.SCREEN_OFF) {
+     // if (timer.isActive) {
+        print('tela off ---------- ${timer.elapsed}');
         timer.reset();
         timer.pause();
-      } else if (await isLockScreen() == false) {
-        await Future<void>.delayed(const Duration(seconds: 1));
-        print(timer.elapsed);
-        if (!timer.isActive) {
-          timer.start();
-        }
-      }
+     // }
     }
   });
+}
+
+void resetTimer() {
+  print('ficou o tempo todo ----------');
+  timer.reset();
+  timer.start();
 }
