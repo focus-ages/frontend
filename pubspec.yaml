@@ -32,13 +32,14 @@ dependencies:
     sdk: flutter  
   intl: ^0.17.0    
   date_format: "^2.0.0"
+  flutter_native_splash: ^2.2.19
 
   introduction_screen: ^3.1.7
   circular_countdown_timer: ^0.2.1
 
   firebase_core: ^2.10.0
   cloud_firestore: ^4.5.2
-  
+  localstorage: ^4.0.0+1
 
 
 
@@ -49,6 +50,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
+
   flutter_test:
     sdk: flutter
 

@@ -214,6 +214,7 @@ void _submitForm() async {
             ],
           ),
           dotsDecorator: getDotDecorator(),
+          // ignore: avoid_print
           onChange: (index) => print('page $index selected'),
           globalBackgroundColor: ColorPattern.darkMode),
     );
