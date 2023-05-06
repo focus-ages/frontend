@@ -12,7 +12,7 @@ class AppWidget extends StatelessWidget {
       initialRoute: '/cadastro',
       routes: {
         '/home':(context) => const HomePage(),
-        '/cadastro':(context) => const BancoPage()
+        '/cadastro':(context) => const HomePage()
       },
     );
   }
