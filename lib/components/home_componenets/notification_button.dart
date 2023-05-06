@@ -62,6 +62,11 @@ class _NotificationButtonState extends State<NotificationButton> {
             actions: [
               TextButton(
                 onPressed: () {
+                  if (widget.popupC == 1) {
+                    // chamar função na user_model update notification time e passa para parametro o minutos
+                  } else {
+                    // chamar função na user_model update daily goal e passa para parametro o minutos
+                  }
                   Navigator.of(context).pop();
                 },
                 child: const Text('Cancelar',
