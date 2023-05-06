@@ -1,8 +1,9 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
+import 'package:front/components/cadastro/input_text.dart';
+import 'package:front/components/cadastro/logo_text.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../entity/phrase.dart';
+import '../../resources/color_pattern.dart';
 
 class Cadastro extends StatefulWidget {
   const Cadastro({Key? key}) : super(key: key);
@@ -14,102 +15,212 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
-  final String example = "27yacftJ82t8KwlYnmzN";
-  final TextEditingController _phraseController = TextEditingController();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  static const customizedGreen = ColorPattern.green;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController nomeController = TextEditingController();
+  String nome = '';
+  int minutosLembrete = 0;
+  int tempoIdeal = 0;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  void _submitForm() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      String nome = nomeController.text;
+      try {
+        await firestore.collection('usuarios').add({
+          'nome': nome,
+          'minutosLembrete': minutosLembrete,
+          'tempoIdeal': tempoIdeal,
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Cadastro realizado com sucesso!'),
+          ),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content:
+                Text('Erro ao realizar cadastro. Tente novamente mais tarde.'),
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Firestore Example'),
-      ),
-      body: Column(
-        children: [
-          TextFormField(
-            controller: _phraseController,
-            decoration: const InputDecoration(
-              labelText: 'Phrase',
+      body: IntroductionScreen(
+          pages: [
+            PageViewModel(
+              title: '',
+              //decoration: ,
+              bodyWidget: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 20),
+                  const LogoFocus(),
+                  const SizedBox(height: 230),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: const [
+                        Padding(padding: EdgeInsets.only(right: 10)),
+                        Text(
+                          'Olá,',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: ColorPattern.white,
+                              fontSize: 32),
+                        ),
+                        InputText(),
+                      ]),
+                ],
+              ),
+              decoration: getPageDecoration(),
+            ),
+            PageViewModel(
+              title: '',
+              bodyWidget: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 145),
+                  const Text(
+                    'Após quantos\nminutos devo lhe\nlembrar de sair do\ncelular ? ',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: ColorPattern.white,
+                        fontSize: 36),
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: const [
+                        Padding(padding: EdgeInsets.only(right: 4)),
+                        Text(
+                          'Minutos:',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: ColorPattern.white,
+                              fontSize: 32),
+                        ),
+                        InputText(),
+                      ]),
+                ],
+              ),
+              decoration: getPageDecoration(),
+            ),
+            PageViewModel(
+              title: '',
+              bodyWidget: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 145),
+                  const Text(
+                    'Qual a sua meta\ndiária ideal para\npassar no celular ? ',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: ColorPattern.white,
+                        fontSize: 36),
+                  ),
+                  Row(
+                      //mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: const [
+                        Padding(padding: EdgeInsets.only(right: 24)),
+                        Text(
+                          'Tempo:',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: ColorPattern.white,
+                              fontSize: 32),
+                        ),
+                        InputText(),
+                      ]),
+                ],
+              ),
+              decoration: getPageDecoration(),
+            )
+          ],
+          done: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: ColorPattern.darkMode),
+            onPressed: () {
+              _submitForm();
+              Navigator.pushNamed(context, '/home');
+            },
+            child: const Text(
+              'PRONTO',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: customizedGreen,
+                  fontSize: 15),
             ),
           ),
-          ElevatedButton(
-            onPressed: () async {
-              final userId = example;
-              final phrase = Phrase(text: _phraseController.text);
-              final result = await addPhrase(userId, phrase);
-              if (result) {
-                final phrases = await getPhrases(userId).first;
-                print('Phrases: $phrases');
-              }
-            },
-            child: const Text('Add Phrase'),
+          onDone: () => "",
+          //goToHome(context),
+          globalFooter: const Text(
+            'Não pare agora!',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: customizedGreen,
+                fontSize: 18),
           ),
-          ElevatedButton(
-            onPressed: () async {
-              final userId = example;
-              final phrases = await getPhrases(userId).first;
-              print('Phrases: $phrases');
-            },
-            child: const Text('Get Phrases'),
+          showBackButton: true,
+          back: Row(
+            children: const [
+              Icon(
+                Icons.chevron_left_outlined,
+                color: customizedGreen,
+              ),
+              Text(
+                'Voltar',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: customizedGreen,
+                    fontSize: 12),
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () async {
-              final userId = example;
-              final phrase = Phrase(text: _phraseController.text);
-              final result = await deletePhrase(userId, phrase);
-              if (result) {
-                final phrases = await getPhrases(userId).first;
-                print('Phrases: $phrases');
-              }
-            },
-            child: const Text('Delete Phrase'),
+          showNextButton: true,
+          next: Row(
+            children: const [
+              Text(
+                'Próximo',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: customizedGreen,
+                    fontSize: 12),
+              ),
+              Icon(
+                Icons.chevron_right_outlined,
+                color: customizedGreen,
+              ),
+            ],
           ),
-        ],
-      ),
+          dotsDecorator: getDotDecorator(),
+          onChange: (index) => print('page $index selected'),
+          globalBackgroundColor: ColorPattern.darkMode),
     );
   }
 
-  Future<bool> addPhrase(String userId, Phrase phrase) async {
-    try {
-      await _firestore.collection('users').doc(userId).update({
-        'phrases': FieldValue.arrayUnion([phrase.toJson()])
-      });
-      return true;
-    } catch (error) {
-      throw Exception(error);
-    }
-  }
+  DotsDecorator getDotDecorator() => const DotsDecorator(
+        color: ColorPattern.white,
+        size: Size(10, 10),
+        activeSize: Size(15, 15),
+        activeColor: customizedGreen,
+      );
 
-  Stream<List<Phrase>> getPhrases(String userId) {
-    try {
-      return _firestore
-          .collection('users')
-          .doc(userId)
-          .snapshots()
-          .map((DocumentSnapshot<Map<String, dynamic>> docmentSnapshot) {
-        final data = docmentSnapshot.data();
-        if (data != null) {
-          final phrasesJson = data['phrases'] ?? [];
-          final phrases =
-              phrasesJson.map((json) => Phrase(text: json['text'])).toList();
-          return phrases;
-        } else {
-          return [];
-        }
-      });
-    } catch (error) {
-      throw Exception(error);
-    }
-  }
-
-  Future<bool> deletePhrase(String userId, Phrase phrase) async {
-    try {
-      await _firestore.collection('users').doc(userId).update({
-        'phrases': FieldValue.arrayRemove([phrase.toJson()])
-      });
-      return true;
-    } catch (error) {
-      throw Exception(error);
-    }
-  }
+  PageDecoration getPageDecoration() => PageDecoration(
+        titleTextStyle: const TextStyle(
+            fontSize: 28, fontWeight: FontWeight.bold, color: customizedGreen),
+        bodyTextStyle: const TextStyle(fontSize: 20),
+        titlePadding: const EdgeInsets.all(8).copyWith(top: 0),
+        //descriptionPadding: EdgeInsets.all(8).copyWith(bottom: 0),
+        imagePadding: const EdgeInsets.all(8),
+      );
 }
