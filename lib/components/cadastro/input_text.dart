@@ -6,12 +6,10 @@ class InputText extends StatefulWidget {
   const InputText({
     Key? key,
     required this.controller,
-    //required this.placeholder,
     this.validator,
     this.keyboardType,
   }) : super(key: key);
 
-  //final String placeholder;
   final TextEditingController controller;
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
@@ -64,6 +62,7 @@ class _InputTextState extends State<InputText> {
             child: TextFormField(
               validator: _validateInput,
               controller: widget.controller,
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 color: ColorPattern.green,
                 fontSize: 28,
@@ -72,6 +71,7 @@ class _InputTextState extends State<InputText> {
               decoration: const InputDecoration(
                 filled: true,
                 fillColor: ColorPattern.darkCard,
+                hintStyle: TextStyle(color: ColorPattern.gray, fontSize: 24),
                 border: UnderlineInputBorder(
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -83,7 +83,7 @@ class _InputTextState extends State<InputText> {
                   right: 14,
                 ),
                 alignLabelWithHint: true,
-                hintText: "Digite seu nome",
+                hintText: "Digite aqui",
                 errorBorder: InputBorder.none,
               ),
             ),
@@ -104,39 +104,4 @@ class _InputTextState extends State<InputText> {
       ),
     );
   }
-
-/*
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width / 2.3,
-        height: MediaQuery.of(context).size.width / 8,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: TextFormField(
-            controller: _nameController,
-            style: const TextStyle(
-              color: ColorPattern.green,
-              fontSize: 28,
-            ),
-            decoration: const InputDecoration(
-              hintText: 'Digite Aqui',
-              hintStyle: TextStyle(color: ColorPattern.gray, fontSize: 19),
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Mensagem de erro: ';
-              }
-              return null;
-            },
-            onSaved: (value) {
-              //_inputValue = value!;
-            },
-          ),
-        ),
-      ),
-    );
-  }*/
 }

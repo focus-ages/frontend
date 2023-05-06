@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:front/components/cadastro/input_text.dart';
 import 'package:front/components/cadastro/logo_text.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import '../../entity/user.dart';
 import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
 
 class Cadastro extends StatefulWidget {
   const Cadastro({Key? key}) : super(key: key);
-
-  //final String title;
 
   @override
   State<Cadastro> createState() => _CadastroState();
@@ -25,13 +24,15 @@ class _CadastroState extends State<Cadastro> {
   final TextEditingController _dailyGoal = TextEditingController();
 
   void register() async {
-    userModel.createUser({
-      'name': _name.text,
-      'notification_time': _notificationTime.text,
-      'daily_goal': _dailyGoal.text,
-      'objectives': {},
-      'phrases': [],
-    });
+    User userFromForms = User(
+      name: _name.text,
+      notificationTime: int.parse(_notificationTime.text),
+      dailyGoal: int.parse(_dailyGoal.text),
+      objectives: [],
+      phrases: [],
+    );
+    userModel.createUser(userFromForms);
+    Navigator.pushNamed(context, '/home');
   }
 
   @override
@@ -41,7 +42,6 @@ class _CadastroState extends State<Cadastro> {
           pages: [
             PageViewModel(
               title: '',
-              //decoration: ,
               bodyWidget: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -61,9 +61,9 @@ class _CadastroState extends State<Cadastro> {
                               color: ColorPattern.white,
                               fontSize: 32),
                         ),
+                        Padding(padding: EdgeInsets.only(bottom: 4)),
                         InputText(
                           controller: _name,
-                          // placeholder: "digite seu nome",
                         ),
                       ]),
                 ],
@@ -82,25 +82,23 @@ class _CadastroState extends State<Cadastro> {
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: ColorPattern.white,
-                        fontSize: 36),
+                        fontSize: 32),
                   ),
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(padding: EdgeInsets.only(right: 4)),
-                        Text(
-                          'Minutos:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: ColorPattern.white,
-                              fontSize: 32),
-                        ),
-                        InputText(
-                          controller: _notificationTime,
-                          //placeholder: "digite aqui",
-                        ),
-                      ]),
+                  Column(children: <Widget>[
+                    Padding(padding: EdgeInsets.only(right: 4, bottom: 4)),
+                    Text(
+                      'Minutos:',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: ColorPattern.white,
+                          fontSize: 32),
+                    ),
+                    Padding(padding: EdgeInsets.only(bottom: 4)),
+                    InputText(
+                      controller: _notificationTime,
+                      //placeholder: "digite aqui",
+                    ),
+                  ]),
                 ],
               ),
               decoration: getPageDecoration(),
@@ -117,25 +115,22 @@ class _CadastroState extends State<Cadastro> {
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: ColorPattern.white,
-                        fontSize: 36),
+                        fontSize: 32),
                   ),
-                  Column(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Padding(padding: EdgeInsets.only(right: 24)),
-                        Text(
-                          'Tempo:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: ColorPattern.white,
-                              fontSize: 32),
-                        ),
-                        InputText(
-                          controller: _dailyGoal,
-                          // placeholder: "digite aqui",
-                        ),
-                      ]),
+                  Column(children: [
+                    Padding(padding: EdgeInsets.only(right: 24, bottom: 4)),
+                    Text(
+                      'Tempo:',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: ColorPattern.white,
+                          fontSize: 32),
+                    ),
+                    Padding(padding: EdgeInsets.only(bottom: 4)),
+                    InputText(
+                      controller: _dailyGoal,
+                    ),
+                  ]),
                 ],
               ),
               decoration: getPageDecoration(),
@@ -154,19 +149,24 @@ class _CadastroState extends State<Cadastro> {
             ),
           ),
           onDone: () => "",
-          //goToHome(context),
-          globalFooter: const Text(
-            'Não pare agora!',
-            style: TextStyle(                
-                fontWeight: FontWeight.bold,
-                color: customizedGreen,
-                fontSize: 18),
+          globalFooter: Column(
+            children: const [
+              Text(
+                'Não pare agora!',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: customizedGreen,
+                    fontSize: 18),
+              ),
+              SizedBox(height: 20),
+            ],
           ),
           showBackButton: true,
           back: Row(
             children: const [
               Icon(
                 Icons.chevron_left_outlined,
+                size: 40,
                 color: customizedGreen,
               ),
               Text(
@@ -174,22 +174,24 @@ class _CadastroState extends State<Cadastro> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: customizedGreen,
-                    fontSize: 12),
+                    fontSize: 14),
               ),
             ],
           ),
           showNextButton: true,
           next: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: const [
               Text(
                 'Próximo',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: customizedGreen,
-                    fontSize: 12),
+                    fontSize: 14),
               ),
               Icon(
                 Icons.chevron_right_outlined,
+                size: 40,
                 color: customizedGreen,
               ),
             ],
@@ -209,7 +211,7 @@ class _CadastroState extends State<Cadastro> {
 
   PageDecoration getPageDecoration() => PageDecoration(
         titleTextStyle: const TextStyle(
-        fontSize: 28, fontWeight: FontWeight.bold, color: customizedGreen),
+            fontSize: 28, fontWeight: FontWeight.bold, color: customizedGreen),
         bodyTextStyle: const TextStyle(fontSize: 20),
         titlePadding: const EdgeInsets.all(8).copyWith(top: 0),
         //descriptionPadding: EdgeInsets.all(8).copyWith(bottom: 0),
