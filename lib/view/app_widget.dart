@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front/view/cadastro/form_view.dart';
 import 'package:front/view/home/home_view.dart';
+import 'package:front/view/mensagens/mensagens_view.dart';
 
 
 class AppWidget extends StatelessWidget {
@@ -12,7 +13,8 @@ class AppWidget extends StatelessWidget {
       initialRoute: '/home',
       routes: {
         '/home':(context) => const HomePage(),
-        '/cadastro':(context) => const Cadastro()
+        '/cadastro':(context) => const Cadastro(),
+        '/mensagens':(context) => const Mensagens(),
       },
     );
   }
