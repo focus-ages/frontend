@@ -1,19 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-import '../controller/user_controler.dart';
-
-     
+import '../controller/user_controller.dart';
+import '../entity/phrase.dart';
 
   class User_model{
 
-    final UserControler userController = UserControler();
-    var user = {};
+    final UserControlLer userController = UserControlLer();
+
     var userId = '';
 
     static final User_model user_model = User_model._internal();
+
     final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
     factory User_model() {
@@ -24,70 +20,42 @@ import '../controller/user_controler.dart';
     User_model._internal();
     
 
-    //Future<void> saveAccessToken(String token) async {
-    //  await _storage.write(key: 'userId', value: 'CIAHUSIHUIA123JOJCAIO213');
-    //}
+    Future<void> saveAccessToken() async {
+      await _storage.write(key: 'userId', value: 'DOGYDYmhrgO3X9doU5sO');
+    }
       
-    Future<void> loadUserFromDB() async {
+    Future <void> loadUserFromDB() async {
+      saveAccessToken();
       String? userIdFromDb = await _storage.read(key: 'userId');
-      if (userIdFromDb != null) {
-        userId = userIdFromDb;
-        user = await userController.findUser(userId);
-      }
-    }
-
-    Future<void> adicionarFrase(String frase) async {
-      try {
-        if(user == {}){
-          loadUserFromDB();
+      try{
+        if (userIdFromDb != null) {
+          userId = userIdFromDb;
         }
-
-        // pega a lista de frases do usuario
-        var phrases = user['phrases'];
-        // adiciona a frase nova nessa lista
-        phrases.add(frase);
-        //substitui a lista antiga do usuário com a nova lista
-        user['phrases'] = phrases;
-
-        // realiza o update do usuário com a lista nova no banco de dados
-        bool isUpdated = await userController.updateUser(userId, user);
-
-        // se não ocorreu update
-        if(!isUpdated){
-          throw Exception('erro ao relaizar update no firebase');
-        }
-      } catch (e) {
-        print('Erro ao adicionar a frase ao Firebase: $e');
+      }catch(Erro){
+        rethrow;
       }
     }
 
-  Future<void> deletarFrase(String frase) async{
 
-  try {
-      if(user == {}){
-        loadUserFromDB();
-      }
-    
-      var phrases = user['phrases'];
-      phrases.delete(frase);
 
-      if (phrases.contains(frase)) {
-      phrases.remove(frase);
-    } 
-
-    user['phrases'] = phrases;
-
-    bool isUpdated = await userController.updateUser(userId, user);
-
-    if (!isUpdated) {
-      throw Exception('Erro ao realizar update no Firebase.');
+    void adicionarFrase(String frase) async {
+      await loadUserFromDB().then((value) async => {
+        await userController.findUser(userId).then((user) async {
+          Phrase novaFrase = Phrase(text: frase);
+          user!.phrases.add(novaFrase);
+          await userController.updateUser(userId, user);
+        })
+      });
     }
-  } catch (e) {
-    print('Erro ao excluir a frase do Firebase: $e');
-  }
-  
-  
-  } 
+
+  void deletarFrase(String frase)async {
+      await loadUserFromDB().then((value) async => {
+        await userController.findUser(userId).then((user) async {
+          user?.phrases.removeWhere((e) => e.text == frase);
+          await userController.updateUser(userId, user!);
+        })
+      });
+      }
   }
 
   
