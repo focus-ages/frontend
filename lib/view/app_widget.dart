@@ -4,7 +4,6 @@ import 'package:front/view/cadastro/form_view.dart';
 import 'package:front/view/home/home_view.dart';
 import 'package:localstorage/localstorage.dart';
 
-
 class AppWidget extends StatelessWidget {
   AppWidget({Key? key}) : super(key: key);
 
@@ -13,14 +12,12 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
-      initialRoute: '/home', 
-      
+      //initialRoute: '/home',
+      home: const Splash(),
       routes: {
-        
-        '/splash':(context) => const Splash(),
-        '/cadastro':(context) => const Cadastro(),
-        '/home':(context) => const HomePage(),
+        //'/splash':(context) => const Splash(),
+        '/cadastro': (context) => const Cadastro(),
+        '/home': (context) => const HomePage(),
       },
     );
   }
