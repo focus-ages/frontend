@@ -63,7 +63,7 @@ class _CadastroState extends State<Cadastro> {
                         ),
                         InputText(
                           controller: _name,
-                          placeholder: "digite seu nome",
+                          // placeholder: "digite seu nome",
                         ),
                       ]),
                 ],
@@ -98,7 +98,7 @@ class _CadastroState extends State<Cadastro> {
                         ),
                         InputText(
                           controller: _notificationTime,
-                          placeholder: "digite aqui",
+                          //placeholder: "digite aqui",
                         ),
                       ]),
                 ],
@@ -133,7 +133,7 @@ class _CadastroState extends State<Cadastro> {
                         ),
                         InputText(
                           controller: _dailyGoal,
-                          placeholder: "digite aqui",
+                          // placeholder: "digite aqui",
                         ),
                       ]),
                 ],
@@ -157,7 +157,7 @@ class _CadastroState extends State<Cadastro> {
           //goToHome(context),
           globalFooter: const Text(
             'Não pare agora!',
-            style: TextStyle(
+            style: TextStyle(                
                 fontWeight: FontWeight.bold,
                 color: customizedGreen,
                 fontSize: 18),
@@ -209,7 +209,7 @@ class _CadastroState extends State<Cadastro> {
 
   PageDecoration getPageDecoration() => PageDecoration(
         titleTextStyle: const TextStyle(
-            fontSize: 28, fontWeight: FontWeight.bold, color: customizedGreen),
+        fontSize: 28, fontWeight: FontWeight.bold, color: customizedGreen),
         bodyTextStyle: const TextStyle(fontSize: 20),
         titlePadding: const EdgeInsets.all(8).copyWith(top: 0),
         //descriptionPadding: EdgeInsets.all(8).copyWith(bottom: 0),

@@ -6,16 +6,16 @@ class InputText extends StatefulWidget {
   const InputText({
     Key? key,
     required this.controller,
-    required this.placeholder,
+    //required this.placeholder,
     this.validator,
     this.keyboardType,
-    }) : super(key: key);
+  }) : super(key: key);
 
-  final String placeholder;
+  //final String placeholder;
   final TextEditingController controller;
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
-  
+
   @override
   State<InputText> createState() => _InputTextState();
 }
@@ -57,24 +57,25 @@ class _InputTextState extends State<InputText> {
             padding: const EdgeInsets.only(top: 6, left: 6, right: 6),
             decoration: BoxDecoration(
               color: ColorPattern.darkMode,
-              border:
-                  Border.all(color: error ? ColorPattern.error : ColorPattern.darkMode),
+              border: Border.all(
+                  color: error ? ColorPattern.error : ColorPattern.darkMode),
               borderRadius: BorderRadius.circular(22),
             ),
             child: TextFormField(
               validator: _validateInput,
               controller: widget.controller,
               style: const TextStyle(
-                      color: ColorPattern.green,
-                      fontSize: 28,
-                    ),
+                color: ColorPattern.green,
+                fontSize: 28,
+              ),
               keyboardType: widget.keyboardType,
               decoration: const InputDecoration(
                 filled: true,
                 fillColor: ColorPattern.darkCard,
-                border: UnderlineInputBorder(borderSide: BorderSide.none, 
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    ),
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                ),
                 contentPadding: EdgeInsets.only(
                   top: 10,
                   bottom: 16,
@@ -82,12 +83,12 @@ class _InputTextState extends State<InputText> {
                   right: 14,
                 ),
                 alignLabelWithHint: true,
-                hintText: "Digite aqui",
+                hintText: "Digite seu nome",
                 errorBorder: InputBorder.none,
               ),
             ),
           ),
-            error
+          error
               ? Padding(
                   padding: const EdgeInsets.only(top: 4.0, left: 24),
                   child: Text(
