@@ -3,6 +3,8 @@ import 'package:front/view/cadastro/form_view.dart';
 import 'package:front/view/home/home_view.dart';
 import 'package:front/view/mensagens/mensagens_view.dart';
 
+import 'cadastro/new_view.dart';
+
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -10,7 +12,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/home',
+      initialRoute: '/cadastro',
       routes: {
         '/home':(context) => const HomePage(),
         '/cadastro':(context) => const Cadastro(),

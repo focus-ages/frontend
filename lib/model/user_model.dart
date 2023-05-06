@@ -20,6 +20,7 @@ class User_model {
   User_model._internal();
 
   Future<void> createUser(var formsUser) async {
+    print(formsUser);
     userId = await userController.createUser(formsUser);
     await _storage.write(key: 'userId', value: userId);
     await loadUserFromDB();

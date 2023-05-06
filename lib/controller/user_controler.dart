@@ -4,7 +4,7 @@ class UserControler{
   
   final usersCollection = FirebaseFirestore.instance.collection('users');
   
-  Future<String?> createUser(user) async {
+  Future<String> createUser(user) async {
     try {
       final docRef = await usersCollection.add(user);
       return docRef.toString();
