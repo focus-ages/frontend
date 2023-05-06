@@ -30,7 +30,7 @@ class _CardFrasesState extends State<CardFrases> {
             ),
             const Padding(padding: EdgeInsets.all(7)),
             const Text(
-              "  O uso do celular sem equilíbrio e disciplina, \n faz dele o maior ladrão do seu bem mais \n precioso, o seu tempo.",
+              "  O uso do celular sem equilíbrio e disciplina, faz dele o maior ladrão do seu bem mais precioso, o seu tempo.",
               style: TextStyle(
                   color: ColorPattern.white,
                   fontSize: 12,
@@ -41,8 +41,8 @@ class _CardFrasesState extends State<CardFrases> {
               children: <Widget>[
                 FloatingButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.add,
-                      color: ColorPattern.darkCard, size: 15),
+                  icon: const Icon(Icons.add_circle_rounded,
+                      color: ColorPattern.darkCard, size: 25),
                 ),
               ],
             ),

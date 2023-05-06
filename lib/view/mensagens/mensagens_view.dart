@@ -13,36 +13,56 @@ class Mensagens extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: ColorPattern.darkMode,
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
+      body: Stack(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 70),
-            child: Text(
-              'Frases',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-              ),
+          Positioned(
+            top: 50,
+            left: 0,
+            child: IconButton(
+              onPressed:() => Navigator.pushNamed(context, '/home'),
+              icon: const Icon(Icons.arrow_back_rounded, color: Colors.white, size: 30,),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              FloatingButton(
-                onPressed: () {},
-                icon: const Icon(Icons.add, color: ColorPattern.darkCard, size: 20),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 70),
+                child: Text(
+                  'Frases',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
               ),
-              const Padding(padding: EdgeInsets.only(right: 30)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  FloatingButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.add_circle_rounded, color: ColorPattern.darkCard, size: 25),
+                  ),
+                  const Padding(padding: EdgeInsets.only(right: 30)),
+                ],
+              ),
+              const SizedBox(height: 15),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: messagesList.length * 2 - 1,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index.isOdd) {
+                    return const SizedBox(height: 10);
+                  }
+                  final messageIndex = index ~/ 2;
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: messagesList[messageIndex],
+                    );
+                  },
+                ),
+              ),
             ],
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: messagesList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return messagesList[index];
-              },
-            ),
           ),
         ],
       ),
