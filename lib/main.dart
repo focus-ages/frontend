@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:front/firebase_options.dart';
 import 'package:front/view/app_widget.dart';
 import 'model/screen_usage.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: 
+  DefaultFirebaseOptions.currentPlatform);
   runApp(const AppWidget());
   collectScreenData();
-}
-
-@override
-void didChangeAppLifecycleState(AppLifecycleState state) async {
-  if (state == AppLifecycleState.detached) {
-    print('foi de arrasta');
-  }
 }

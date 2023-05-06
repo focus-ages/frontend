@@ -15,11 +15,9 @@ void collectScreenData() async {
         print('tela on ----------');
       }
     } else if (event == ScreenStateEvent.SCREEN_OFF) {
-     // if (timer.isActive) {
         print('tela off ---------- ${timer.elapsed}');
         timer.reset();
         timer.pause();
-     // }
     }
   });
 }
