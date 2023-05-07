@@ -1,60 +1,38 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:front/components/cadastro/input_text.dart';
 import 'package:front/components/cadastro/logo_text.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../entity/user.dart';
+import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
-
-
 
 class Cadastro extends StatefulWidget {
   const Cadastro({Key? key}) : super(key: key);
 
-  
-
-  
-
-  //final String title;
-
   @override
   State<Cadastro> createState() => _CadastroState();
-  
 }
 
 class _CadastroState extends State<Cadastro> {
-
-
   static const customizedGreen = ColorPattern.green;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController nomeController = TextEditingController();
-  String nome = '';
-  int minutosLembrete = 0;
-  int tempoIdeal = 0;
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final User_model userModel = User_model();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _notificationTime = TextEditingController();
+  final TextEditingController _dailyGoal = TextEditingController();
 
-void _submitForm() async {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      String nome = nomeController.text;
-      try {
-        await firestore.collection('usuarios').add({
-          'nome': nome,
-          'minutosLembrete': minutosLembrete,
-          'tempoIdeal': tempoIdeal,
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Cadastro realizado com sucesso!'),
-          ),
-        );
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Erro ao realizar cadastro. Tente novamente mais tarde.'),
-          ),
-        );
-      }
-    }
+  void register() async {
+    User userFromForms = User(
+      name: _name.text,
+      notificationTime: int.parse(_notificationTime.text),
+      dailyGoal: int.parse(_dailyGoal.text),
+      objectives: [],
+      phrases: [],
+    );
+    userModel.createUser(userFromForms);
+    Navigator.pushNamed(context, '/home');
   }
 
   @override
@@ -64,30 +42,30 @@ void _submitForm() async {
           pages: [
             PageViewModel(
               title: '',
-              //decoration: ,
               bodyWidget: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 20),
                   const LogoFocus(),
                   const SizedBox(height: 230),
-                  Row(
+                  Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: const [
-                        Padding(padding: EdgeInsets.only(right: 10)),
-                        Text(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Padding(padding: EdgeInsets.only(right: 10)),
+                        const Text(
                           'Olá,',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: ColorPattern.white,
                               fontSize: 32),
                         ),
-                        InputText(),
-                       
-                      ]
-
-                      ),
+                        Padding(padding: EdgeInsets.only(bottom: 4)),
+                        InputText(
+                          controller: _name,
+                        ),
+                      ]),
                 ],
               ),
               decoration: getPageDecoration(),
@@ -104,22 +82,23 @@ void _submitForm() async {
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: ColorPattern.white,
-                        fontSize: 36),
+                        fontSize: 32),
                   ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: const [
-                        Padding(padding: EdgeInsets.only(right: 4)),
-                        Text(
-                          'Minutos:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: ColorPattern.white,
-                              fontSize: 32),
-                        ),
-                        InputText(),
-                      ]),
+                  Column(children: <Widget>[
+                    Padding(padding: EdgeInsets.only(right: 4, bottom: 4)),
+                    Text(
+                      'Minutos:',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: ColorPattern.white,
+                          fontSize: 32),
+                    ),
+                    Padding(padding: EdgeInsets.only(bottom: 4)),
+                    InputText(
+                      controller: _notificationTime,
+                      //placeholder: "digite aqui",
+                    ),
+                  ]),
                 ],
               ),
               decoration: getPageDecoration(),
@@ -128,7 +107,7 @@ void _submitForm() async {
               title: '',
               bodyWidget: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                children: <Widget>[
                   const SizedBox(height: 145),
                   const Text(
                     'Qual a sua meta\ndiária ideal para\npassar no celular ? ',
@@ -136,22 +115,22 @@ void _submitForm() async {
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: ColorPattern.white,
-                        fontSize: 36),
+                        fontSize: 32),
                   ),
-                  Row(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: const [
-                        Padding(padding: EdgeInsets.only(right: 24)),
-                        Text(
-                          'Tempo:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: ColorPattern.white,
-                              fontSize: 32),
-                        ),
-                        InputText(),
-                      ]),
+                  Column(children: [
+                    Padding(padding: EdgeInsets.only(right: 24, bottom: 4)),
+                    Text(
+                      'Tempo:',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: ColorPattern.white,
+                          fontSize: 32),
+                    ),
+                    Padding(padding: EdgeInsets.only(bottom: 4)),
+                    InputText(
+                      controller: _dailyGoal,
+                    ),
+                  ]),
                 ],
               ),
               decoration: getPageDecoration(),
@@ -160,10 +139,7 @@ void _submitForm() async {
           done: ElevatedButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor: ColorPattern.darkMode),
-            onPressed: () {
-              _submitForm();
-              Navigator.pushNamed(context, '/home');
-            },
+            onPressed: register,
             child: const Text(
               'PRONTO',
               style: TextStyle(
@@ -173,19 +149,24 @@ void _submitForm() async {
             ),
           ),
           onDone: () => "",
-           //goToHome(context),
-          globalFooter: const Text(
-            'Não pare agora!',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: customizedGreen,
-                fontSize: 18),
+          globalFooter: Column(
+            children: const [
+              Text(
+                'Não pare agora!',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: customizedGreen,
+                    fontSize: 18),
+              ),
+              SizedBox(height: 20),
+            ],
           ),
           showBackButton: true,
           back: Row(
             children: const [
               Icon(
                 Icons.chevron_left_outlined,
+                size: 40,
                 color: customizedGreen,
               ),
               Text(
@@ -193,22 +174,24 @@ void _submitForm() async {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: customizedGreen,
-                    fontSize: 12),
+                    fontSize: 14),
               ),
             ],
           ),
           showNextButton: true,
           next: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: const [
               Text(
                 'Próximo',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: customizedGreen,
-                    fontSize: 12),
+                    fontSize: 14),
               ),
               Icon(
                 Icons.chevron_right_outlined,
+                size: 40,
                 color: customizedGreen,
               ),
             ],
@@ -234,6 +217,4 @@ void _submitForm() async {
         //descriptionPadding: EdgeInsets.all(8).copyWith(bottom: 0),
         imagePadding: const EdgeInsets.all(8),
       );
-
-  
 }
