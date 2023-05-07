@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import '../../resources/color_pattern.dart';
 
 class MessageDeleteDialog extends StatelessWidget {
-  final int id;
-  const MessageDeleteDialog({Key? key, required this.id}) : super(key: key);
+  final String message;
+  const MessageDeleteDialog({Key? key, required this.message})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class MessageDeleteDialog extends StatelessWidget {
         TextButton(
           onPressed: () => {
             //executa tarefa de deletar a frase
-            //exemplo: deletaMensagem(id: id); //passando o id da mensagem
+            //exemplo: deletaMensagem(message: message); //passando a mensagem
             Navigator.pop(context)
           },
           child: const Text("Sim",
