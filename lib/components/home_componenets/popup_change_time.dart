@@ -18,14 +18,19 @@ class _PopUpChangeTimeState extends State<PopUpChangeTime> {
 
   final TextEditingController _controller = TextEditingController();
   String minutosString = "";
+  String _valuePrevious = "";
 
   void editPopUp() {
     String title = "";
     String timeString = _controller.text;
 
+    _controller.clear();
+
+    //_valuePrevious = _controller.text;
+
     if (widget.idPopUp == 0) {
       title = "Meta diária";
-      timeString = _controller.text + " Horas";
+      timeString = _valuePrevious + " Horas";
     } else {
       title = "Tempo de notificações";
       timeString = _controller.text + " Minutos";
@@ -34,74 +39,98 @@ class _PopUpChangeTimeState extends State<PopUpChangeTime> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            shape: ContinuousRectangleBorder(
-                borderRadius: BorderRadius.circular(40)),
-            backgroundColor: ColorPattern.darkCard,
-            title: Text(
-              title,
-              style: const TextStyle(color: ColorPattern.white, fontSize: 16),
-              textAlign: TextAlign.center,
-            ),
-            content: Container(
-              width: 10,
-              height: 55,
-              decoration: BoxDecoration(
-                  color: ColorPattern.whiteOpacity,
-                  borderRadius: BorderRadius.circular(10)),
-              child: TextField(
-                  controller: _controller,
+          return GestureDetector(
+              onTap: () {
+                _controller.text = _valuePrevious;
+                Navigator.of(context).pop();
+              },
+              child: AlertDialog(
+                shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.circular(40)),
+                backgroundColor: ColorPattern.darkCard,
+                title: Text(
+                  title,
+                  style:
+                      const TextStyle(color: ColorPattern.white, fontSize: 16),
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: ColorPattern.white),
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: timeString,
-                      hintStyle: const TextStyle(color: ColorPattern.gray))),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Cancelar',
-                    style: TextStyle(color: ColorPattern.green)),
-              ),
-              TextButton(
-                  onPressed: () {
-                    if (widget.idPopUp == 0) {
-                      if (NumberValidator.validateDailyGoal(_controller.text) ==
-                          null) {
-                        setState(() {
-                          _controller.text;
-                        });
-                        Navigator.of(context).pop();
-                      } else {
-                        Navigator.of(context).pop();
-                      }
-                    } else {
-                      if (NumberValidator.validateNotificationTime(
-                              _controller.text) ==
-                          null) {
-                        setState(() {
-                          _controller.text;
-                        });
-                        Navigator.of(context).pop();
-                      } else {
-                        Navigator.of(context).pop();
-                      }
-                    }
-                  },
-                  child: const Text('Salvar',
-                      style: TextStyle(color: ColorPattern.green))),
-            ],
-          );
+                ),
+                content: Container(
+                  width: 10,
+                  height: 55,
+                  decoration: BoxDecoration(
+                      color: ColorPattern.whiteOpacity,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: TextField(
+                      controller: _controller,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: ColorPattern.white),
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: timeString,
+                          hintStyle:
+                              const TextStyle(color: ColorPattern.gray))),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        _controller.text = _valuePrevious;
+                      });
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Cancelar',
+                        style: TextStyle(color: ColorPattern.green)),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        if (NumberValidator.validateRequired(
+                                _controller.text) ==
+                            null) {
+                          if (widget.idPopUp == 0) {
+                            if (NumberValidator.validateDailyGoal(
+                                    _controller.text) ==
+                                null) {
+                              _valuePrevious = _controller.text;
+                              setState(() {
+                                _controller.text;
+                              });
+                              Navigator.of(context).pop();
+                            } else {
+                              _controller.text = _valuePrevious;
+                              Navigator.of(context).pop();
+                            }
+                          } else {
+                            if (NumberValidator.validateNotificationTime(
+                                    _controller.text) ==
+                                null) {
+                              _valuePrevious = _controller.text;
+                              setState(() {
+                                _controller.text;
+                              });
+                              Navigator.of(context).pop();
+                            } else {
+                              _controller.text = _valuePrevious;
+                              Navigator.of(context).pop();
+                            }
+                          }
+                        } else {
+                          setState(() {
+                            _controller.text = _valuePrevious;
+                          });
+                          Navigator.of(context).pop();
+                        }
+                      },
+                      child: const Text('Salvar',
+                          style: TextStyle(color: ColorPattern.green))),
+                ],
+              ));
         });
   }
 
   @override
   Widget build(BuildContext context) {
-    String minutosString = _controller.text;
+    //String minutosString = _controller.text;
     // TODO: implement build
     return TextButton(
         onPressed: () {
