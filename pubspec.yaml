@@ -38,6 +38,8 @@ dependencies:
 
   firebase_core: ^2.10.0
   cloud_firestore: ^4.5.2
+  flutter_native_splash: ^2.2.19
+  shared_preferences: ^2.1.0
   
 
 
@@ -52,6 +54,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  color: "##0D0D1D"
+  image: assets/images/flutter.png
+  
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
