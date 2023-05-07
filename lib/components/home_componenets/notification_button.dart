@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:front/validators/number_validator.dart';
 
 import '../../resources/color_pattern.dart';
 
 class NotificationButton extends StatefulWidget {
+  NumberValidator numberValidator = NumberValidator();
   var popupC;
 
   NotificationButton({Key? key, this.popupC}) : super(key: key);
@@ -16,11 +18,15 @@ class _NotificationButtonState extends State<NotificationButton> {
 
   void edit() {
     String title = "";
-    String time = "";
+    String time = "19219";
 
     if (widget.popupC == 1) {
-      title = "Tempo de notificações:";
-      time = minutos.toString() + " Minutos";
+      //title = "Tempo de notificações:";
+      //time = minutos.toString() + " Minutos";
+      if (NumberValidator.validateDailyGoal(time) == null)
+        title = "aa";
+      else
+        title = "Horário inválid";
     } else {
       title = "Meta diária:";
       time = minutos.toString() + " Horas";
