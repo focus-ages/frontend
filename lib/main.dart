@@ -9,7 +9,7 @@ Future<void> main() async {
   DefaultFirebaseOptions.currentPlatform);
   runApp(const AppWidget());
 
-  }
+}
 
 
 

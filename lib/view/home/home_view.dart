@@ -133,9 +133,12 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ],
-              )),
-
-          const CardFrases(),
+              )
+          ),
+          GestureDetector(
+          onTap: () => Navigator.pushNamed(context, '/mensagens'),
+          child: const CardFrases(),
+          ),
         ],
       ),
     );
