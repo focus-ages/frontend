@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:front/components/home_componenets/card_frases/card_frases.dart';
 import 'package:front/components/home_componenets/countdown_timer.dart';
+import 'package:front/components/home_componenets/popup_change_time.dart';
 import 'package:front/components/home_componenets/switch_button.dart';
 
 import '../../components/home_componenets/card_frases/floating.dart';
@@ -56,8 +57,8 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 18,
                         )),
                   ),
-                  NotificationButton(
-                    popupC: 2,
+                  PopUpChangeTime(
+                    idPopUp: 0,
                   ),
                   //const Icon(Icons.edit, color: ColorPattern.gray, size: 18),
                 ],
@@ -111,9 +112,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const Padding(padding: EdgeInsets.only(left: 60)),
                       // ignore: prefer_const_constructors
-                      NotificationButton(
-                        popupC: 1,
-                      ),
+                      PopUpChangeTime(
+                        idPopUp: 1,
+                      )
+                      // NotificationButton(
+                      //   popupC: 1,
+                      //),
                     ],
                   ),
                   const Padding(padding: EdgeInsets.only(bottom: 10)),
@@ -137,11 +141,10 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ],
-              )
-          ),
+              )),
           GestureDetector(
-          onTap: () => Navigator.pushNamed(context, '/mensagens'),
-          child: const CardFrases(),
+            onTap: () => Navigator.pushNamed(context, '/mensagens'),
+            child: const CardFrases(),
           ),
         ],
       ),
