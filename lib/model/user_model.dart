@@ -33,4 +33,9 @@ class User_model {
       user = await userController.findUser(userId);
     }
   }
+
+  Future<Map<String, String>> loadUserFromStorage() async {
+    Map<String, String> allValues = await _storage.readAll();
+    return allValues;
+  }
 }
