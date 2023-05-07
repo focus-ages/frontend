@@ -50,6 +50,7 @@ dependencies:
   pausable_timer: ^1.0.0+7
   is_lock_screen: ^2.0.0
   screen_state: ^2.0.0
+  flutter_secure_storage: ^8.0.0
 
 dev_dependencies:
   flutter_test:
