@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/validators/number_validator.dart';
+import 'package:front/model/user_model.dart';
 
 import '../../resources/color_pattern.dart';
 
@@ -14,7 +15,7 @@ class PopUpChangeTime extends StatefulWidget {
 }
 
 class _PopUpChangeTimeState extends State<PopUpChangeTime> {
-  //int time = 20;
+  final User_model user_model = User_model();
 
   final TextEditingController _controller = TextEditingController();
   String minutosString = "";
@@ -95,6 +96,7 @@ class _PopUpChangeTimeState extends State<PopUpChangeTime> {
                               setState(() {
                                 _controller.text;
                               });
+                              user_model.changeDailyGoal(_controller.text);
                               Navigator.of(context).pop();
                             } else {
                               _controller.text = _valuePrevious;
@@ -108,6 +110,8 @@ class _PopUpChangeTimeState extends State<PopUpChangeTime> {
                               setState(() {
                                 _controller.text;
                               });
+                              user_model.changeNotificationTime(
+                                  int.parse(_controller.text));
                               Navigator.of(context).pop();
                             } else {
                               _controller.text = _valuePrevious;

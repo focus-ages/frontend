@@ -3,11 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../controller/user_controler.dart';
+import '../controller/user_controller.dart';
+import '../entity/user.dart';
 
 class User_model {
-  final UserControler userController = UserControler();
-  var user = {};
+  final UserController userController = UserController();
+  User? user = null;
   String userId = '';
 
   static final User_model user_model = User_model._internal();
@@ -19,7 +20,7 @@ class User_model {
 
   User_model._internal();
 
-  Future<void> createUser(var formsUser) async {
+  Future<void> createUser(User formsUser) async {
     userId = await userController.createUser(formsUser);
     await _storage.write(key: 'userId', value: userId);
     await loadUserFromDB();
@@ -33,53 +34,28 @@ class User_model {
     }
   }
 
-  Future<void> adicionarFrase(String frase) async {
-    try {
-      if (user == {}) {
-        loadUserFromDB();
-      }
+  Future<Map<String, String>> loadUserFromStorage() async {
+    Map<String, String> allValues = await _storage.readAll();
+    return allValues;
+  }
 
-      // pega a lista de frases do usuario
-      var phrases = user['phrases'];
-      // adiciona a frase nova nessa lista
-      phrases.add(frase);
-      //substitui a lista antiga do usuário com a nova lista
-      user['phrases'] = phrases;
+  Future<void> changeDailyGoal(String value) async {
+    int valueInteger;
+    if (value.contains(":")) {
+      value = value.replaceAll(':', '');
+    }
 
-      // realiza o update do usuário com a lista nova no banco de dados
-      bool isUpdated = await userController.updateUser(userId, user);
-
-      // se não ocorreu update
-      if (!isUpdated) {
-        throw Exception('erro ao relaizar update no firebase');
-      }
-    } catch (e) {
-      print('Erro ao adicionar a frase ao Firebase: $e');
+    valueInteger = int.parse(value);
+    if (user != null) {
+      user!.dailyGoal = valueInteger;
+      await userController.updateUser(userId, user!);
     }
   }
 
-  Future<void> deletarFrase(String frase) async {
-    try {
-      if (user == {}) {
-        loadUserFromDB();
-      }
-
-      var phrases = user['phrases'];
-      phrases.delete(frase);
-
-      if (phrases.contains(frase)) {
-        phrases.remove(frase);
-      }
-
-      user['phrases'] = phrases;
-
-      bool isUpdated = await userController.updateUser(userId, user);
-
-      if (!isUpdated) {
-        throw Exception('Erro ao realizar update no Firebase.');
-      }
-    } catch (e) {
-      print('Erro ao excluir a frase do Firebase: $e');
+  Future<void> changeNotificationTime(int value) async {
+    if (user != null) {
+      user!.notificationTime = value;
+      await userController.updateUser(userId, user!);
     }
   }
 }
