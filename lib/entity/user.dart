@@ -30,6 +30,7 @@ class User {
       'dailyGoal': dailyGoal,
       'objectives': objectivesJson,
       'phrases': phrasesJson,
+      'timeUsed':timeUsed
     };
   }
 }

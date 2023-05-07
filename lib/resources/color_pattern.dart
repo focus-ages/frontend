@@ -7,4 +7,6 @@ class ColorPattern {
   static const Color purple = Color(0xff7013CD);
   static const Color white = Color(0xffE3E3E3);
   static const Color gray = Color(0xffa0a1a2);
+  static const Color error = Color(0xFFC62828);
+
 }

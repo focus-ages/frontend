@@ -38,7 +38,7 @@ class UserController {
         objectives: objectives,
         phrases: await Stream.fromIterable(userFromSnapShot['phrases'])
             .map((phraseFromUser) => Phrase(text: phraseFromUser['text']))
-            .toList());
+            .toList());    
   }
 
   Future<bool> updateUser(String userId, User user) async {

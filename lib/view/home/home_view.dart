@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:front/components/home_componenets/card_frases/card_frases.dart';
 import 'package:front/components/home_componenets/countdown_timer.dart';
 import 'package:front/components/home_componenets/switch_button.dart';
-
+import '../../model/screen_usage.dart';
 import '../../components/home_componenets/card_frases/floating.dart';
 import '../../components/home_componenets/notification_button.dart';
 import '../../resources/color_pattern.dart';
@@ -16,11 +16,24 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-
-
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+   
+   
+   
+   
+
+      Future.delayed(Duration(seconds: 5)).then((value) {
+        ScreenUsage screenUsage = ScreenUsage();
+        screenUsage.collectScreenData();
+      });
+      //Delay pois quando o usuario acaba de se cadastrar demora pra que o get do banco responda que exite porem o ID já está na localStorage?????
+
+
+
+
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorPattern.darkMode,
@@ -79,7 +92,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Padding(padding: EdgeInsets.only(left: 5)),
-
                       CustomSwitcher(),
                     ],
                   ),
@@ -136,8 +148,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               )),
-
-          const CardFrases(),
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, '/mensagens'),
+            child: const CardFrases(),
+          ),
         ],
       ),
     );
