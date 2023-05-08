@@ -1,67 +1,55 @@
-
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 
 import '../../resources/color_pattern.dart';
 
 class CountdownTimer extends StatefulWidget {
-  const CountdownTimer({Key? key}) : super(key: key);
+  const CountdownTimer({Key? key, required this.duration}) : super(key: key);
+
+  final int duration;
 
   @override
   State<CountdownTimer> createState() => _CountdownTimerState();
 }
 
 class _CountdownTimerState extends State<CountdownTimer> {
-  final int _duration = 50;
   int currentDuration = 0;
   @override
   Widget build(BuildContext context) {
+    int _duration = widget.duration;
+    Size size = MediaQuery.of(context).size;
+
+    Size displaySize(BuildContext context) {
+      return MediaQuery.of(context).size;
+    }
+
+    double displayWidth(BuildContext context) {
+      return displaySize(context).width;
+    }
+
     return Stack(alignment: Alignment.center, children: [
       CircularCountDownTimer(
-        //width: MediaQuery.of(context).size.width / 2,
-        //height: MediaQuery.of(context).size.height / 2,
-        width: 180,
-        height: 180,
+        width: size.width * 0.5,
+        height: size.height * 0.2,
         duration: _duration,
         fillColor: ColorPattern.green,
         ringColor: ColorPattern.darkCard,
         strokeCap: StrokeCap.round,
-        strokeWidth: 20.0,
+        strokeWidth: 14.0,
         isTimerTextShown: true,
-        fillGradient: const LinearGradient(colors: [
-          Color(0xff23B854),
-          Color(0xff346B47),
-          Color(0xff2DEB6C),
-          Color(0xff75EE9D),
-          Color(0xff27CC5D),
-        ]),
-        //faz isso funcionar
-        onChange: (String timeStamp) {
-
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            setState(() {
-              currentDuration = int.parse(timeStamp);
-            }); 
-          });
-
-        },
+        textStyle: TextStyle(
+          fontSize: displayWidth(context) * 0.07,
+          color: ColorPattern.white,
+        ),
       ),
-      Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(currentDuration.toString() + " seg",
-              style: const TextStyle(
-                fontSize: 20,
-                color: ColorPattern.white,
-              )),
-          Text(_duration.toString() + " seg",
-          style: const TextStyle(
-            fontSize: 16,
-            color: ColorPattern.gray,
-          )),
-        ],
+      Padding(
+        padding: const EdgeInsets.only(top: 80),
+        child: Text("$_duration",
+            style: TextStyle(
+              fontSize: displayWidth(context) * 0.055,
+              color: const Color(0x30E3E3E3),
+            )),
       ),
-      
     ]);
   }
 }

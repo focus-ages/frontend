@@ -7,11 +7,11 @@ class CustomButton extends StatefulWidget {
   final Color color;
   final Function() onPressed;
   const CustomButton(
-    { Key? key,
-    required this.title,
-    this.color = ColorPattern.green,
-    required this.onPressed})
-    : super(key: key);
+      {Key? key,
+      required this.title,
+      this.color = ColorPattern.green,
+      required this.onPressed})
+      : super(key: key);
 
   @override
   State<CustomButton> createState() => _CustomButtonState();
@@ -31,8 +31,8 @@ class _CustomButtonState extends State<CustomButton> {
           height: MediaQuery.of(context).size.width / 5,
           //color: widget.color,
           alignment: Alignment.center,
-          child: widget.title,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
+          child: widget.title,
         ),
       ),
     );

@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:front/components/cadastro/input_text.dart';
 import 'package:front/components/cadastro/logo_text.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-
+import '../../entity/user.dart';
+import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
 
 class Cadastro extends StatefulWidget {
   const Cadastro({Key? key}) : super(key: key);
-
-  //final String title;
 
   @override
   State<Cadastro> createState() => _CadastroState();
@@ -17,8 +17,22 @@ class Cadastro extends StatefulWidget {
 
 class _CadastroState extends State<Cadastro> {
   static const customizedGreen = ColorPattern.green;
-  final formKey = GlobalKey<FormState>();
-  String nome = '';
+  final User_model userModel = User_model();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _notificationTime = TextEditingController();
+  final TextEditingController _dailyGoal = TextEditingController();
+
+  void register() async {
+    User userFromForms = User(
+      name: _name.text,
+      notificationTime: int.parse(_notificationTime.text),
+      dailyGoal: int.parse(_dailyGoal.text),
+      objectives: [],
+      phrases: [],
+    );
+    await userModel.createUser(userFromForms);
+    Navigator.pushNamed(context, '/home');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,26 +41,29 @@ class _CadastroState extends State<Cadastro> {
           pages: [
             PageViewModel(
               title: '',
-              //decoration: ,
               bodyWidget: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 20),
                   const LogoFocus(),
                   const SizedBox(height: 230),
-                  Row(
+                  Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: const [
-                        Padding(padding: EdgeInsets.only(right: 10)),
-                        Text(
-                          'Olá,',
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Padding(padding: EdgeInsets.only(right: 10)),
+                        const Text(
+                          'Olá, qual seu nome?',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: ColorPattern.white,
                               fontSize: 32),
                         ),
-                        InputText(),
+                        Padding(padding: EdgeInsets.only(bottom: 4)),
+                        InputText(
+                          controller: _name,
+                        ),
                       ]),
                 ],
               ),
@@ -57,29 +74,22 @@ class _CadastroState extends State<Cadastro> {
               bodyWidget: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  const SizedBox(height: 20),
+                  const LogoFocus(),
                   const SizedBox(height: 145),
                   const Text(
-                    'Após quantos\nminutos devo lhe\nlembrar de sair do\ncelular ? ',
+                    ' Após quantos minutos\n devo lhe lembrar de\n sair do celular? ',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: ColorPattern.white,
-                        fontSize: 36),
+                        fontSize: 32),
                   ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: const [
-                        Padding(padding: EdgeInsets.only(right: 4)),
-                        Text(
-                          'Minutos:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: ColorPattern.white,
-                              fontSize: 32),
-                        ),
-                        InputText(),
-                      ]),
+                  Padding(padding: EdgeInsets.only(bottom: 4)),
+                  InputText(
+                    controller: _notificationTime,
+                    //placeholder: "digite aqui",
+                  ),
                 ],
               ),
               decoration: getPageDecoration(),
@@ -88,30 +98,22 @@ class _CadastroState extends State<Cadastro> {
               title: '',
               bodyWidget: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                children: <Widget>[
+                  const SizedBox(height: 20),
+                  const LogoFocus(),
                   const SizedBox(height: 145),
                   const Text(
-                    'Qual a sua meta\ndiária ideal para\npassar no celular ? ',
+                    ' Qual a sua meta diária\n ideal para passar\n no celular? ',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: ColorPattern.white,
-                        fontSize: 36),
+                        fontSize: 32),
                   ),
-                  Row(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: const [
-                        Padding(padding: EdgeInsets.only(right: 24)),
-                        Text(
-                          'Tempo:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: ColorPattern.white,
-                              fontSize: 32),
-                        ),
-                        InputText(),
-                      ]),
+                  Padding(padding: EdgeInsets.only(bottom: 4)),
+                  InputText(
+                    controller: _dailyGoal,
+                  ),
                 ],
               ),
               decoration: getPageDecoration(),
@@ -120,9 +122,7 @@ class _CadastroState extends State<Cadastro> {
           done: ElevatedButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor: ColorPattern.darkMode),
-            onPressed: () {
-              Navigator.pushNamed(context, '/home');
-            },
+            onPressed: register,
             child: const Text(
               'PRONTO',
               style: TextStyle(
@@ -131,19 +131,25 @@ class _CadastroState extends State<Cadastro> {
                   fontSize: 15),
             ),
           ),
-          onDone: () => "", //goToHome(context),
-          globalFooter: const Text(
-            'Não pare agora!',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: customizedGreen,
-                fontSize: 18),
+          onDone: () => "",
+          globalFooter: Column(
+            children: const [
+              Text(
+                'Não pare agora!',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: customizedGreen,
+                    fontSize: 18),
+              ),
+              SizedBox(height: 20),
+            ],
           ),
           showBackButton: true,
           back: Row(
             children: const [
               Icon(
                 Icons.chevron_left_outlined,
+                size: 40,
                 color: customizedGreen,
               ),
               Text(
@@ -151,28 +157,29 @@ class _CadastroState extends State<Cadastro> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: customizedGreen,
-                    fontSize: 12),
+                    fontSize: 14),
               ),
             ],
           ),
           showNextButton: true,
           next: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: const [
               Text(
                 'Próximo',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: customizedGreen,
-                    fontSize: 12),
+                    fontSize: 14),
               ),
               Icon(
                 Icons.chevron_right_outlined,
+                size: 40,
                 color: customizedGreen,
               ),
             ],
           ),
           dotsDecorator: getDotDecorator(),
-          onChange: (index) => print('page $index selected'),
           globalBackgroundColor: ColorPattern.darkMode),
     );
   }

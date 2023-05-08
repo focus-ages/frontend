@@ -11,18 +11,30 @@ class CustomSwitcher extends StatefulWidget {
 
 class _CustomSwitcherState extends State<CustomSwitcher> {
   bool isSwitched = false;
+
   @override
   Widget build(BuildContext context) {
-    return Switch(
-      value: isSwitched,
-      inactiveTrackColor: ColorPattern.darkCard,
-      inactiveThumbColor: ColorPattern.darkCard,
-      activeTrackColor: ColorPattern.green,
-      activeColor: ColorPattern.green,
-      onChanged: (value) {
-        setState(() {
-          isSwitched = value;
-        });
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final switchWidth = constraints.maxWidth *
+            0.5; // ajuste a largura do switch de acordo com a largura da tela
+
+        return Transform.scale(
+          scale: switchWidth /
+              50, // ajuste o tamanho do switch de acordo com a largura definida anteriormente
+          child: Switch(
+            value: isSwitched,
+            onChanged: (value) {
+              setState(() {
+                isSwitched = value;
+              });
+            },
+            inactiveTrackColor: ColorPattern.gray,
+            inactiveThumbColor: ColorPattern.white,
+            activeTrackColor: ColorPattern.green,
+            activeColor: ColorPattern.white,
+          ),
+        );
       },
     );
   }
