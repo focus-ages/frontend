@@ -6,81 +6,39 @@ import '../../resources/color_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 class BancoPage extends StatefulWidget {
   const BancoPage({Key? key}) : super(key: key);
-
 
   @override
   State<BancoPage> createState() => _BancoPage();
 }
 
-
-
-void testeCinza() async {
-
-
-}
+void testeCinza() async {}
 
 class _BancoPage extends State<BancoPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorPattern.darkMode,
-      body: Center (child:
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children:[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-            CustomButton(
-              onPressed: testeCinza,
-              title: Text(
-                "testeCinza",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color:Colors.white,
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('GrayScale App'),
+        ),
+        body: Center(
+          child: ElevatedButton(
+            child: Text('Ativar Escala de Cinza'),
+            onPressed: () {
+              SystemChrome.setSystemUIOverlayStyle(
+                SystemUiOverlayStyle(
+                  systemNavigationBarColor: Colors.black,
+                  systemNavigationBarIconBrightness: Brightness.light,
+                  statusBarColor: Colors.black,
+                  statusBarIconBrightness: Brightness.light,
                 ),
-              ),
-            ),
-          ],  
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-            CustomButton(
-              onPressed: testeCinza,
-              title: Text(
-                "testeCinza",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color:Colors.white,
-                ),
-              ),
-            ),
-          ],  
-            ),
-            SizedBox(height: 10),     
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-            CustomButton(
-              onPressed: testeCinza,
-              title: Text(
-                "testeCinza",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color:Colors.white,
-                ),
-              ),
-            ),
-          ],  
-            ),
-            SizedBox(height: 10)
-          ],
-        )
+              );
+              SystemChrome.setEnabledSystemUIOverlays([]);
+            },
+          ),
+        ),
       ),
     );
   }
