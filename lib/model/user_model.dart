@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:front/entity/objective.dart';
 
 import '../controller/user_controller.dart';
 import '../entity/user.dart';
@@ -56,5 +57,13 @@ class User_model {
   Future<void> changeNotificationTime(String value) async {
     await userController.updateField(userId, 'notificationTime', value);
     await loadUserFromDB();
+  }
+
+  Future<void> addObjective(String goal) async {
+    await userController.addGoal(userId, Objective(phrases: [], name: goal));
+  }
+
+  Future<void> removeObjective(String goal) async {
+    //await userController.removeGoal(userId, goal);
   }
 }

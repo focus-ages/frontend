@@ -102,4 +102,22 @@ class UserController {
       throw Exception(error);
     }
   }
+
+  Future<void> addGoal(userId, Objective objective) async {
+    try {
+      await usersCollection.doc(userId).update({
+        'objectives': FieldValue.arrayUnion([objective.toJson()])
+      });
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<void> removeGoal(userId, Objective objective) async {
+    try {
+      await usersCollection.doc(userId).snapshots();
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
 }
