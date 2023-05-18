@@ -64,6 +64,6 @@ class User_model {
   }
 
   Future<void> removeObjective(String goal) async {
-    //await userController.removeGoal(userId, goal);
+    await userController.removeGoal(userId, goal);
   }
 }

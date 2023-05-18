@@ -113,11 +113,29 @@ class UserController {
     }
   }
 
-  Future<void> removeGoal(userId, Objective objective) async {
+  Future<void> removeGoal(userId, String objective) async {
     try {
-      await usersCollection.doc(userId).snapshots();
+      final userDoc = usersCollection.doc(userId);
+
+      final userData = await userDoc.get();
+      if (userData.exists) {
+        final objectives = List<Objective>.from(userData.data()!['objectives']);
+
+        final remObjective = findObjective(objective, objectives);
+
+        if (remObjective != null) {
+          objectives.remove(remObjective);
+          await userDoc.update({'objectives': objectives});
+        }
+      }
     } catch (error) {
       throw Exception(error);
     }
+  }
+
+  Objective findObjective(String objectiveName, List<Objective> objectives) {
+    final objective =
+        objectives.firstWhere((obj) => obj.name == objectiveName, orElse: null);
+    return objective;
   }
 }
