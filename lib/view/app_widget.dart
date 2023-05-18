@@ -13,10 +13,7 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/teste',
       routes: {
-        '/': (context) => const Splash(),
-        '/home': (context) => const HomePage(),
         '/teste': (context) => const BancoPage(),
-        '/cadastro': (context) => const Cadastro(),
         '/mensagens': (context) => const Mensagens(),
       },
     );
