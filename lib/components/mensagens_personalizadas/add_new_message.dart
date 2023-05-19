@@ -4,9 +4,15 @@ import '../../resources/color_pattern.dart';
 class AddNewMessage extends StatefulWidget {
   final Function(String) onSave;
   final String placeholder;
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
 
   const AddNewMessage(
-      {Key? key, required this.placeholder, required this.onSave})
+      {Key? key,
+      required this.placeholder,
+      required this.onSave,
+      this.validator,
+      this.keyboardType})
       : super(key: key);
 
   @override
@@ -17,11 +23,34 @@ class _AddNewMessageState extends State<AddNewMessage> {
   final TextEditingController _messageController = TextEditingController();
   final FocusNode _messageFocusNode = FocusNode();
   bool _showPlaceholder = true;
+  bool error = false;
+  String? errorMessage;
 
   @override
   void dispose() {
     _messageFocusNode.dispose();
     super.dispose();
+  }
+
+  String? _validateInput(String? value) {
+    if (widget.validator != null) {
+      String? result = widget.validator!(value);
+      if (result != null) {
+        setState(() {
+          error = true;
+          errorMessage = result;
+        });
+        FocusScope.of(context).requestFocus(_messageFocusNode);
+        return '';
+      }
+
+      setState(() {
+        error = false;
+        errorMessage = null;
+      });
+    }
+
+    return null;
   }
 
   @override
@@ -57,18 +86,26 @@ class _AddNewMessageState extends State<AddNewMessage> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  TextField(
+                  TextFormField(
+                    keyboardType: widget.keyboardType,
                     controller: _messageController,
                     focusNode: _messageFocusNode,
                     decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                       filled: true,
                       fillColor: ColorPattern.whiteOpacity,
                       contentPadding: EdgeInsets.symmetric(
                         horizontal: size.width * 0.05,
                         vertical: size.height * 0.03,
                       ),
-                      border: OutlineInputBorder(
+                      focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          width: 2.0,
+                          color: error ? ColorPattern.error : Colors.blue,
+                        ),
                       ),
                       hintText: '',
                       hintStyle: const TextStyle(color: ColorPattern.gray),
@@ -112,6 +149,17 @@ class _AddNewMessageState extends State<AddNewMessage> {
                 ],
               ),
             ),
+            if (error && errorMessage != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 12.0),
+                child: Text(
+                  errorMessage!,
+                  style: TextStyle(
+                    color: ColorPattern.error,
+                    fontSize: 12.0,
+                  ),
+                ),
+              ),
             const SizedBox(height: 16.0),
             Row(
               children: [
@@ -125,9 +173,13 @@ class _AddNewMessageState extends State<AddNewMessage> {
                 const Spacer(),
                 TextButton(
                   onPressed: () => {
-                    widget.onSave(_messageController.text),
-                    Navigator.pop(context),
-                    Navigator.pushNamed(context, pushPath)
+                    _validateInput(_messageController.text),
+                    if (!error)
+                      {
+                        widget.onSave(_messageController.text),
+                        Navigator.pop(context),
+                        Navigator.pushNamed(context, pushPath)
+                      }
                   },
                   child: const Text('Salvar',
                       style: TextStyle(color: ColorPattern.green)),
