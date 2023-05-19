@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front/view/cadastro/form_view.dart';
 import 'package:front/view/home/home_view.dart';
+import 'package:front/view/home/teste.dart';
 
 import '../../model/user_model.dart';
 
@@ -24,12 +25,12 @@ class _SplashState extends State<Splash> {
 
   _navigatehome() async {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => HomePage()));
+        context, MaterialPageRoute(builder: (context) => BancoPage()));
   }
 
   _navigatecadastro() async {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Cadastro()));
+        context, MaterialPageRoute(builder: (context) => BancoPage()));
   }
 
   @override
