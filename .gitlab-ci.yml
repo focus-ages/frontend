@@ -1,17 +1,8 @@
-stages:          # List of stages for jobs, and their order of execution
-  - build
-  - test
+default:
+  image: cirrusci/flutter:latest
 
-build-apk:       # This job runs in the build stage, which runs first.
-  stage: build
-  tags:
-    - flutter
-  script:
-    - flutter clean
-    - flutter pub get
-    - flutter pub run flutter_native_splash:create
-    - flutter build apk
-    - echo "Build stage complete."
+stages:          # List of stages for jobs, and their order of execution
+  - test
 
 lint:            # This job runs in the build stage, which runs first.
   stage: test
@@ -20,7 +11,7 @@ lint:            # This job runs in the build stage, which runs first.
   script:
     - flutter clean
     - flutter pub get
-    - flutter "Linting code... This will take a few seconds."
+    - echo "Linting code... This will take a few seconds."
     - flutter analyze
 
 unit-test:   # This job runs in the test stage.
