@@ -133,7 +133,7 @@ class UserController {
     }
   }
 
-  Objective findObjective(String objectiveName, List<Objective> objectives) {
+  Objective? findObjective(String objectiveName, List<Objective> objectives) {
     final objective =
         objectives.firstWhere((obj) => obj.name == objectiveName, orElse: null);
     return objective;
