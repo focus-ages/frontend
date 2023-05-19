@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '../../resources/color_pattern.dart';
 import './objective_delete_dialog.dart';
 
-class MessageDisplay extends StatelessWidget {
+class ObjectiveDisplay extends StatelessWidget {
   final String message;
   final int maxCharacters;
 
-  const MessageDisplay(
+  const ObjectiveDisplay(
       {Key? key, required this.message, this.maxCharacters = 100})
       : super(key: key);
 

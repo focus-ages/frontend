@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import '../../resources/color_pattern.dart';
 
-class AddNewMessage extends StatefulWidget {
+class AddNewObjective extends StatefulWidget {
   final Function(String) onSave;
   final String placeholder;
 
-  const AddNewMessage(
+  const AddNewObjective(
       {Key? key, required this.placeholder, required this.onSave})
       : super(key: key);
 
   @override
-  _AddNewMessageState createState() => _AddNewMessageState();
+  _AddNewObjectiveState createState() => _AddNewObjectiveState();
 }
 
-class _AddNewMessageState extends State<AddNewMessage> {
-  final TextEditingController _messageController = TextEditingController();
-  final FocusNode _messageFocusNode = FocusNode();
+class _AddNewObjectiveState extends State<AddNewObjective> {
+  final TextEditingController _objectiveController = TextEditingController();
+  final FocusNode _objectiveFocusNode = FocusNode();
   bool _showPlaceholder = true;
 
   @override
   void dispose() {
-    _messageFocusNode.dispose();
+    _objectiveFocusNode.dispose();
     super.dispose();
   }
 
@@ -53,8 +53,8 @@ class _AddNewMessageState extends State<AddNewMessage> {
                 alignment: Alignment.center,
                 children: [
                   TextField(
-                    controller: _messageController,
-                    focusNode: _messageFocusNode,
+                    controller: _objectiveController,
+                    focusNode: _objectiveFocusNode,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: ColorPattern.whiteOpacity,
@@ -87,7 +87,7 @@ class _AddNewMessageState extends State<AddNewMessage> {
                     onTap: () {
                       setState(() {
                         _showPlaceholder = false;
-                        _messageFocusNode.requestFocus();
+                        _objectiveFocusNode.requestFocus();
                       });
                     },
                     child: AnimatedOpacity(
@@ -120,7 +120,7 @@ class _AddNewMessageState extends State<AddNewMessage> {
                 const Spacer(),
                 TextButton(
                   onPressed: () => {
-                    widget.onSave(_messageController.text),
+                    widget.onSave(_objectiveController.text),
                     Navigator.pop(context),
                   },
                   child: const Text('Salvar',
