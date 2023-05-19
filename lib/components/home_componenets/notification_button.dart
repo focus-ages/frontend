@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
-import '../mensagens_personalizadas/add_new_message.dart';
+import '../mensagens_personalizadas/add_text.dart';
 
 class NotificationButton extends StatefulWidget {
   const NotificationButton({Key? key, required this.min}) : super(key: key);
@@ -37,7 +37,7 @@ class _NotificationButtonState extends State<NotificationButton> {
         onPressed: () => {
               showDialog(
                 context: context,
-                builder: (context) => AddNewMessage(
+                builder: (context) => AddText(
                   onSave: userModel.changeNotificationTime,
                   placeholder: 'Escreva seu novo tempo de notificação',
                 ),
