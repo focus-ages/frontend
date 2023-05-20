@@ -5,6 +5,7 @@ import 'package:front/components/home_componenets/card_frases/card_frases.dart';
 import 'package:front/components/home_componenets/countdown_timer.dart';
 import 'package:front/components/home_componenets/switch_button.dart';
 import 'package:front/model/user_model.dart';
+import '../../model/screen_usage.dart';
 // teste
 import '../../components/home_componenets/card_frases/floating.dart';
 import '../../components/home_componenets/notification_button.dart';
@@ -24,6 +25,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUsage screenUsage = ScreenUsage();
+    screenUsage.collectScreenData();
+
     Size size = MediaQuery.of(context).size;
 
     User user = userModel.getUser();
