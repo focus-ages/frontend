@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../controller/user_controller.dart';
@@ -57,4 +59,15 @@ class User_model {
     await userController.updateField(userId, 'notificationTime', value);
     await loadUserFromDB();
   }
+
+  Future<void> buscarFrase(String value) async{
+    await userController.getPhrases(userId);
+    Random random = Random();
+    int indice = random.nextInt(Phrase(text: text).length); //gera um n aleatório entre 0 e o tamanho do banco de dados de frases 
+      return Phrase(text: text)[indice]; //retorna a frase correspondente ao índice aleatório gerado
+
+  } 
+  
+  String fraseRandomica = buscarFrase(Phrase(text: text));
+  print(fraseRandomica);
 }

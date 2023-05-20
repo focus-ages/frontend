@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:core';
 import 'package:flutter/material.dart';
-
 import '../../components/home_componenets/card_frases/floating.dart';
-import '../../entity/objective.dart';
+import '../../entity/phrase.dart';
 import '../../entity/user.dart';
 import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
@@ -23,17 +22,20 @@ class _ObjetivosState extends State<Objetivos> {
 
   double displayWidth(BuildContext context) {
     return displaySize(context).width;
+
   }
+  
+   
 
   @override
   Widget build(BuildContext context) {
     User user = userModel.getUser();
     List<Objective> frases = user.phrases!.cast<Objective>();
     if (frases.length == 0) {
-      // frases.add(Phrase(text: "Estudar"));
+    //  frases.add(Phrase(text: "Estudar") as Objective);
     }
-    //List<ObjectiveDisplay> messagesList =
-    //  frases.map((frase) => Objective Display(message: frase.text)).toList(); // display precisam criar
+    List<ObjectiveDisplay> objectiveList =
+      frases.map((frase) => Objective Display(message: frase.text)).toList(); // display precisam criar
     return Scaffold(
       backgroundColor: ColorPattern.darkMode,
       body: Stack(
