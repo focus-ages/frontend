@@ -28,7 +28,7 @@ class UserController {
             phrases: await Stream.fromIterable(objective['phrases'])
                 .map((phraseFromObjective) =>
                     Phrase(text: phraseFromObjective['text']))
-                .toList())));
+                .toList(), text: '')));
 
     return User(
         name: userFromSnapShot['name'] as String,

@@ -203,7 +203,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Flexible(
                       child: FloatingButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/objetivos');
+                        },
                         icon: Icon(
                           Icons.add_task,
                           color: ColorPattern.green,
