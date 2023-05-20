@@ -28,7 +28,7 @@ class UserController {
             phrases: await Stream.fromIterable(objective['phrases'])
                 .map((phraseFromObjective) =>
                     Phrase(text: phraseFromObjective['text']))
-                .toList(), text: '')));
+                .toList())));
 
     return User(
         name: userFromSnapShot['name'] as String,
@@ -70,6 +70,7 @@ class UserController {
       throw Exception(error);
     }
   }
+
 
   Stream<List<Phrase>> getPhrases(userId) {
     try {
@@ -113,29 +114,18 @@ class UserController {
     }
   }
 
-  Future<void> removeGoal(userId, String objective) async {
-    try {
-      final userDoc = usersCollection.doc(userId);
-
-      final userData = await userDoc.get();
-      if (userData.exists) {
-        final objectives = List<Objective>.from(userData.data()!['objectives']);
-
-        final remObjective = findObjective(objective, objectives);
-
-        if (remObjective != null) {
-          objectives.remove(remObjective);
-          await userDoc.update({'objectives': objectives});
-        }
-      }
+  Future<bool> removeGoal(userId, String objectiveName) async {
+    try{
+      User? user = await findUser(userId);
+      await usersCollection
+          .doc(userId)
+          .update({"objectives": FieldValue
+          .arrayRemove([user!.objectives!
+          .firstWhere((objective) => objective.name == objectiveName)
+          .toJson()])});
+      return true;
     } catch (error) {
-      throw Exception(error);
+      return false;
     }
-  }
-
-  Objective? findObjective(String objectiveName, List<Objective> objectives) {
-    final objective =
-        objectives.firstWhere((obj) => obj.name == objectiveName, orElse: null);
-    return objective;
   }
 }
