@@ -33,7 +33,7 @@ class _MensagensState extends State<Mensagens> {
       frases.add(Phrase(text: "Desliga o celular e expanda sua força!"));
     }
     List<TextDisplay> messagesList =
-        frases.map((frase) => TextDisplay(message: frase.text)).toList();
+        frases.map((frase) => TextDisplay(message: frase.text, onDelete: userModel.deletarFrase,)).toList();
     return Scaffold(
       backgroundColor: ColorPattern.darkMode,
       body: Stack(
@@ -90,16 +90,16 @@ class _MensagensState extends State<Mensagens> {
               const SizedBox(height: 15),
               Expanded(
                 child: ListView.builder(
-                  itemCount: messagesList.length * 2 - 1,
+                  itemCount: messagesList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    if (index.isOdd) {
-                      return const SizedBox(height: 10);
-                    }
-                    final messageIndex = index ~/ 2;
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: messagesList[messageIndex],
-                    );
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: messagesList[index],
+                        ),
+                       const SizedBox(height: 10),
+                    ]);
                   },
                 ),
               ),
