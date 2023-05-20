@@ -54,9 +54,9 @@ class _InputTextState extends State<InputText> {
           Container(
             padding: const EdgeInsets.only(top: 6, left: 6, right: 6),
             decoration: BoxDecoration(
-              color: ColorPattern.darkMode,
+              color: ColorPattern.darkCard,
               border: Border.all(
-                  color: error ? ColorPattern.error : ColorPattern.darkMode),
+                  color: error ? ColorPattern.error : ColorPattern.darkCard),
               borderRadius: BorderRadius.circular(22),
             ),
             child: TextFormField(
