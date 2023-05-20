@@ -4,7 +4,7 @@ import 'package:front/model/user_model.dart';
 import 'delete_text.dart';
 
 class TextDisplay extends StatelessWidget {
-  
+  final Function(String) onDelete;
   final String message;
   final int maxCharacters;
     Size displaySize(BuildContext context) {
@@ -18,7 +18,7 @@ class TextDisplay extends StatelessWidget {
   }
 
   const TextDisplay(
-      {Key? key, required this.message, this.maxCharacters = 100})
+      {Key? key, required this.message, required this.onDelete, this.maxCharacters = 100})
       : super(key: key);
 
   @override
@@ -67,7 +67,7 @@ class TextDisplay extends StatelessWidget {
                     context: context,
                     builder: (context) => DeleteText(
                       message: message,
-                      onSave: userModel.deletarFrase, 
+                      onDelete: onDelete, 
                       placeholder: 'Deseja mesmo deleter essa frase?',),
                   )
                 },

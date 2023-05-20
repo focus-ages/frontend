@@ -4,10 +4,10 @@ import '../../resources/color_pattern.dart';
 
 class DeleteText extends StatefulWidget {
   final String message;
-  final Function(String) onSave;
+  final Function(String) onDelete;
   final String placeholder;
 
-  DeleteText({Key? key, required this.message, required this.onSave, required this.placeholder})
+  DeleteText({Key? key, required this.message, required this.onDelete, required this.placeholder})
    : super(key: key);
 
 
@@ -37,7 +37,7 @@ class _DeleteTextState extends State<DeleteText> {
       actions: <Widget>[
         TextButton(
           onPressed: () => {
-            widget.onSave(this.widget.message),
+            widget.onDelete(this.widget.message),
             Navigator.pop(context),
           },
           child: const Text("Sim",
