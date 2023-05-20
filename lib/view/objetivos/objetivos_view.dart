@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:front/components/mensagens_personalizadas/add_text.dart';
 
 import '../../components/home_componenets/card_frases/floating.dart';
+import '../../components/mensagens_personalizadas/text_display.dart';
 import '../../entity/objective.dart';
 import '../../entity/user.dart';
 import '../../model/user_model.dart';
@@ -28,12 +30,12 @@ class _ObjetivosState extends State<Objetivos> {
   @override
   Widget build(BuildContext context) {
     User user = userModel.getUser();
-    List<Objective> frases = user.phrases!.cast<Objective>();
-    if (frases.length == 0) {
-      // frases.add(Phrase(text: "Estudar"));
+    List<Objective> objectives = user.objectives!;
+    if (objectives.length == 0) {
+      objectives.add(Objective(name: "Estudar", phrases:[]));
     }
-    //List<ObjectiveDisplay> messagesList =
-    //  frases.map((frase) => Objective Display(message: frase.text)).toList(); // display precisam criar
+    List<TextDisplay> objectivesList = 
+      objectives.map((objective) => TextDisplay(message: objective.name, onDelete: userModel.removeObjective,)).toList(); // display precisam criar
     return Scaffold(
       backgroundColor: ColorPattern.darkMode,
       body: Stack(
@@ -69,14 +71,14 @@ class _ObjetivosState extends State<Objetivos> {
                   Flexible(
                     child: FloatingButton(
                       onPressed: () => {
-                        /* showDialog(
+                         showDialog(
                           context: context,
-                          builder: (context) => AddNewObjective( //função que precisam criar
-                            onSave: userModel.adicionarFrase, // mudar aqui 
+                          builder: (context) => AddText( //função que precisam criar
+                            onSave: userModel.addObjective, // mudar aqui 
                             placeholder: 'Escreva seu objetivo',
                           ),
                         )
-                     */
+                     
                       },
                       icon: Icon(
                         Icons.add_circle_outline,
@@ -91,16 +93,16 @@ class _ObjetivosState extends State<Objetivos> {
               const SizedBox(height: 15),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 9,
+                  itemCount: objectivesList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    if (index.isOdd) {
-                      return const SizedBox(height: 10);
-                    }
-                    final messageIndex = index ~/ 2;
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                     // child: objectivesList[messageIndex],
-                    );
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: objectivesList[index],
+                        ),
+                       const SizedBox(height: 10),
+                    ]);
                   },
                 ),
               ),
