@@ -61,9 +61,11 @@ class User_model {
 
   Future<void> addObjective(String goal) async {
     await userController.addGoal(userId, Objective(phrases: [], name: goal));
+    await loadUserFromDB();
   }
 
   Future<void> removeObjective(String goal) async {
     await userController.removeGoal(userId, goal);
+    await loadUserFromDB();
   }
 }
