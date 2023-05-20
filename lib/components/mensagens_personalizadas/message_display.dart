@@ -4,13 +4,17 @@ import './message_delete_dialog.dart';
 
 class MessageDisplay extends StatelessWidget {
   final String message;
-  final int id;
+  final int maxCharacters;
 
-  const MessageDisplay({Key? key, required this.message, required this.id})
+  const MessageDisplay(
+      {Key? key, required this.message, this.maxCharacters = 100})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final displayMessage = message.length > maxCharacters
+        ? '"${message.substring(0, maxCharacters)}..."'
+        : '"$message"';
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16.0),
@@ -31,7 +35,7 @@ class MessageDisplay extends StatelessWidget {
           Expanded(
             flex: 17,
             child: Text(
-              message,
+              displayMessage,
               style: const TextStyle(
                   fontSize: 16.0, color: ColorPattern.white, height: 1.5),
             ),
@@ -44,7 +48,7 @@ class MessageDisplay extends StatelessWidget {
               onPressed: () => {
                 showDialog(
                   context: context,
-                  builder: (context) => MessageDeleteDialog(id: id),
+                  builder: (context) => MessageDeleteDialog(message: message),
                 )
               },
             ),

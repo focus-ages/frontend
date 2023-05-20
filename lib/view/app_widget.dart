@@ -3,7 +3,7 @@ import 'package:front/view/cadastro/form_view.dart';
 import 'package:front/view/home/home_view.dart';
 import 'package:front/view/mensagens/mensagens_view.dart';
 
-import 'cadastro/form_view.dart';
+import 'package:front/view/home/splash_screen_view.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -11,8 +11,9 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/cadastro',
+      initialRoute: '/',
       routes: {
+        '/': (context) => const Splash(),
         '/home': (context) => const HomePage(),
         '/cadastro': (context) => const Cadastro(),
         '/mensagens': (context) => const Mensagens(),

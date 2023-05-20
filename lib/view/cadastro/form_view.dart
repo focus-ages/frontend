@@ -17,7 +17,6 @@ class Cadastro extends StatefulWidget {
 
 class _CadastroState extends State<Cadastro> {
   static const customizedGreen = ColorPattern.green;
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final User_model userModel = User_model();
   final TextEditingController _name = TextEditingController();
   final TextEditingController _notificationTime = TextEditingController();
@@ -29,10 +28,10 @@ class _CadastroState extends State<Cadastro> {
       notificationTime: int.parse(_notificationTime.text),
       dailyGoal: int.parse(_dailyGoal.text),
       objectives: [],
-      phrases: [], 
+      phrases: [],
       timeUsed: 0,
     );
-    userModel.createUser(userFromForms);
+    await userModel.createUser(userFromForms);
     Navigator.pushNamed(context, '/home');
   }
 
@@ -56,7 +55,7 @@ class _CadastroState extends State<Cadastro> {
                       children: [
                         const Padding(padding: EdgeInsets.only(right: 10)),
                         const Text(
-                          'Olá,',
+                          'Olá, qual seu nome?',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: ColorPattern.white,
@@ -76,30 +75,22 @@ class _CadastroState extends State<Cadastro> {
               bodyWidget: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  const SizedBox(height: 20),
+                  const LogoFocus(),
                   const SizedBox(height: 145),
                   const Text(
-                    'Após quantos\nminutos devo lhe\nlembrar de sair do\ncelular ? ',
+                    ' Após quantos minutos\n devo lhe lembrar de\n sair do celular? ',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: ColorPattern.white,
                         fontSize: 32),
                   ),
-                  Column(children: <Widget>[
-                    Padding(padding: EdgeInsets.only(right: 4, bottom: 4)),
-                    Text(
-                      'Minutos:',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: ColorPattern.white,
-                          fontSize: 32),
-                    ),
-                    Padding(padding: EdgeInsets.only(bottom: 4)),
-                    InputText(
-                      controller: _notificationTime,
-                      //placeholder: "digite aqui",
-                    ),
-                  ]),
+                  Padding(padding: EdgeInsets.only(bottom: 4)),
+                  InputText(
+                    controller: _notificationTime,
+                    //placeholder: "digite aqui",
+                  ),
                 ],
               ),
               decoration: getPageDecoration(),
@@ -109,29 +100,21 @@ class _CadastroState extends State<Cadastro> {
               bodyWidget: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  const SizedBox(height: 20),
+                  const LogoFocus(),
                   const SizedBox(height: 145),
                   const Text(
-                    'Qual a sua meta\ndiária ideal para\npassar no celular ? ',
+                    ' Qual a sua meta diária\n ideal para passar\n no celular? ',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: ColorPattern.white,
                         fontSize: 32),
                   ),
-                  Column(children: [
-                    Padding(padding: EdgeInsets.only(right: 24, bottom: 4)),
-                    Text(
-                      'Tempo:',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: ColorPattern.white,
-                          fontSize: 32),
-                    ),
-                    Padding(padding: EdgeInsets.only(bottom: 4)),
-                    InputText(
-                      controller: _dailyGoal,
-                    ),
-                  ]),
+                  Padding(padding: EdgeInsets.only(bottom: 4)),
+                  InputText(
+                    controller: _dailyGoal,
+                  ),
                 ],
               ),
               decoration: getPageDecoration(),
@@ -198,7 +181,6 @@ class _CadastroState extends State<Cadastro> {
             ],
           ),
           dotsDecorator: getDotDecorator(),
-          onChange: (index) => print('page $index selected'),
           globalBackgroundColor: ColorPattern.darkMode),
     );
   }

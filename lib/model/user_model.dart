@@ -1,16 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../controller/user_controller.dart';
 import '../entity/user.dart';
+import '../entity/phrase.dart';
 
 class User_model {
   final UserController userController = UserController();
-  User? user = null;
+  User user = const User();
   String userId = '';
-  
 
   static final User_model user_model = User_model._internal();
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
@@ -27,13 +24,37 @@ class User_model {
     await loadUserFromDB();
   }
 
-  Future<User?> loadUserFromDB() async {
+  User getUser() {
+    return user;
+  }
+
+  Future<bool> loadUserFromDB() async {
     String? userIdFromDb = await _storage.read(key: 'userId');
     if (userIdFromDb != null) {
       userId = userIdFromDb;
-      user = await userController.findUser(userId);
-      return user;
+      user = (await userController.findUser(userId))!;
+      return true;
     }
-    return null;
+    return false;
+  }
+
+  void adicionarFrase(String frase) async {
+    await userController.addPhrase(userId, Phrase(text: frase));
+    await loadUserFromDB();
+  }
+
+  void deletarFrase(String frase) async {
+    await userController.deletePhrase(userId, Phrase(text: frase));
+    await loadUserFromDB();
+  }
+
+  Future<void> changeDailyGoal(String value) async {
+    await userController.updateField(userId, 'dailyGoal', value);
+    await loadUserFromDB();
+  }
+
+  Future<void> changeNotificationTime(String value) async {
+    await userController.updateField(userId, 'notificationTime', value);
+    await loadUserFromDB();
   }
 }

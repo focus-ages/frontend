@@ -49,4 +49,70 @@ class UserController {
       throw Exception(error);
     }
   }
+
+  Future<bool> addPhrase(userId, Phrase phrase) async {
+    try {
+      await usersCollection.doc(userId).update({
+        'phrases': FieldValue.arrayUnion([phrase.toJson()])
+      });
+      return true;
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<bool> updateField(userId, String fieldName, String fieldValue) async {
+    try {
+      await usersCollection
+          .doc(userId)
+          .update({fieldName: int.parse(fieldValue)});
+      return true;
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Stream<List<Phrase>> getPhrases(userId) {
+    try {
+      return usersCollection
+          .doc(userId)
+          .snapshots()
+          .map((DocumentSnapshot<Map<String, dynamic>> docmentSnapshot) {
+        final data = docmentSnapshot.data();
+        if (data != null) {
+          final phrasesJson = data['phrases'] ?? [];
+          final phrases =
+              phrasesJson.map((json) => Phrase(text: json['text'])).toList();
+          return phrases;
+        } else {
+          return [];
+        }
+      });
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<bool> deletePhrase(userId, Phrase phrase) async {
+    try {
+      await usersCollection.doc(userId).update({
+        'phrases': FieldValue.arrayRemove([phrase.toJson()])
+      });
+      return true;
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+  Future<void> updateTimeElapsed(userId,int time) async{
+   try {
+      await usersCollection.doc(userId).update({
+        'timeUsed': FieldValue.increment(time)
+      });
+      //return true;
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
 }
+

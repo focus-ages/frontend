@@ -5,8 +5,12 @@ import 'package:front/components/home_componenets/card_frases/card_frases.dart';
 import 'package:front/components/home_componenets/countdown_timer.dart';
 import 'package:front/components/home_componenets/switch_button.dart';
 import '../../model/screen_usage.dart';
+import 'package:front/model/user_model.dart';
+// teste
 import '../../components/home_componenets/card_frases/floating.dart';
 import '../../components/home_componenets/notification_button.dart';
+import '../../components/mensagens_personalizadas/add_new_message.dart';
+import '../../entity/user.dart';
 import '../../resources/color_pattern.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,6 +21,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final User_model userModel = User_model();
+
   @override
   Widget build(BuildContext context) {
    
@@ -33,6 +39,17 @@ class _HomePageState extends State<HomePage> {
 
 
 
+    Size size = MediaQuery.of(context).size;
+
+    User user = userModel.getUser();
+
+    Size displaySize(BuildContext context) {
+      return MediaQuery.of(context).size;
+    }
+
+    double displayWidth(BuildContext context) {
+      return displaySize(context).width;
+    }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -41,117 +58,184 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // ignore: prefer_const_constructors
-          Padding(
-            padding: const EdgeInsets.only(left: 45.0, top: 80),
-            child: const Text('Olá, Lucas \u{1F44B}',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 25, color: ColorPattern.white)),
+          Padding(padding: EdgeInsets.only(bottom: size.height * 0.040)),
+
+          Row(
+            children: [
+              Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      size.width * 0.1, 0, 0, size.height * 0.1)),
+              Flexible(
+                child: SafeArea(
+                  child: RichText(
+                      text: TextSpan(
+                          style: TextStyle(
+                              fontSize: displayWidth(context) * 0.08,
+                              fontWeight: FontWeight.bold),
+                          children: [
+                        const TextSpan(
+                            text: 'Olá, ',
+                            style: TextStyle(color: ColorPattern.white)),
+                        TextSpan(
+                            text: user.name! + "👋",
+                            style: TextStyle(color: ColorPattern.green))
+                      ])),
+                ),
+              ),
+            ],
           ),
-          const Padding(padding: EdgeInsets.only(bottom: 40)),
+          Padding(padding: EdgeInsets.only(bottom: size.height * 0.05)),
+
           Center(
               child: Column(
             children: [
-              const CountdownTimer(),
-              const Padding(padding: EdgeInsets.only(bottom: 20)),
-              const Text('Tempo Usado',
+              CountdownTimer(duration: user.dailyGoal!),
+              SizedBox(
+                height: size.height * 0.025,
+              ),
+              Text('Tempo Usado',
                   style: TextStyle(
                     color: ColorPattern.white,
-                    fontSize: 20,
+                    fontSize: displayWidth(context) * 0.05,
                     fontWeight: FontWeight.bold,
                   )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Padding(padding: EdgeInsets.only(left: 5)),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('Meta Diária',
-                        style: TextStyle(
-                          color: ColorPattern.gray,
-                          fontSize: 18,
+                  Flexible(
+                    child: TextButton(
+                        onPressed: () => {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AddNewMessage(
+                                  onSave: userModel.changeDailyGoal,
+                                  placeholder: 'Escreva sua nova meta diária',
+                                ),
+                              )
+                            },
+                        child: RichText(
+                          text: TextSpan(
+                              text: 'Meta Diária ',
+                              style: TextStyle(
+                                  fontSize: displayWidth(context) * 0.04,
+                                  color: const Color(0x30E3E3E3)),
+                              children: [
+                                WidgetSpan(
+                                  child: Icon(
+                                    Icons.create_outlined,
+                                    color: const Color(0x30E3E3E3),
+                                    size: displayWidth(context) * 0.04,
+                                  ),
+                                ),
+                              ]),
                         )),
-                  ),
-                  const Icon(Icons.edit, color: ColorPattern.gray, size: 18),
+                  )
                 ],
               ),
             ],
           )),
           Padding(
-              padding: const EdgeInsets.only(left: 35),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Text(
-                        'Barra de progresso',
+            padding: const EdgeInsets.only(left: 35),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        'Modo Focus',
                         style: TextStyle(
                           color: ColorPattern.white,
-                          fontSize: 15,
+                          fontSize: displayWidth(context) * 0.05,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Padding(padding: EdgeInsets.only(left: 5)),
-                      CustomSwitcher(),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Text(
-                        'GrayScale',
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: size.width * 0.4),
+                    ),
+                    const Flexible(child: CustomSwitcher()),
+                  ],
+                ),
+                Padding(padding: EdgeInsets.only(bottom: size.height * 0.005)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        'Barra de\nProgresso',
                         style: TextStyle(
                           color: ColorPattern.white,
-                          fontSize: 15,
+                          fontSize: displayWidth(context) * 0.05,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Padding(padding: EdgeInsets.only(left: 65)),
-                      CustomSwitcher(),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Text(
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: size.width * 0.423),
+                    ),
+                    const Flexible(child: CustomSwitcher()),
+                  ],
+                ),
+                Padding(padding: EdgeInsets.only(bottom: size.height * 0.005)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      child: Text(
                         "Tempo de \nNotificação",
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: displayWidth(context) * 0.05,
                           fontWeight: FontWeight.bold,
                           color: ColorPattern.white,
                         ),
                       ),
-                      const Padding(padding: EdgeInsets.only(left: 60)),
-                      // ignore: prefer_const_constructors
-                      NotificationButton(),
-                    ],
-                  ),
-                  const Padding(padding: EdgeInsets.only(bottom: 10)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Text(
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: size.width * 0.35),
+                    ),
+                    // ignore: prefer_const_constructors
+                    Flexible(
+                        child: NotificationButton(min: user.notificationTime!)),
+                  ],
+                ),
+                Padding(padding: EdgeInsets.only(bottom: size.height * 0.005)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      child: Text(
                         "Objetivos",
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: displayWidth(context) * 0.048,
                           fontWeight: FontWeight.bold,
                           color: ColorPattern.white,
                         ),
                       ),
-                      const Padding(padding: EdgeInsets.only(left: 82)),
-                      FloatingButton(
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: size.width * 0.48),
+                    ),
+                    Flexible(
+                      child: FloatingButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.add_task,
-                            color: ColorPattern.darkCard, size: 15),
+                        icon: Icon(
+                          Icons.add_task,
+                          color: ColorPattern.green,
+                          size: displayWidth(context) * 0.075,
+                        ),
                       ),
-                    ],
-                  ),
-                ],
-              )),
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(context, '/mensagens'),
-            child: const CardFrases(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
+          Flexible(child: CardFrases(
+            onTap: () {
+              Navigator.pushNamed(context, '/mensagens');
+            },
+          )),
         ],
       ),
     );

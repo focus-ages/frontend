@@ -3,7 +3,7 @@ class Phrase {
 
   Phrase({required this.text});
 
-    Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {'text': text};
   }
 }
