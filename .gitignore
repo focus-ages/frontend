@@ -10,3 +10,5 @@ build/
 windows/
 web/
 android/
+linux/
+*.lock
