@@ -3,7 +3,7 @@ import 'package:front/components/home_componenets/card_frases/floating.dart';
 import 'package:front/model/user_model.dart';
 import 'package:front/resources/color_pattern.dart';
 
-import '../../mensagens_personalizadas/add_new_message.dart';
+import '../../mensagens_personalizadas/add_text.dart';
 
 class CardFrases extends StatefulWidget {
   const CardFrases({Key? key, required this.onTap}) : super(key: key);
@@ -53,7 +53,7 @@ class _CardFrasesState extends State<CardFrases> {
                       onPressed: () => {
                         showDialog(
                           context: context,
-                          builder: (context) => AddNewMessage(
+                          builder: (context) => AddText(
                             onSave: userModel.adicionarFrase,
                             placeholder: 'Escreva sua frase',
                           ),

@@ -71,6 +71,7 @@ class UserController {
     }
   }
 
+
   Stream<List<Phrase>> getPhrases(userId) {
     try {
       return usersCollection
@@ -100,6 +101,31 @@ class UserController {
       return true;
     } catch (error) {
       throw Exception(error);
+    }
+  }
+
+  Future<void> addGoal(userId, Objective objective) async {
+    try {
+      await usersCollection.doc(userId).update({
+        'objectives': FieldValue.arrayUnion([objective.toJson()])
+      });
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<bool> removeGoal(userId, String objectiveName) async {
+    try{
+      User? user = await findUser(userId);
+      await usersCollection
+          .doc(userId)
+          .update({"objectives": FieldValue
+          .arrayRemove([user!.objectives!
+          .firstWhere((objective) => objective.name == objectiveName)
+          .toJson()])});
+      return true;
+    } catch (error) {
+      return false;
     }
   }
 }

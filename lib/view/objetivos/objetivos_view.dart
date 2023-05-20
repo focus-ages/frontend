@@ -1,20 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:front/entity/phrase.dart';
-import 'package:front/model/user_model.dart';
+import 'package:front/components/mensagens_personalizadas/add_text.dart';
+
 import '../../components/home_componenets/card_frases/floating.dart';
-import '../../components/mensagens_personalizadas/add_text.dart';
 import '../../components/mensagens_personalizadas/text_display.dart';
+import '../../entity/objective.dart';
 import '../../entity/user.dart';
+import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
 
-class Mensagens extends StatefulWidget {
-  const Mensagens({Key? key}) : super(key: key);
+class Objetivos extends StatefulWidget {
+  const Objetivos({Key? key}) : super(key: key);
 
   @override
-  State<Mensagens> createState() => _MensagensState();
+  State<Objetivos> createState() => _ObjetivosState();
 }
 
-class _MensagensState extends State<Mensagens> {
+class _ObjetivosState extends State<Objetivos> {
   final User_model userModel = User_model();
 
   Size displaySize(BuildContext context) {
@@ -28,12 +30,12 @@ class _MensagensState extends State<Mensagens> {
   @override
   Widget build(BuildContext context) {
     User user = userModel.getUser();
-    List<Phrase> frases = user.phrases!;
-    if (frases.length == 0) {
-      frases.add(Phrase(text: "Desliga o celular e expanda sua força!"));
+    List<Objective> objectives = user.objectives!;
+    if (objectives.length == 0) {
+      objectives.add(Objective(name: "Estudar", phrases:[]));
     }
-    List<TextDisplay> messagesList =
-        frases.map((frase) => TextDisplay(message: frase.text, onDelete: userModel.deletarFrase,)).toList();
+    List<TextDisplay> objectivesList = 
+      objectives.map((objective) => TextDisplay(message: objective.name, onDelete: userModel.removeObjective,)).toList(); // display precisam criar
     return Scaffold(
       backgroundColor: ColorPattern.darkMode,
       body: Stack(
@@ -56,7 +58,7 @@ class _MensagensState extends State<Mensagens> {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 70),
                 child: Text(
-                  'Frases',
+                  'Objetivos',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
@@ -69,13 +71,14 @@ class _MensagensState extends State<Mensagens> {
                   Flexible(
                     child: FloatingButton(
                       onPressed: () => {
-                        showDialog(
+                         showDialog(
                           context: context,
-                          builder: (context) => AddText( 
-                            onSave: userModel.adicionarFrase,
-                            placeholder: 'Escreva sua frase',
+                          builder: (context) => AddText( //função que precisam criar
+                            onSave: userModel.addObjective, // mudar aqui 
+                            placeholder: 'Escreva seu objetivo',
                           ),
                         )
+                     
                       },
                       icon: Icon(
                         Icons.add_circle_outline,
@@ -90,13 +93,13 @@ class _MensagensState extends State<Mensagens> {
               const SizedBox(height: 15),
               Expanded(
                 child: ListView.builder(
-                  itemCount: messagesList.length,
+                  itemCount: objectivesList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Column(
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: messagesList[index],
+                          child: objectivesList[index],
                         ),
                        const SizedBox(height: 10),
                     ]);
