@@ -34,7 +34,6 @@ class UserController {
         name: userFromSnapShot['name'] as String,
         notificationTime: userFromSnapShot['notificationTime'] as int,
         dailyGoal: userFromSnapShot['dailyGoal'] as int,
-        timeUsed: userFromSnapShot['timeUsed'] as int,
         objectives: objectives,
         phrases: await Stream.fromIterable(userFromSnapShot['phrases'])
             .map((phraseFromUser) => Phrase(text: phraseFromUser['text']))
@@ -103,15 +102,4 @@ class UserController {
       throw Exception(error);
     }
   }
-   Future<void> updateTimeElapsed(userId,int time) async{
-   try {
-      await usersCollection.doc(userId).update({
-        'timeUsed': FieldValue.increment(time)
-      });
-      //return true;
-    } catch (error) {
-      throw Exception(error);
-    }
-  }
-
 }

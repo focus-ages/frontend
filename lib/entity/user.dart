@@ -7,7 +7,6 @@ class User {
   final int? dailyGoal;
   final List<Objective>? objectives;
   final List<Phrase>? phrases;
-  final int? timeUsed;
 
   const User({
     this.name,
@@ -15,7 +14,6 @@ class User {
     this.dailyGoal,
     this.objectives,
     this.phrases,
-    this.timeUsed,
   });
 
   Map<String, dynamic> toJson() {
@@ -28,7 +26,6 @@ class User {
       'dailyGoal': dailyGoal,
       'objectives': objectivesJson,
       'phrases': phrasesJson,
-      'timeUsed': timeUsed
     };
   }
 }

@@ -29,7 +29,6 @@ class _CadastroState extends State<Cadastro> {
       dailyGoal: int.parse(_dailyGoal.text),
       objectives: [],
       phrases: [],
-      timeUsed: 0
     );
     await userModel.createUser(userFromForms);
     Navigator.pushNamed(context, '/home');
