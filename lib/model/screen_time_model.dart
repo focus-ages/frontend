@@ -21,12 +21,12 @@ class ScreenTimeModel {
     // instanciamos os timers e iniciamos.
     PausableTimer notificationTimer = PausableTimer(Duration(), () => {});
     notificationTimer = PausableTimer(
-        Duration(seconds: (user_model.getNotificationTime())),
+        Duration(seconds: (user_model.user.notificationTime!)),
         () => {resetNotificationTimer(notificationTimer)});
     PausableTimer dailyGoal = PausableTimer(
-        Duration(seconds: (user_model.getDailyGoal())), activateGreyScale);
+        Duration(seconds: (user_model.user.dailyGoal!)), activateGreyScale);
     PausableTimer halfedDailyGoal = PausableTimer(
-        Duration(seconds: ((user_model.getDailyGoal() / 2).round())),
+        Duration(seconds: ((user_model.user.dailyGoal! / 2).round())),
         activateGreyScale);
     startTimers(
         timerController, [notificationTimer, dailyGoal, halfedDailyGoal]);
@@ -67,9 +67,9 @@ class ScreenTimeModel {
   }
 
   void resetNotificationTimer(PausableTimer notificationTimer) {
-    if (notificationTimer.duration != user_model.getNotificationTime()) {
+    if (notificationTimer.duration != user_model.user.notificationTime!) {
       notificationTimer = PausableTimer(
-          Duration(seconds: (user_model.getNotificationTime())),
+          Duration(seconds: (user_model.user.notificationTime!)),
           () => {resetNotificationTimer(notificationTimer)});
     }
     //aqui vai a chamada do metodo que cria e envia a notificação
