@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:screen_state/screen_state.dart';
@@ -33,9 +32,8 @@ class ScreenTimeModel {
         timerController, [notificationTimer, dailyGoal, halfedDailyGoal]);
 
     // observando o evento 24/7
-    late StreamSubscription<ScreenStateEvent> _subscription;
     Screen _screen = Screen();
-    _subscription = _screen.screenStateStream!.listen((ScreenStateEvent event) {
+    _screen.screenStateStream!.listen((ScreenStateEvent event) {
       if (event == ScreenStateEvent.SCREEN_UNLOCKED) {
         if (!notificationTimer.isActive) {
           timerController.resume();
@@ -47,7 +45,6 @@ class ScreenTimeModel {
         int newDuration = updateNotificationTime(notificationTimer);
         notificationTimer = PausableTimer(Duration(seconds: newDuration),
             () => {resetNotificationTimer(notificationTimer)});
-        //timer.reset();
         notificationTimer.pause();
         dailyGoal.pause();
         halfedDailyGoal.pause();
