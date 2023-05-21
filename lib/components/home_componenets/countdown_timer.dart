@@ -1,19 +1,22 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 
+import '../../model/screen_time_model.dart';
 import '../../resources/color_pattern.dart';
 
 class CountdownTimer extends StatefulWidget {
-  const CountdownTimer({Key? key, required this.duration}) : super(key: key);
-
+  const CountdownTimer(
+      {Key? key, required this.duration, required this.controller})
+      : super(key: key);
   final int duration;
-
+  final CountDownController controller;
   @override
   State<CountdownTimer> createState() => _CountdownTimerState();
 }
 
 class _CountdownTimerState extends State<CountdownTimer> {
   int currentDuration = 0;
+
   @override
   Widget build(BuildContext context) {
     int _duration = widget.duration;
@@ -41,6 +44,8 @@ class _CountdownTimerState extends State<CountdownTimer> {
           fontSize: displayWidth(context) * 0.07,
           color: ColorPattern.white,
         ),
+        textFormat: CountdownTextFormat.HH_MM_SS,
+        controller: widget.controller,
       ),
       Padding(
         padding: const EdgeInsets.only(top: 80),
