@@ -1,23 +1,16 @@
 import 'dart:async';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:screen_state/screen_state.dart';
 import 'user_model.dart';
 import '../controller/user_controller.dart';
 import 'package:pausable_timer/pausable_timer.dart';
 
-PausableTimer timer =
-    PausableTimer(Duration(seconds: (getNotificationTime())), resetTimer);
-PausableTimer dailyGoal =
-    PausableTimer(Duration(seconds: (getDailyGoal())), activateGreyScale);
-PausableTimer halfedDailyGoal = PausableTimer(
-    Duration(seconds: ((getDailyGoal() / 2).round())), activateGreyScale);
-//criar um timer para gray scale 50% e notifactiontime
-
-final User_model user_model = User_model();
-final UserController userController = UserController();
-
 class ScreenTimeModel {
   static final ScreenTimeModel screenTimeModel = ScreenTimeModel._internal();
+  final User_model user_model = User_model();
+  final UserController userController = UserController();
+  int createdAt = Timestamp.now().toDate().day;
 
   factory ScreenTimeModel() {
     return screenTimeModel;
@@ -26,79 +19,75 @@ class ScreenTimeModel {
   ScreenTimeModel._internal();
 
   void collectScreenData(CountDownController timerController) async {
-    timerController.start();
-    timer.start();
-    dailyGoal.start();
-    halfedDailyGoal.start();
+    // instanciamos os timers e iniciamos.
+    PausableTimer notificationTimer = PausableTimer(Duration(), () => {});
+    notificationTimer = PausableTimer(
+        Duration(seconds: (user_model.getNotificationTime())),
+        () => {resetNotificationTimer(notificationTimer)});
+    PausableTimer dailyGoal = PausableTimer(
+        Duration(seconds: (user_model.getDailyGoal())), activateGreyScale);
+    PausableTimer halfedDailyGoal = PausableTimer(
+        Duration(seconds: ((user_model.getDailyGoal() / 2).round())),
+        activateGreyScale);
+    startTimers(
+        timerController, [notificationTimer, dailyGoal, halfedDailyGoal]);
+
+    // observando o evento 24/7
     late StreamSubscription<ScreenStateEvent> _subscription;
     Screen _screen = Screen();
     _subscription = _screen.screenStateStream!.listen((ScreenStateEvent event) {
-      print('Screen is $event');
-      print("tempo usado: " + timer.elapsed.inSeconds.toString());
-      print("tempo restante: " +
-          (getNotificationTime() - getTimeUsed()!).toString());
-      print('tempo total: ' + getNotificationTime().toString());
-      print('timer tempo total:' + timer.duration.inSeconds.toString());
-
       if (event == ScreenStateEvent.SCREEN_UNLOCKED) {
-        if (!timer.isActive) {
+        if (!notificationTimer.isActive) {
           timerController.resume();
-          timer.start();
-          dailyGoal.start();
-          halfedDailyGoal.start();
+          startTimers(
+              timerController, [notificationTimer, dailyGoal, halfedDailyGoal]);
         }
       } else if (event == ScreenStateEvent.SCREEN_OFF) {
         timerController.pause();
-        updateTimeUsed(timer.elapsed.inSeconds);
-        int t = timer.elapsed.inSeconds;
-        int aux = ((timer.duration.inSeconds) - t);
-        timer.cancel();
-        timer = PausableTimer(Duration(seconds: aux), () => {resetTimer()});
+        int newDuration = updateNotificationTime(notificationTimer);
+        notificationTimer = PausableTimer(Duration(seconds: newDuration),
+            () => {resetNotificationTimer(notificationTimer)});
         //timer.reset();
-        timer.pause();
+        notificationTimer.pause();
         dailyGoal.pause();
         halfedDailyGoal.pause();
       }
-      //envia para o banco o tempo usado em segundos
-      //TO-DO: DESTROIR O TIMER antigo e criar um novo com o notificationTime - o timer.elapsed.inSeconds para que
-      // o timer fique correto
     });
   }
-}
 
-//VOU RETIRAR DAQUI E COLOCAR NO USER_CONTROLLER
-Future<void> updateTimeUsed(int seg) async {
-  userController.findUser(user_model.userId).then(
-      (user) => {userController.updateTimeElapsed(user_model.userId, seg)});
-}
-
-void resetTimer() {
-  //caso o usuario fique o tempo todo com a tela ligada, o timer reseta e envia para o banco
-  updateTimeUsed(timer.elapsed.inSeconds);
-  print('resetou o timer');
-  if (timer.duration != getNotificationTime()) {
-    print('timer duration: ' + timer.duration.inSeconds.toString());
-    timer = PausableTimer(
-        Duration(seconds: (getNotificationTime())), () => {resetTimer()});
+  void startTimers(timerController, List<PausableTimer> timersList) {
+    int now = Timestamp.now().toDate().day;
+    if (createdAt != now) {
+      for (PausableTimer timer in timersList) {
+        timer.reset();
+      }
+      timerController.restart();
+      createdAt = now;
+    }
+    for (PausableTimer timer in timersList) {
+      timer.start();
+    }
   }
-  //aqui vai a chamada do metodo que cria e envia a notificação
-  timer.reset();
-  timer.start();
-}
 
-void activateGreyScale() {
-  print('chegou no daily goal');
-  //TO-DO: Função q ativa o greyscale
-}
+  void resetNotificationTimer(PausableTimer notificationTimer) {
+    if (notificationTimer.duration != user_model.getNotificationTime()) {
+      notificationTimer = PausableTimer(
+          Duration(seconds: (user_model.getNotificationTime())),
+          () => {resetNotificationTimer(notificationTimer)});
+    }
+    //aqui vai a chamada do metodo que cria e envia a notificação
+    notificationTimer.reset();
+    notificationTimer.start();
+  }
 
-int? getTimeUsed() {
-  return user_model.getUser().timeUsed;
-}
+  int updateNotificationTime(PausableTimer notificationTimer) {
+    int t = notificationTimer.elapsed.inSeconds;
+    int aux = ((notificationTimer.duration.inSeconds) - t);
+    notificationTimer.cancel();
+    return aux;
+  }
 
-int getNotificationTime() {
-  return (user_model.getUser().notificationTime)!; // *60
-}
-
-int getDailyGoal() {
-  return user_model.getUser().dailyGoal!; //*3600
+  void activateGreyScale() {
+    //TO-DO: Função q ativa o greyscale
+  }
 }

@@ -57,4 +57,15 @@ class User_model {
     await userController.updateField(userId, 'notificationTime', value);
     await loadUserFromDB();
   }
+  int? getTimeUsed() {
+    return user.timeUsed;
+  }
+
+  int getNotificationTime() {
+    return (user.notificationTime)!*60;
+  }
+
+  int getDailyGoal() {
+    return user.dailyGoal!*3600;
+  }
 }
