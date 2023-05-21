@@ -58,13 +58,14 @@ class User_model {
     await userController.updateField(userId, 'notificationTime', value);
     await loadUserFromDB();
   }
-  
+
   int getNotificationTime() {
-    return (user.notificationTime)!*60;
+    return (user.notificationTime)! * 60;
   }
 
   int getDailyGoal() {
-    return user.dailyGoal!*3600;
+    return user.dailyGoal! * 3600;
+  }
 
   Future<void> addObjective(String goal) async {
     await userController.addGoal(userId, Objective(phrases: [], name: goal));
