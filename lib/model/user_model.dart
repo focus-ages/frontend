@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:front/entity/objective.dart';
 
 import '../controller/user_controller.dart';
 import '../entity/user.dart';
@@ -64,5 +65,14 @@ class User_model {
 
   int getDailyGoal() {
     return user.dailyGoal!*3600;
+
+  Future<void> addObjective(String goal) async {
+    await userController.addGoal(userId, Objective(phrases: [], name: goal));
+    await loadUserFromDB();
+  }
+
+  Future<void> removeObjective(String goal) async {
+    await userController.removeGoal(userId, goal);
+    await loadUserFromDB();
   }
 }

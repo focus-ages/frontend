@@ -10,7 +10,7 @@ import '../../model/screen_time_model.dart';
 // teste
 import '../../components/home_componenets/card_frases/floating.dart';
 import '../../components/home_componenets/notification_button.dart';
-import '../../components/mensagens_personalizadas/add_new_message.dart';
+import '../../components/mensagens_personalizadas/add_text.dart';
 import '../../entity/user.dart';
 import '../../resources/color_pattern.dart';
 
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                         onPressed: () => {
                               showDialog(
                                 context: context,
-                                builder: (context) => AddNewMessage(
+                                builder: (context) => AddText(
                                   onSave: userModel.changeDailyGoal,
                                   placeholder: 'Escreva sua nova meta diária',
                                 ),
@@ -209,7 +209,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Flexible(
                       child: FloatingButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/objetivos');
+                        },
                         icon: Icon(
                           Icons.add_task,
                           color: ColorPattern.green,

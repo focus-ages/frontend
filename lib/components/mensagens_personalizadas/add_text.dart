@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import '../../resources/color_pattern.dart';
 
-class AddNewMessage extends StatefulWidget {
+class AddText extends StatefulWidget {
   final Function(String) onSave;
   final String placeholder;
 
-  const AddNewMessage(
+  const AddText(
       {Key? key, required this.placeholder, required this.onSave})
       : super(key: key);
 
   @override
-  _AddNewMessageState createState() => _AddNewMessageState();
+  _AddTextState createState() => _AddTextState();
 }
 
-class _AddNewMessageState extends State<AddNewMessage> {
+class _AddTextState extends State<AddText> {
   final TextEditingController _messageController = TextEditingController();
   final FocusNode _messageFocusNode = FocusNode();
   bool _showPlaceholder = true;
@@ -27,11 +27,6 @@ class _AddNewMessageState extends State<AddNewMessage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String pushPath = "/";
-
-    if (widget.placeholder == 'Escreva sua frase') {
-      pushPath = "/home";
-    }
 
     return Dialog(
       backgroundColor: ColorPattern.darkCard,
@@ -59,7 +54,6 @@ class _AddNewMessageState extends State<AddNewMessage> {
                 children: [
                   TextField(
                     controller: _messageController,
-                    focusNode: _messageFocusNode,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: ColorPattern.whiteOpacity,
@@ -127,7 +121,6 @@ class _AddNewMessageState extends State<AddNewMessage> {
                   onPressed: () => {
                     widget.onSave(_messageController.text),
                     Navigator.pop(context),
-                    Navigator.pushNamed(context, pushPath)
                   },
                   child: const Text('Salvar',
                       style: TextStyle(color: ColorPattern.green)),
