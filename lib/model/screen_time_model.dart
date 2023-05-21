@@ -1,29 +1,32 @@
 import 'dart:async';
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:screen_state/screen_state.dart';
 import 'user_model.dart';
 import '../controller/user_controller.dart';
 import 'package:pausable_timer/pausable_timer.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-//receberia a funcao getTime, mas ela esta sempre retornando 0 - setei 1 minuto na linha abaixo
-
-PausableTimer timer = PausableTimer(
-    Duration(seconds: (getNotificationTime())), () => {resetTimer()});
-PausableTimer dailyGoal = PausableTimer(
-    Duration(seconds: (getDailyGoal())), () => {print('chegou no daily goal')});
+PausableTimer timer =
+    PausableTimer(Duration(seconds: (getNotificationTime())), resetTimer);
+PausableTimer dailyGoal =
+    PausableTimer(Duration(seconds: (getDailyGoal())), activateGreyScale);
 PausableTimer halfedDailyGoal = PausableTimer(
-    Duration(seconds: ((getDailyGoal() / 2).round())),
-    () => {print('chegou na metade do daily goal')});
+    Duration(seconds: ((getDailyGoal() / 2).round())), activateGreyScale);
 //criar um timer para gray scale 50% e notifactiontime
 
 final User_model user_model = User_model();
 final UserController userController = UserController();
 
-class ScreenUsage {
-  //int? tempoemsegundos =(tempo!/60).round()
+class ScreenTimeModel {
+  static final ScreenTimeModel screenTimeModel = ScreenTimeModel._internal();
 
-  ScreenUsage();
-  void collectScreenData() async {
+  factory ScreenTimeModel() {
+    return screenTimeModel;
+  }
+
+  ScreenTimeModel._internal();
+
+  void collectScreenData(CountDownController timerController) async {
+    timerController.start();
     timer.start();
     dailyGoal.start();
     halfedDailyGoal.start();
@@ -36,19 +39,21 @@ class ScreenUsage {
           (getNotificationTime() - getTimeUsed()!).toString());
       print('tempo total: ' + getNotificationTime().toString());
       print('timer tempo total:' + timer.duration.inSeconds.toString());
-      if (event == ScreenStateEvent.SCREEN_ON) {
+
+      if (event == ScreenStateEvent.SCREEN_UNLOCKED) {
         if (!timer.isActive) {
+          timerController.resume();
           timer.start();
           dailyGoal.start();
           halfedDailyGoal.start();
         }
       } else if (event == ScreenStateEvent.SCREEN_OFF) {
+        timerController.pause();
         updateTimeUsed(timer.elapsed.inSeconds);
         int t = timer.elapsed.inSeconds;
-        int novoTempo = ((timer.duration.inSeconds) - t);
+        int aux = ((timer.duration.inSeconds) - t);
         timer.cancel();
-        timer =
-            PausableTimer(Duration(seconds: novoTempo), () => {resetTimer()});
+        timer = PausableTimer(Duration(seconds: aux), () => {resetTimer()});
         //timer.reset();
         timer.pause();
         dailyGoal.pause();
@@ -76,9 +81,14 @@ void resetTimer() {
     timer = PausableTimer(
         Duration(seconds: (getNotificationTime())), () => {resetTimer()});
   }
-
+  //aqui vai a chamada do metodo que cria e envia a notificação
   timer.reset();
   timer.start();
+}
+
+void activateGreyScale() {
+  print('chegou no daily goal');
+  //TO-DO: Função q ativa o greyscale
 }
 
 int? getTimeUsed() {
@@ -86,9 +96,9 @@ int? getTimeUsed() {
 }
 
 int getNotificationTime() {
-  return (user_model.getUser().notificationTime)!;
+  return (user_model.getUser().notificationTime)!; // *60
 }
 
 int getDailyGoal() {
-  return user_model.getUser().dailyGoal!;
+  return user_model.getUser().dailyGoal!; //*3600
 }
