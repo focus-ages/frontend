@@ -72,7 +72,8 @@ class DefaultFirebaseOptions {
     projectId: 'focus-e5180',
     databaseURL: 'https://focus-e5180-default-rtdb.firebaseio.com',
     storageBucket: 'focus-e5180.appspot.com',
-    iosClientId: '887901712407-45kckg8ek4546j0rcc3s449dkigt6486.apps.googleusercontent.com',
+    iosClientId:
+        '887901712407-45kckg8ek4546j0rcc3s449dkigt6486.apps.googleusercontent.com',
     iosBundleId: 'com.example.front',
   );
 }

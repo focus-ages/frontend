@@ -1,90 +1,79 @@
 import 'package:flutter/material.dart';
 
+import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
+import '../mensagens_personalizadas/add_text.dart';
 
 class NotificationButton extends StatefulWidget {
-  const NotificationButton({Key? key}) : super(key: key);
+  const NotificationButton({Key? key, required this.min}) : super(key: key);
+
+  final int min;
 
   @override
   State<NotificationButton> createState() => _NotificationButtonState();
 }
 
 class _NotificationButtonState extends State<NotificationButton> {
+  final User_model userModel = User_model();
   int minutos = 20;
-
-  void edit() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: ColorPattern.darkCard,
-            title: const Text('Editar Tempo',
-                style: TextStyle(color: ColorPattern.white)),
-            content: TextField(
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                hintText: 'Digite o tempo em minutos',
-                hintStyle: TextStyle(color: ColorPattern.white)
-              ),
-              onChanged: (String value) {
-                setState(() {
-                  minutos = int.parse(value);
-                });
-              },
-              
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Cancelar',
-                    style: TextStyle(color: ColorPattern.green)
-                    ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Salvar',
-                    style: TextStyle(color: ColorPattern.green)),
-              ),
-            ],
-          );
-        });
-  }
 
   @override
   Widget build(BuildContext context) {
+    minutos = widget.min;
     String minutosString = minutos.toString();
+    Size size = MediaQuery.of(context).size;
+
+    Size displaySize(BuildContext context) {
+      debugPrint('Size = ' + MediaQuery.of(context).size.toString());
+      return MediaQuery.of(context).size;
+    }
+
+    double displayWidth(BuildContext context) {
+      debugPrint('Width = ' + displaySize(context).width.toString());
+      return displaySize(context).width;
+    }
 
     return TextButton(
-        onPressed: () {
-          edit();
-        },
+        onPressed: () => {
+              showDialog(
+                context: context,
+                builder: (context) => AddText(
+                  onSave: userModel.changeNotificationTime,
+                  placeholder: 'Escreva seu novo tempo de notificação',
+                ),
+              )
+            },
         child: Row(children: [
           RichText(
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
                     text: minutosString,
-                    style: const TextStyle(
-                      fontSize: 20,
+                    style: TextStyle(
+                      fontSize: displayWidth(context) * 0.05,
                       fontWeight: FontWeight.bold,
                       color: ColorPattern.green,
                     )),
-                const TextSpan(
-                    text: ' Min',
+                TextSpan(
+                    text: ' min',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: displayWidth(context) * 0.05,
                       fontWeight: FontWeight.bold,
                       color: ColorPattern.white,
                     )),
               ],
             ),
           ),
-          const Padding(padding: EdgeInsets.only(left: 3)),
-          const Icon(Icons.edit, color: ColorPattern.white, size: 18),
+          Flexible(
+              child:
+                  Padding(padding: EdgeInsets.only(left: size.width * 0.01))),
+          Flexible(
+            child: Icon(
+              Icons.create_outlined,
+              color: ColorPattern.white,
+              size: displayWidth(context) * 0.05,
+            ),
+          ),
         ]));
   }
 }

@@ -1,0 +1,22 @@
+default:
+  image: cirrusci/flutter:latest
+
+stages:          # List of stages for jobs, and their order of execution
+  - test
+
+lint:            # This job runs in the build stage, which runs first.
+  stage: test
+  tags:
+    - flutter
+  script:
+    - flutter clean
+    - flutter pub get
+    - echo "Linting code... This will take a few seconds."
+    - flutter analyze
+
+unit-test:   # This job runs in the test stage.
+  stage: test
+  tags: 
+    - flutter    # It only starts when the job in the build stage completes successfully.
+  script:
+    - flutter test
