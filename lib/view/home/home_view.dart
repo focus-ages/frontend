@@ -49,10 +49,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: showNotification,
-        child: const Icon(Icons.notification_add),
-      ),
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorPattern.darkMode,
       body: Column(
@@ -98,9 +94,9 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(left: 35),
               child: Column(
                 children: [
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         'Barra de progresso',
                         style: TextStyle(
@@ -114,9 +110,9 @@ class _HomePageState extends State<HomePage> {
                       CustomSwitcher(),
                     ],
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         'GrayScale',
                         style: TextStyle(
@@ -129,10 +125,10 @@ class _HomePageState extends State<HomePage> {
                       CustomSwitcher(),
                     ],
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "Tempo de \nNotificação",
                         style: TextStyle(
                           fontSize: 15,
@@ -140,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                           color: ColorPattern.white,
                         ),
                       ),
-                      const Padding(padding: EdgeInsets.only(left: 60)),
+                      Padding(padding: EdgeInsets.only(left: 60)),
                       // ignore: prefer_const_constructors
                       NotificationButton(),
                     ],
