@@ -8,14 +8,19 @@ import '../../entity/user.dart';
 import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
 
+
+
 class Cadastro extends StatefulWidget {
   const Cadastro({Key? key}) : super(key: key);
 
   @override
   State<Cadastro> createState() => _CadastroState();
+  
 }
 
 class _CadastroState extends State<Cadastro> {
+
+
   static const customizedGreen = ColorPattern.green;
   final User_model userModel = User_model();
   final TextEditingController _name = TextEditingController();
@@ -199,4 +204,6 @@ class _CadastroState extends State<Cadastro> {
         //descriptionPadding: EdgeInsets.all(8).copyWith(bottom: 0),
         imagePadding: const EdgeInsets.all(8),
       );
+
+  
 }
