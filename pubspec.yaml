@@ -38,6 +38,8 @@ dependencies:
 
   firebase_core: ^2.10.0
   cloud_firestore: ^4.5.2
+  
+
   flutter_native_splash: ^2.2.19
   shared_preferences: ^2.1.0
   
@@ -52,6 +54,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0 
   screen_state: ^2.0.0
   pausable_timer: ^1.0.0+7
+  flutter_local_notifications: ^14.1.0
 
 dev_dependencies:
   flutter_test:
