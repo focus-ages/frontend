@@ -5,6 +5,7 @@ import 'package:front/components/cadastro/input_text.dart';
 import 'package:front/components/cadastro/logo_text.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import '../../entity/user.dart';
+import '../../model/cadastro_model.dart';
 import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
 
@@ -16,17 +17,18 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
-  static const customizedGreen = ColorPattern.green;
   final User_model userModel = User_model();
+  final CadastroModel cadastroModel = CadastroModel();
   final TextEditingController _name = TextEditingController();
   final TextEditingController _notificationTime = TextEditingController();
   final TextEditingController _dailyGoal = TextEditingController();
+  int numberPage = 0;
 
   void register() async {
     User userFromForms = User(
       name: _name.text,
-      notificationTime: int.parse(_notificationTime.text),
-      dailyGoal: int.parse(_dailyGoal.text),
+      notificationTime: int.parse(_notificationTime.text) * 60,
+      dailyGoal: int.parse(_dailyGoal.text) * 3600,
       objectives: [],
       phrases: [],
     );
@@ -36,6 +38,16 @@ class _CadastroState extends State<Cadastro> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    Size displaySize(BuildContext context) {
+      return MediaQuery.of(context).size;
+    }
+
+    double displayWidth(BuildContext context) {
+      return displaySize(context).width;
+    }
+
     return Scaffold(
       body: IntroductionScreen(
           pages: [
@@ -53,12 +65,12 @@ class _CadastroState extends State<Cadastro> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const Padding(padding: EdgeInsets.only(right: 10)),
-                        const Text(
+                        Text(
                           'Olá, qual seu nome?',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: ColorPattern.white,
-                              fontSize: 32),
+                              fontSize: displayWidth(context) * 0.08),
                         ),
                         Padding(padding: EdgeInsets.only(bottom: 4)),
                         InputText(
@@ -67,7 +79,7 @@ class _CadastroState extends State<Cadastro> {
                       ]),
                 ],
               ),
-              decoration: getPageDecoration(),
+              decoration: cadastroModel.getPageDecoration(),
             ),
             PageViewModel(
               title: '',
@@ -77,22 +89,21 @@ class _CadastroState extends State<Cadastro> {
                   const SizedBox(height: 20),
                   const LogoFocus(),
                   const SizedBox(height: 145),
-                  const Text(
-                    ' Após quantos minutos\n devo lhe lembrar de\n sair do celular? ',
+                  Text(
+                    ' Devo lhe lembrar de\n sair do celular após \n quantos minutos? ',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: ColorPattern.white,
-                        fontSize: 32),
+                        fontSize: displayWidth(context) * 0.08),
                   ),
                   Padding(padding: EdgeInsets.only(bottom: 4)),
                   InputText(
                     controller: _notificationTime,
-                    //placeholder: "digite aqui",
                   ),
                 ],
               ),
-              decoration: getPageDecoration(),
+              decoration: cadastroModel.getPageDecoration(),
             ),
             PageViewModel(
               title: '',
@@ -102,13 +113,13 @@ class _CadastroState extends State<Cadastro> {
                   const SizedBox(height: 20),
                   const LogoFocus(),
                   const SizedBox(height: 145),
-                  const Text(
-                    ' Qual a sua meta diária\n ideal para passar\n no celular? ',
+                  Text(
+                    ' Qual a sua meta diária\n ideal para passar no\n celular em horas? ',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: ColorPattern.white,
-                        fontSize: 32),
+                        fontSize: displayWidth(context) * 0.08),
                   ),
                   Padding(padding: EdgeInsets.only(bottom: 4)),
                   InputText(
@@ -116,29 +127,34 @@ class _CadastroState extends State<Cadastro> {
                   ),
                 ],
               ),
-              decoration: getPageDecoration(),
+              decoration: cadastroModel.getPageDecoration(),
             )
           ],
           done: ElevatedButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor: ColorPattern.darkMode),
             onPressed: register,
-            child: const Text(
+            child: Text(
               'PRONTO',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: customizedGreen,
-                  fontSize: 15),
+                  color: ColorPattern.green,
+                  fontSize: displayWidth(context) * 0.04),
             ),
           ),
           onDone: () => "",
+          onChange: (value) {
+            setState(() {
+              numberPage = value;
+            });
+          },
           globalFooter: Column(
-            children: const [
+            children: [
               Text(
-                'Não pare agora!',
+                cadastroModel.getCurrentText(numberPage),
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: customizedGreen,
+                    color: ColorPattern.green,
                     fontSize: 18),
               ),
               SizedBox(height: 20),
@@ -150,14 +166,7 @@ class _CadastroState extends State<Cadastro> {
               Icon(
                 Icons.chevron_left_outlined,
                 size: 40,
-                color: customizedGreen,
-              ),
-              Text(
-                'Voltar',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: customizedGreen,
-                    fontSize: 14),
+                color: ColorPattern.green,
               ),
             ],
           ),
@@ -165,38 +174,15 @@ class _CadastroState extends State<Cadastro> {
           next: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: const [
-              Text(
-                'Próximo',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: customizedGreen,
-                    fontSize: 14),
-              ),
               Icon(
                 Icons.chevron_right_outlined,
                 size: 40,
-                color: customizedGreen,
+                color: ColorPattern.green,
               ),
             ],
           ),
-          dotsDecorator: getDotDecorator(),
+          dotsDecorator: cadastroModel.getDotDecorator(),
           globalBackgroundColor: ColorPattern.darkMode),
     );
   }
-
-  DotsDecorator getDotDecorator() => const DotsDecorator(
-        color: ColorPattern.white,
-        size: Size(10, 10),
-        activeSize: Size(15, 15),
-        activeColor: customizedGreen,
-      );
-
-  PageDecoration getPageDecoration() => PageDecoration(
-        titleTextStyle: const TextStyle(
-            fontSize: 28, fontWeight: FontWeight.bold, color: customizedGreen),
-        bodyTextStyle: const TextStyle(fontSize: 20),
-        titlePadding: const EdgeInsets.all(8).copyWith(top: 0),
-        //descriptionPadding: EdgeInsets.all(8).copyWith(bottom: 0),
-        imagePadding: const EdgeInsets.all(8),
-      );
 }
