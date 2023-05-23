@@ -8,6 +8,7 @@ build/
 .packages
 **/generated_plugin_registrant.dart
 windows/
+ios/
 web/
 android/
 linux/

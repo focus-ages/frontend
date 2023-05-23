@@ -13,18 +13,22 @@ import '../../components/home_componenets/notification_button.dart';
 import '../../components/mensagens_personalizadas/add_text.dart';
 import '../../entity/user.dart';
 import '../../resources/color_pattern.dart';
+import 'package:front/model/notification_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
+  
 }
 
 class _HomePageState extends State<HomePage> {
   final User_model userModel = User_model();
   final CountDownController countDownController = CountDownController();
   final ScreenTimeModel screenTimeModel = ScreenTimeModel();
+  final NotificationModel notificationModel = NotificationModel();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +84,10 @@ class _HomePageState extends State<HomePage> {
           Center(
               child: Column(
             children: [
-              CountdownTimer(duration: user.dailyGoal!,controller: countDownController,),
+              CountdownTimer(
+                duration: user.dailyGoal!,
+                controller: countDownController,
+              ),
               SizedBox(
                 height: size.height * 0.025,
               ),
