@@ -72,7 +72,6 @@ class ScreenTimeModel {
   }
 
   void resetNotificationTimer(PausableTimer notificationTimer) {
-      print('mandou a noitificacao o/');
       notificationModel.showNotification();
     if (notificationTimer.duration != user_model.user.notificationTime!) {
       notificationTimer = PausableTimer(
