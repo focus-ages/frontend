@@ -4,7 +4,7 @@ class Objective {
   String name;
   List<Phrase> phrases;
 
-  Objective({required this.phrases, required this.name, required String text});
+  Objective({required this.phrases, required this.name});
 
   Map<String, dynamic> toJson() {
     List phrasesJson = phrases.map((e) => e.toJson()).toList();
