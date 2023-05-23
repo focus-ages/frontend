@@ -20,11 +20,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
   @override
   Widget build(BuildContext context) {
     int _duration = widget.duration;
-    String _durationFormated = (_duration ~/ 3600).toString() +
-        ":" +
-        (_duration % 3600 ~/ 60).toString() +
-        ":" +
-        (_duration % 3600 % 60).toString();
+    String _durationFormated = (_duration ~/ 3600).toString() + " h";
     Size size = MediaQuery.of(context).size;
 
     Size displaySize(BuildContext context) {
@@ -58,7 +54,6 @@ class _CountdownTimerState extends State<CountdownTimer> {
             style: TextStyle(
               fontSize: displayWidth(context) * 0.055,
               color: const Color(0x30E3E3E3),
-
             )),
       ),
     ]);

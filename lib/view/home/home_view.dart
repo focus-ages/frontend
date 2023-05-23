@@ -187,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     // ignore: prefer_const_constructors
                     Flexible(
-                        child: NotificationButton(min: user.notificationTime!)),
+                        child: NotificationButton(min: ((user.notificationTime!)/60).round())),
                   ],
                 ),
                 Padding(padding: EdgeInsets.only(bottom: size.height * 0.005)),
