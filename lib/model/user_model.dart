@@ -61,25 +61,24 @@ class User_model {
     await loadUserFromDB();
   }
 
-  String buscarFrase(){
+  String buscarFrase() {
     Random random = Random();
-    int porcentagem = random.nextInt(100); 
+    int porcentagem = random.nextInt(100);
 
-    if (user.objectives!.length > 0 && porcentagem > 70){
+    if (user.objectives!.length > 0 && porcentagem > 70) {
       int numeroAleatorio = random.nextInt(user.objectives!.length);
-      Objective objetivoEscolhido = user.objectives![numeroAleatorio]; 
-    
-     int fraseAleatoria = random.nextInt(objetivoEscolhido.phrases.length);
-    Phrase fraseEscolhida = objetivoEscolhido.phrases[fraseAleatoria];
-    
-    return fraseEscolhida.text;
-    }
-     
-     int indice = random.nextInt(user.phrases!.length); 
-     return user.phrases![indice].text;  
+      Objective objetivoEscolhido = user.objectives![numeroAleatorio];
 
+      int fraseAleatoria = random.nextInt(objetivoEscolhido.phrases.length);
+      Phrase fraseEscolhida = objetivoEscolhido.phrases[fraseAleatoria];
+
+      return fraseEscolhida.text;
     }
-     
+
+    int indice = random.nextInt(user.phrases!.length);
+    return user.phrases![indice].text;
+  }
+
   Future<void> addObjective(String goal) async {
     await userController.addGoal(userId, Objective(phrases: [], name: goal));
     await loadUserFromDB();
