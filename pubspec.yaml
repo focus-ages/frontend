@@ -30,7 +30,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter  
-  intl: ^0.18.0    
+  intl: ^0.17.0    
   date_format: "^2.0.0"
 
   introduction_screen: ^3.1.7
@@ -41,10 +41,6 @@ dependencies:
   cloud_firestore: ^4.5.2
   
 
-
-
-  firebase_core: ^2.10.0
-  cloud_firestore: ^4.5.2
   flutter_native_splash: ^2.2.19
   shared_preferences: ^2.1.0
   
