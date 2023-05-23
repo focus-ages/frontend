@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:front/entity/objective.dart';
 
@@ -57,6 +59,24 @@ class User_model {
   Future<void> changeNotificationTime(String value) async {
     await userController.updateField(userId, 'notificationTime', value);
     await loadUserFromDB();
+  }
+
+  String buscarFrase() {
+    Random random = Random();
+    int porcentagem = random.nextInt(100);
+
+    if (user.objectives!.length > 0 && porcentagem > 70) {
+      int numeroAleatorio = random.nextInt(user.objectives!.length);
+      Objective objetivoEscolhido = user.objectives![numeroAleatorio];
+
+      int fraseAleatoria = random.nextInt(objetivoEscolhido.phrases.length);
+      Phrase fraseEscolhida = objetivoEscolhido.phrases[fraseAleatoria];
+
+      return fraseEscolhida.text;
+    }
+
+    int indice = random.nextInt(user.phrases!.length);
+    return user.phrases![indice].text;
   }
 
   Future<void> addObjective(String goal) async {
