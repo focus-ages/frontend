@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:front/entity/phrase.dart';
 import 'package:front/model/user_model.dart';
 import '../../components/home_componenets/card_frases/floating.dart';
-import '../../components/mensagens_personalizadas/add_new_message.dart';
-import '../../components/mensagens_personalizadas/message_display.dart';
+import '../../components/mensagens_personalizadas/add_text.dart';
+import '../../components/mensagens_personalizadas/text_display.dart';
 import '../../entity/user.dart';
 import '../../resources/color_pattern.dart';
 
@@ -32,8 +32,8 @@ class _MensagensState extends State<Mensagens> {
     if (frases.length == 0) {
       frases.add(Phrase(text: "Desliga o celular e expanda sua força!"));
     }
-    List<MessageDisplay> messagesList =
-        frases.map((frase) => MessageDisplay(message: frase.text)).toList();
+    List<TextDisplay> messagesList =
+        frases.map((frase) => TextDisplay(message: frase.text, onDelete: userModel.deletarFrase,)).toList();
     return Scaffold(
       backgroundColor: ColorPattern.darkMode,
       body: Stack(
@@ -71,7 +71,7 @@ class _MensagensState extends State<Mensagens> {
                       onPressed: () => {
                         showDialog(
                           context: context,
-                          builder: (context) => AddNewMessage(
+                          builder: (context) => AddText( 
                             onSave: userModel.adicionarFrase,
                             placeholder: 'Escreva sua frase',
                           ),
@@ -90,16 +90,16 @@ class _MensagensState extends State<Mensagens> {
               const SizedBox(height: 15),
               Expanded(
                 child: ListView.builder(
-                  itemCount: messagesList.length * 2 - 1,
+                  itemCount: messagesList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    if (index.isOdd) {
-                      return const SizedBox(height: 10);
-                    }
-                    final messageIndex = index ~/ 2;
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: messagesList[messageIndex],
-                    );
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: messagesList[index],
+                        ),
+                       const SizedBox(height: 10),
+                    ]);
                   },
                 ),
               ),

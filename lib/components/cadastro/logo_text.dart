@@ -6,18 +6,28 @@ class LogoFocus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    Size displaySize(BuildContext context) {
+      return MediaQuery.of(context).size;
+    }
+
+    double displayWidth(BuildContext context) {
+      return displaySize(context).width;
+    }
+
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: ColorPattern.darkCard,
       ),
-      height: 50,
-      width: 320,
-      child: const Text("Let's Focus!",
+      height: size.height * 0.065,
+      width: displayWidth(context) * 0.75,
+      child: Text("Let's Focus!",
           style: TextStyle(
               color: ColorPattern.white,
-              fontSize: 36,
+              fontSize: displayWidth(context) * 0.09,
               fontWeight: FontWeight.bold)),
     );
   }

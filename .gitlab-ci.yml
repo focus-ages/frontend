@@ -3,18 +3,6 @@ default:
 
 stages:          # List of stages for jobs, and their order of execution
   - test
-  - build
-
-build-apk:       # This job runs in the build stage, which runs first.
-  stage: build
-  tags:
-    - flutter
-  script:
-    - flutter clean
-    - flutter pub get
-    - flutter pub run flutter_native_splash:create
-    - flutter build apk
-    - echo "Build stage complete."
 
 lint:            # This job runs in the build stage, which runs first.
   stage: test
