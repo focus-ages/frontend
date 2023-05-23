@@ -1,14 +1,19 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:front/model/notification_model.dart';
 import 'package:screen_state/screen_state.dart';
 import 'user_model.dart';
 import '../controller/user_controller.dart';
 import 'package:pausable_timer/pausable_timer.dart';
 
+
+
 class ScreenTimeModel {
   static final ScreenTimeModel screenTimeModel = ScreenTimeModel._internal();
   final User_model user_model = User_model();
   final UserController userController = UserController();
+  final NotificationModel notificationModel = NotificationModel();
   int createdAt = Timestamp.now().toDate().day;
 
   factory ScreenTimeModel() {
@@ -67,6 +72,8 @@ class ScreenTimeModel {
   }
 
   void resetNotificationTimer(PausableTimer notificationTimer) {
+      print('mandou a noitificacao o/');
+      notificationModel.showNotification();
     if (notificationTimer.duration != user_model.user.notificationTime!) {
       notificationTimer = PausableTimer(
           Duration(seconds: (user_model.user.notificationTime!)),
