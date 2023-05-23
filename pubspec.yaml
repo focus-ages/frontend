@@ -54,6 +54,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0 
   screen_state: ^2.0.0
   pausable_timer: ^1.0.0+7
+  flutter_local_notifications: ^14.1.0
 
 dev_dependencies:
   flutter_test:
