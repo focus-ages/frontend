@@ -2,12 +2,9 @@
 
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:front/components/home_componenets/card_frases/card_frases.dart';
 import 'package:front/components/home_componenets/countdown_timer.dart';
 import 'package:front/components/home_componenets/switch_button.dart';
-import 'package:front/main.dart';
-
 import 'package:front/model/user_model.dart';
 import '../../model/screen_time_model.dart';
 // teste
@@ -25,32 +22,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  void showNotification() async{
-  AndroidNotificationDetails androidDetails =
-      const AndroidNotificationDetails(
-      "Notification - Focus",
-      "Focus",
-      priority: Priority.max,
-      importance: Importance.max
-    );
-
-    DarwinNotificationDetails iosDetails =
-      const DarwinNotificationDetails(
-      presentAlert: true,
-      presentBadge: true,
-      presentSound: true,
-    );
-
-    NotificationDetails notDetails =
-        NotificationDetails(
-          android: androidDetails,
-          iOS: iosDetails
-        );
-
-    await notificationsPlugin.show(0, 'Notification Test', "Notification Test_2", notDetails);
-
-  }
   final User_model userModel = User_model();
   final CountDownController countDownController = CountDownController();
   final ScreenTimeModel screenTimeModel = ScreenTimeModel();
