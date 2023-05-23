@@ -60,14 +60,23 @@ class User_model {
     await loadUserFromDB();
   }
 
-  Future<void> buscarFrase(String value) async{
-    await userController.getPhrases(userId);
+  String buscarFrase(){
     Random random = Random();
-    int indice = random.nextInt(Phrase(text: text).length); //gera um n aleatório entre 0 e o tamanho do banco de dados de frases 
-      return Phrase(text: text)[indice]; //retorna a frase correspondente ao índice aleatório gerado
+    int porcentagem = random.nextInt(100); 
 
-  } 
-  
-  String fraseRandomica = buscarFrase(Phrase(text: text));
-  print(fraseRandomica);
+    if (user.objectives!.length > 0 && porcentagem > 70){
+      int numeroAleatorio = random.nextInt(user.objectives!.length);
+      Objective objetivoEscolhido = user.objectives![numeroAleatorio]; 
+    
+     int fraseAleatoria = random.nextInt(objetivoEscolhido.phrases.length);
+    Phrase fraseEscolhida = objetivoEscolhido.phrases[fraseAleatoria];
+    
+    return fraseEscolhida.text;
+    }
+     
+     int indice = random.nextInt(user.phrases!.length); 
+     return user.phrases![indice].text;  
+
+    }
+     
 }
