@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/resources/color_pattern.dart';
+import 'package:front/resources/text_styles.dart';
 
 class LogoFocus extends StatelessWidget {
   const LogoFocus({Key? key}) : super(key: key);
@@ -14,11 +15,10 @@ class LogoFocus extends StatelessWidget {
       ),
       height: 50,
       width: 320,
-      child: const Text("Let's Focus!",
-          style: TextStyle(
-              color: ColorPattern.white,
-              fontSize: 36,
-              fontWeight: FontWeight.bold)),
+      child: Text("Let's Focus!",
+          style: CustomTextStylesBuilder()
+              .withColor(ColorPattern.white)
+              .header1()),
     );
   }
 }

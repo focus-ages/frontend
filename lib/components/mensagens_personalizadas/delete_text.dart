@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/resources/text_styles.dart';
 import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
 
@@ -7,11 +8,12 @@ class DeleteText extends StatefulWidget {
   final Function(String) onDelete;
   final String placeholder;
 
-  DeleteText({Key? key, required this.message, required this.onDelete, required this.placeholder})
-   : super(key: key);
-
-
-
+  DeleteText(
+      {Key? key,
+      required this.message,
+      required this.onDelete,
+      required this.placeholder})
+      : super(key: key);
 
   @override
   _DeleteTextState createState() => _DeleteTextState();
@@ -31,23 +33,20 @@ class _DeleteTextState extends State<DeleteText> {
         borderRadius: BorderRadius.circular(15),
       ),
       content: Text("${widget.placeholder}",
-          style: TextStyle(
-            color: ColorPattern.white,
-          )),
+          style:
+              CustomTextStylesBuilder().withColor(ColorPattern.white).title1()),
       actions: <Widget>[
         TextButton(
           onPressed: () => {
             widget.onDelete(this.widget.message),
             Navigator.pop(context),
           },
-          child: const Text("Sim",
-              style: TextStyle(
-                color: ColorPattern.white,
-              )),
+          child:
+              Text("Sim", style: CustomTextStylesBuilder().whitePopUpButton()),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text("Não", style: TextStyle(color: ColorPattern.green)),
+          child: Text("Não", style: CustomTextStylesBuilder().greenPopUpButton()),
         ),
       ],
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../resources/color_pattern.dart';
+import '../../resources/text_styles.dart';
 
 class AddText extends StatefulWidget {
   final Function(String) onSave;
@@ -69,8 +70,9 @@ class _AddTextState extends State<AddText> {
                     ),
                     maxLines: null,
                     minLines: 99,
-                    style: const TextStyle(
-                        fontSize: 16.0, color: ColorPattern.white),
+                    style: CustomTextStylesBuilder()
+                        .withColor(ColorPattern.white)
+                        .body2(),
                     onTap: () {
                       setState(() {
                         _showPlaceholder = false;
@@ -96,8 +98,9 @@ class _AddTextState extends State<AddText> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text('${widget.placeholder} ',
-                              style: const TextStyle(
-                                  color: ColorPattern.gray, fontSize: 16.0)),
+                              style: CustomTextStylesBuilder()
+                              .withColor(ColorPattern.gray)
+                              .body2()),
                           const Icon(Icons.edit, color: ColorPattern.gray),
                         ],
                       ),
@@ -113,8 +116,8 @@ class _AddTextState extends State<AddText> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text('Cancelar',
-                      style: TextStyle(color: ColorPattern.white)),
+                  child: Text('Cancelar',
+                      style: CustomTextStylesBuilder().whitePopUpButton()),
                 ),
                 const Spacer(),
                 TextButton(
@@ -122,8 +125,8 @@ class _AddTextState extends State<AddText> {
                     widget.onSave(_messageController.text),
                     Navigator.pop(context),
                   },
-                  child: const Text('Salvar',
-                      style: TextStyle(color: ColorPattern.green)),
+                  child: Text('Salvar',
+                      style: CustomTextStylesBuilder().greenPopUpButton()),
                 ),
               ],
             ),

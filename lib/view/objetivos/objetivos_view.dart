@@ -8,6 +8,7 @@ import '../../entity/objective.dart';
 import '../../entity/user.dart';
 import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
+import '../../resources/text_styles.dart';
 
 class Objetivos extends StatefulWidget {
   const Objetivos({Key? key}) : super(key: key);
@@ -55,14 +56,13 @@ class _ObjetivosState extends State<Objetivos> {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 70),
                 child: Text(
                   'Objetivos',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
+                  style: CustomTextStylesBuilder()
+                        .withColor(ColorPattern.white)
+                        .header2(),
                 ),
               ),
               Row(

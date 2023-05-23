@@ -1,5 +1,6 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:front/resources/text_styles.dart';
 
 import '../../resources/color_pattern.dart';
 
@@ -29,26 +30,21 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
     return Stack(alignment: Alignment.center, children: [
       CircularCountDownTimer(
-        width: size.width * 0.5,
-        height: size.height * 0.2,
-        duration: _duration,
-        fillColor: ColorPattern.green,
-        ringColor: ColorPattern.darkCard,
-        strokeCap: StrokeCap.round,
-        strokeWidth: 14.0,
-        isTimerTextShown: true,
-        textStyle: TextStyle(
-          fontSize: displayWidth(context) * 0.07,
-          color: ColorPattern.white,
-        ),
-      ),
+          width: size.width * 0.5,
+          height: size.height * 0.2,
+          duration: _duration,
+          fillColor: ColorPattern.green,
+          ringColor: ColorPattern.darkCard,
+          strokeCap: StrokeCap.round,
+          strokeWidth: 14.0,
+          isTimerTextShown: true,
+          textStyle:
+              CustomTextStylesBuilder().timer(displayWidth(context) * 0.07)),
       Padding(
         padding: const EdgeInsets.only(top: 80),
         child: Text("$_duration",
-            style: TextStyle(
-              fontSize: displayWidth(context) * 0.055,
-              color: const Color(0x30E3E3E3),
-            )),
+            style: CustomTextStylesBuilder()
+                .endTimer(displayWidth(context) * 0.055)),
       ),
     ]);
   }

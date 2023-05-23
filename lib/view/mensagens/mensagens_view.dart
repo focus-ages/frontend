@@ -6,6 +6,7 @@ import '../../components/mensagens_personalizadas/add_text.dart';
 import '../../components/mensagens_personalizadas/text_display.dart';
 import '../../entity/user.dart';
 import '../../resources/color_pattern.dart';
+import '../../resources/text_styles.dart';
 
 class Mensagens extends StatefulWidget {
   const Mensagens({Key? key}) : super(key: key);
@@ -53,14 +54,13 @@ class _MensagensState extends State<Mensagens> {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 70),
                 child: Text(
                   'Frases',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
+                  style: CustomTextStylesBuilder()
+                        .withColor(ColorPattern.white)
+                        .header2(),
                 ),
               ),
               Row(
