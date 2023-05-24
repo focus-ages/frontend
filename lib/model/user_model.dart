@@ -52,12 +52,14 @@ class User_model {
   }
 
   Future<void> changeDailyGoal(String value) async {
-    await userController.updateField(userId, 'dailyGoal', value);
+    String nvalue = (int.parse(value) * 3600).toString();
+    await userController.updateField(userId, 'dailyGoal', nvalue);
     await loadUserFromDB();
   }
 
   Future<void> changeNotificationTime(String value) async {
-    await userController.updateField(userId, 'notificationTime', value);
+    String nvalue = (int.parse(value) * 60).toString();
+    await userController.updateField(userId, 'notificationTime', nvalue);
     await loadUserFromDB();
   }
 
@@ -73,10 +75,10 @@ class User_model {
       Phrase fraseEscolhida = objetivoEscolhido.phrases[fraseAleatoria];
 
       return fraseEscolhida.text;
-    }else if(user.phrases!.length == 0){
+    } else if (user.phrases!.length == 0) {
       return 'Você não adicionou nenhuma frase ainda';
     }
-    
+
     int indice = random.nextInt(user.phrases!.length);
     return user.phrases![indice].text;
   }
