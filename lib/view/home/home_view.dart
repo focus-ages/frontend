@@ -7,6 +7,7 @@ import 'package:front/components/home_componenets/countdown_timer.dart';
 import 'package:front/components/home_componenets/switch_button.dart';
 import 'package:front/resources/text_styles.dart';
 import 'package:front/model/user_model.dart';
+import '../../model/notification_model.dart';
 import '../../model/screen_time_model.dart';
 import 'package:front/validators/number_validator.dart';
 // teste
@@ -27,11 +28,11 @@ class _HomePageState extends State<HomePage> {
   final User_model userModel = User_model();
   final CountDownController countDownController = CountDownController();
   final ScreenTimeModel screenTimeModel = ScreenTimeModel();
-
+  final NotificationModel notificationModel = NotificationModel();
   @override
   Widget build(BuildContext context) {
     screenTimeModel.collectScreenData(countDownController);
-
+    notificationModel.sendNotificationRequest();
     Size size = MediaQuery.of(context).size;
 
     User user = userModel.getUser();

@@ -16,6 +16,12 @@ class NotificationModel {
   NotificationModel._internal();
   final LocalNotification localNotification = LocalNotification();
 
+  void sendNotificationRequest() {
+    notificationsPlugin.resolvePlatformSpecificImplementation<
+    AndroidFlutterLocalNotificationsPlugin>()?.requestPermission();
+  
+  }
+
   void showNotification() async {
     localNotification.notification();
     AndroidNotificationDetails androidDetails =
