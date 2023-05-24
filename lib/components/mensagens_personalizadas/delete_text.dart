@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/resources/text_styles.dart';
+import 'package:flutter/rendering.dart';
 import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
 
@@ -48,7 +49,33 @@ class _DeleteTextState extends State<DeleteText> {
           onPressed: () => Navigator.pop(context),
           child: Text("Não", style: CustomTextStylesBuilder().greenPopUpButton()),
         ),
-      ],
-    );
+        insetPadding: const EdgeInsets.symmetric(horizontal: 32.0),
+          content: Text(
+            widget.placeholder,
+            style: textStyle,
+          ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => {
+              widget.onDelete(this.widget.message),
+              Navigator.pop(context),
+            },
+            child: Text("Sim",
+                style: TextStyle(
+                  color: ColorPattern.white,
+                  fontSize: size.width * 0.05,
+                )),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Não",
+                style: TextStyle(
+                  color: ColorPattern.green,
+                  fontSize: size.width * 0.05,
+                )),
+          ),
+        ],
+      );
+    });
   }
 }

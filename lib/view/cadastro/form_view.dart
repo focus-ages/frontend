@@ -6,6 +6,7 @@ import 'package:front/components/cadastro/logo_text.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:front/resources/text_styles.dart';
 import '../../entity/user.dart';
+import '../../model/cadastro_model.dart';
 import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
 
@@ -17,17 +18,18 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
-  static const customizedGreen = ColorPattern.green;
   final User_model userModel = User_model();
+  final CadastroModel cadastroModel = CadastroModel();
   final TextEditingController _name = TextEditingController();
   final TextEditingController _notificationTime = TextEditingController();
   final TextEditingController _dailyGoal = TextEditingController();
+  int numberPage = 0;
 
   void register() async {
     User userFromForms = User(
       name: _name.text,
-      notificationTime: int.parse(_notificationTime.text),
-      dailyGoal: int.parse(_dailyGoal.text),
+      notificationTime: int.parse(_notificationTime.text) * 60,
+      dailyGoal: int.parse(_dailyGoal.text) * 3600,
       objectives: [],
       phrases: [],
     );
@@ -37,6 +39,16 @@ class _CadastroState extends State<Cadastro> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    Size displaySize(BuildContext context) {
+      return MediaQuery.of(context).size;
+    }
+
+    double displayWidth(BuildContext context) {
+      return displaySize(context).width;
+    }
+
     return Scaffold(
       body: IntroductionScreen(
           pages: [
@@ -54,8 +66,10 @@ class _CadastroState extends State<Cadastro> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const Padding(padding: EdgeInsets.only(right: 10)),
+
                         Text('Olá, qual seu nome?',
                             style: CustomTextStylesBuilder().whiteTextForm()),
+
                         Padding(padding: EdgeInsets.only(bottom: 4)),
                         InputText(
                           controller: _name,
@@ -63,7 +77,7 @@ class _CadastroState extends State<Cadastro> {
                       ]),
                 ],
               ),
-              decoration: getPageDecoration(),
+              decoration: cadastroModel.getPageDecoration(),
             ),
             PageViewModel(
               title: '',
@@ -77,14 +91,14 @@ class _CadastroState extends State<Cadastro> {
                     ' Após quantos minutos\n devo lhe lembrar de\n sair do celular? ',
                     textAlign: TextAlign.left,
                     style: CustomTextStylesBuilder().whiteTextForm()),
+
                   Padding(padding: EdgeInsets.only(bottom: 4)),
                   InputText(
                     controller: _notificationTime,
-                    //placeholder: "digite aqui",
                   ),
                 ],
               ),
-              decoration: getPageDecoration(),
+              decoration: cadastroModel.getPageDecoration(),
             ),
             PageViewModel(
               title: '',
@@ -98,13 +112,14 @@ class _CadastroState extends State<Cadastro> {
                     ' Qual a sua meta diária\n ideal para passar\n no celular? ',
                     textAlign: TextAlign.left,
                     style: CustomTextStylesBuilder().whiteTextForm()),
+
                   Padding(padding: EdgeInsets.only(bottom: 4)),
                   InputText(
                     controller: _dailyGoal,
                   ),
                 ],
               ),
-              decoration: getPageDecoration(),
+              decoration: cadastroModel.getPageDecoration(),
             )
           ],
           done: ElevatedButton(
@@ -116,6 +131,11 @@ class _CadastroState extends State<Cadastro> {
               style: CustomTextStylesBuilder().greenTextForm()),
           ),
           onDone: () => "",
+          onChange: (value) {
+            setState(() {
+              numberPage = value;
+            });
+          },
           globalFooter: Column(
             children: [
               Text(
@@ -147,28 +167,12 @@ class _CadastroState extends State<Cadastro> {
               Icon(
                 Icons.chevron_right_outlined,
                 size: 40,
-                color: customizedGreen,
+                color: ColorPattern.green,
               ),
             ],
           ),
-          dotsDecorator: getDotDecorator(),
+          dotsDecorator: cadastroModel.getDotDecorator(),
           globalBackgroundColor: ColorPattern.darkMode),
     );
   }
-
-  DotsDecorator getDotDecorator() => const DotsDecorator(
-        color: ColorPattern.white,
-        size: Size(10, 10),
-        activeSize: Size(15, 15),
-        activeColor: customizedGreen,
-      );
-
-  PageDecoration getPageDecoration() => PageDecoration(
-        titleTextStyle: const TextStyle(
-            fontSize: 28, fontWeight: FontWeight.bold, color: customizedGreen),
-        bodyTextStyle: const TextStyle(fontSize: 20),
-        titlePadding: const EdgeInsets.all(8).copyWith(top: 0),
-        //descriptionPadding: EdgeInsets.all(8).copyWith(bottom: 0),
-        imagePadding: const EdgeInsets.all(8),
-      );
 }

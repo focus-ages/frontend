@@ -66,7 +66,7 @@ class TextDisplay extends StatelessWidget {
                     builder: (context) => DeleteText(
                       message: message,
                       onDelete: onDelete, 
-                      placeholder: 'Deseja mesmo deleter essa frase?',),
+                      placeholder: 'Deseja mesmo deletar essa frase?',),
                   )
                 },
               ),

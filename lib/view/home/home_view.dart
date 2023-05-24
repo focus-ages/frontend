@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:front/components/home_componenets/card_frases/card_frases.dart';
 import 'package:front/components/home_componenets/countdown_timer.dart';
 import 'package:front/components/home_componenets/switch_button.dart';
 import 'package:front/resources/text_styles.dart';
 import 'package:front/model/user_model.dart';
+import '../../model/screen_time_model.dart';
 // teste
 import '../../components/home_componenets/card_frases/floating.dart';
 import '../../components/home_componenets/notification_button.dart';
@@ -22,9 +24,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final User_model userModel = User_model();
+  final CountDownController countDownController = CountDownController();
+  final ScreenTimeModel screenTimeModel = ScreenTimeModel();
 
   @override
   Widget build(BuildContext context) {
+    screenTimeModel.collectScreenData(countDownController);
+
     Size size = MediaQuery.of(context).size;
 
     User user = userModel.getUser();
@@ -79,7 +85,7 @@ class _HomePageState extends State<HomePage> {
           Center(
               child: Column(
             children: [
-              CountdownTimer(duration: user.dailyGoal!),
+              CountdownTimer(duration: user.dailyGoal!,controller: countDownController,),
               SizedBox(
                 height: size.height * 0.025,
               ),
@@ -178,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     // ignore: prefer_const_constructors
                     Flexible(
-                        child: NotificationButton(min: user.notificationTime!)),
+                        child: NotificationButton(min: ((user.notificationTime!)/60).round())),
                   ],
                 ),
                 Padding(padding: EdgeInsets.only(bottom: size.height * 0.005)),
