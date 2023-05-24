@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/validators/number_validator.dart';
-
+import 'package:front/resources/text_styles.dart';
 import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
 import '../mensagens_personalizadas/add_text.dart';
@@ -53,18 +53,12 @@ class _NotificationButtonState extends State<NotificationButton> {
               children: <TextSpan>[
                 TextSpan(
                     text: minutosString,
-                    style: TextStyle(
-                      fontSize: displayWidth(context) * 0.05,
-                      fontWeight: FontWeight.bold,
-                      color: ColorPattern.green,
-                    )),
+                    style: CustomTextStylesBuilder().notificationTimeNumber(displayWidth(context)* 0.05)
+                  ),
                 TextSpan(
                     text: ' min',
-                    style: TextStyle(
-                      fontSize: displayWidth(context) * 0.05,
-                      fontWeight: FontWeight.bold,
-                      color: ColorPattern.white,
-                    )),
+                    style: CustomTextStylesBuilder().notificationTimeText(displayWidth(context)* 0.05)
+                  ),
               ],
             ),
           ),

@@ -4,6 +4,7 @@ import 'package:front/model/user_model.dart';
 import 'package:front/resources/color_pattern.dart';
 import 'package:front/validators/text_validator.dart';
 
+import '../../../resources/text_styles.dart';
 import '../../mensagens_personalizadas/add_text.dart';
 
 class CardFrases extends StatefulWidget {
@@ -43,10 +44,9 @@ class _CardFrasesState extends State<CardFrases> {
                   Flexible(
                     child: Text(
                       'Frases',
-                      style: TextStyle(
-                          color: ColorPattern.white,
-                          fontSize: displayWidth(context) * 0.05,
-                          fontWeight: FontWeight.bold),
+                      style: CustomTextStylesBuilder()
+                          .withColor(ColorPattern.white)
+                          .title1(),
                     ),
                   ),
                   Flexible(
@@ -75,13 +75,10 @@ class _CardFrasesState extends State<CardFrases> {
               const Padding(padding: EdgeInsets.all(7)),
               Flexible(
                 child: Text(
-                  "Ok, 15 min have passed. Let´s work. \n Your dreams are dying.\n As your focus app, I´m truly disapointed",
-                  style: TextStyle(
-                      color: ColorPattern.white,
-                      fontSize: displayWidth(context) * 0.04,
-                      fontWeight: FontWeight.bold),
+                  "Ok, 15 min have passed. Let´s work. \n\nYour dreams are dying.\n\nAs your focus app, I´m truly disapointed",
+                  style: CustomTextStylesBuilder().cardFrases(),
                 ),
-              ),
+              )
             ],
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:front/components/cadastro/input_text.dart';
 import 'package:front/components/cadastro/logo_text.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:front/resources/text_styles.dart';
 import '../../entity/user.dart';
 import '../../model/cadastro_model.dart';
 import '../../model/user_model.dart';
@@ -67,13 +68,10 @@ class _CadastroState extends State<Cadastro> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const Padding(padding: EdgeInsets.only(right: 10)),
-                        Text(
-                          'Olá, qual seu nome?',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: ColorPattern.white,
-                              fontSize: displayWidth(context) * 0.08),
-                        ),
+
+                        Text('Olá, qual seu nome?',
+                            style: CustomTextStylesBuilder().whiteTextForm()),
+
                         Padding(padding: EdgeInsets.only(bottom: 4)),
                         InputText(
                           controller: _name,
@@ -92,13 +90,10 @@ class _CadastroState extends State<Cadastro> {
                   const LogoFocus(),
                   const SizedBox(height: 145),
                   Text(
-                    ' Devo lhe lembrar de\n sair do celular após \n quantos minutos? ',
+                    ' Após quantos minutos\n devo lhe lembrar de\n sair do celular? ',
                     textAlign: TextAlign.left,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: ColorPattern.white,
-                        fontSize: displayWidth(context) * 0.08),
-                  ),
+                    style: CustomTextStylesBuilder().whiteTextForm()),
+
                   Padding(padding: EdgeInsets.only(bottom: 4)),
                   InputText(
                     controller: _notificationTime,
@@ -116,13 +111,10 @@ class _CadastroState extends State<Cadastro> {
                   const LogoFocus(),
                   const SizedBox(height: 145),
                   Text(
-                    ' Qual a sua meta diária\n ideal para passar no\n celular em horas? ',
+                    ' Qual a sua meta diária\n ideal para passar\n no celular? ',
                     textAlign: TextAlign.left,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: ColorPattern.white,
-                        fontSize: displayWidth(context) * 0.08),
-                  ),
+                    style: CustomTextStylesBuilder().whiteTextForm()),
+
                   Padding(padding: EdgeInsets.only(bottom: 4)),
                   InputText(
                     controller: _dailyGoal,
@@ -148,11 +140,7 @@ class _CadastroState extends State<Cadastro> {
             },
             child: Text(
               'PRONTO',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: ColorPattern.green,
-                  fontSize: displayWidth(context) * 0.04),
-            ),
+              style: CustomTextStylesBuilder().greenTextForm()),
           ),
           onDone: () => "",
           onChange: (value) {
@@ -163,29 +151,31 @@ class _CadastroState extends State<Cadastro> {
           globalFooter: Column(
             children: [
               Text(
-                cadastroModel.getCurrentText(numberPage),
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: ColorPattern.green,
-                    fontSize: 18),
-              ),
+                'Não pare agora!',
+                style: CustomTextStylesBuilder().greenTextForm()),
               SizedBox(height: 20),
             ],
           ),
           showBackButton: true,
           back: Row(
-            children: const [
+            children: [
               Icon(
                 Icons.chevron_left_outlined,
                 size: 40,
                 color: ColorPattern.green,
               ),
+              Text(
+                'Voltar',
+                style: CustomTextStylesBuilder().greenTextForm()),
             ],
           ),
           showNextButton: true,
           next: Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: const [
+            children: [
+              Text(
+                'Próximo',
+                style: CustomTextStylesBuilder().greenTextForm()),
               Icon(
                 Icons.chevron_right_outlined,
                 size: 40,

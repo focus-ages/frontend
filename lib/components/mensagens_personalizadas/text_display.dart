@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/resources/text_styles.dart';
 import '../../resources/color_pattern.dart';
 import 'package:front/model/user_model.dart';
 import 'delete_text.dart';
@@ -33,7 +34,7 @@ class TextDisplay extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.symmetric(vertical: displayHeight(context) * 0.025, horizontal: displayWidth(context) * 0.025),
         decoration: BoxDecoration(
-          color: const Color(0xFF252534),
+          color: ColorPattern.darkCard,
           borderRadius: BorderRadius.circular(10.0),
           boxShadow: [
             BoxShadow(
@@ -50,10 +51,7 @@ class TextDisplay extends StatelessWidget {
               flex: 17,
                 child: Text(
                   displayMessage,
-                  style: TextStyle(
-                      fontSize: displayWidth(context)*0.04, 
-                      color: ColorPattern.white, 
-                      height: 1.5),
+                  style: CustomTextStylesBuilder().listaFrases(displayWidth(context)*0.04),
                 ),
               ),
     
@@ -68,7 +66,7 @@ class TextDisplay extends StatelessWidget {
                     builder: (context) => DeleteText(
                       message: message,
                       onDelete: onDelete, 
-                      placeholder: 'Deseja mesmo deleter essa frase?',),
+                      placeholder: 'Deseja mesmo deletar essa frase?',),
                   )
                 },
               ),
