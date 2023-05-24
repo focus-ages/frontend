@@ -6,6 +6,7 @@ import '../../components/mensagens_personalizadas/add_text.dart';
 import '../../components/mensagens_personalizadas/text_display.dart';
 import '../../entity/user.dart';
 import '../../resources/color_pattern.dart';
+import 'package:front/validators/text_validator.dart';
 
 class Mensagens extends StatefulWidget {
   const Mensagens({Key? key}) : super(key: key);
@@ -32,8 +33,12 @@ class _MensagensState extends State<Mensagens> {
     if (frases.length == 0) {
       frases.add(Phrase(text: "Desliga o celular e expanda sua força!"));
     }
-    List<TextDisplay> messagesList =
-        frases.map((frase) => TextDisplay(message: frase.text, onDelete: userModel.deletarFrase,)).toList();
+    List<TextDisplay> messagesList = frases
+        .map((frase) => TextDisplay(
+              message: frase.text,
+              onDelete: userModel.deletarFrase,
+            ))
+        .toList();
     return Scaffold(
       backgroundColor: ColorPattern.darkMode,
       body: Stack(
@@ -71,10 +76,13 @@ class _MensagensState extends State<Mensagens> {
                       onPressed: () => {
                         showDialog(
                           context: context,
-                          builder: (context) => AddText( 
-                            onSave: userModel.adicionarFrase,
-                            placeholder: 'Escreva sua frase',
-                          ),
+                          builder: (context) => AddText(
+                              onSave: userModel.adicionarFrase,
+                              placeholder: 'Escreva sua frase',
+                              validator: (String? v) {
+                                if (v == null) return null;
+                                return TextValidator.textValidator(v);
+                              }),
                         )
                       },
                       icon: Icon(
@@ -92,13 +100,12 @@ class _MensagensState extends State<Mensagens> {
                 child: ListView.builder(
                   itemCount: messagesList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: messagesList[index],
-                        ),
-                       const SizedBox(height: 10),
+                    return Column(children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: messagesList[index],
+                      ),
+                      const SizedBox(height: 10),
                     ]);
                   },
                 ),

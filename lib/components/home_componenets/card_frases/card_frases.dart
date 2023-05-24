@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:front/components/home_componenets/card_frases/floating.dart';
 import 'package:front/model/user_model.dart';
 import 'package:front/resources/color_pattern.dart';
+import 'package:front/validators/text_validator.dart';
 
 import '../../mensagens_personalizadas/add_text.dart';
 
@@ -54,10 +55,13 @@ class _CardFrasesState extends State<CardFrases> {
                         showDialog(
                           context: context,
                           builder: (context) => AddText(
-                            onSave: userModel.adicionarFrase,
-                            placeholder: 'Escreva sua frase',
-                          ),
-                        )
+                              onSave: userModel.adicionarFrase,
+                              placeholder: 'Escreva sua frase',
+                              validator: (String? v) {
+                                if (v == null) return null;
+                                return TextValidator.textValidator(v);
+                              }),
+                        ),
                       },
                       icon: Icon(
                         Icons.add_circle_outline,

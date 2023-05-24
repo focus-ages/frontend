@@ -7,6 +7,7 @@ import 'package:front/components/home_componenets/countdown_timer.dart';
 import 'package:front/components/home_componenets/switch_button.dart';
 import 'package:front/model/user_model.dart';
 import '../../model/screen_time_model.dart';
+import 'package:front/validators/number_validator.dart';
 // teste
 import '../../components/home_componenets/card_frases/floating.dart';
 import '../../components/home_componenets/notification_button.dart';
@@ -80,7 +81,10 @@ class _HomePageState extends State<HomePage> {
           Center(
               child: Column(
             children: [
-              CountdownTimer(duration: user.dailyGoal!,controller: countDownController,),
+              CountdownTimer(
+                duration: user.dailyGoal!,
+                controller: countDownController,
+              ),
               SizedBox(
                 height: size.height * 0.025,
               ),
@@ -99,9 +103,13 @@ class _HomePageState extends State<HomePage> {
                               showDialog(
                                 context: context,
                                 builder: (context) => AddText(
-                                  onSave: userModel.changeDailyGoal,
-                                  placeholder: 'Escreva sua nova meta diária',
-                                ),
+                                    onSave: userModel.changeDailyGoal,
+                                    placeholder: 'Escreva sua nova meta diária',
+                                    validator: (String? v) {
+                                      if (v == null) return null;
+                                      return NumberValidator.validateDailyGoal(
+                                          v);
+                                    }),
                               )
                             },
                         child: RichText(
@@ -187,7 +195,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                     // ignore: prefer_const_constructors
                     Flexible(
-                        child: NotificationButton(min: ((user.notificationTime!)/60).round())),
+                        child: NotificationButton(
+                            min: ((user.notificationTime!) / 60).round())),
                   ],
                 ),
                 Padding(padding: EdgeInsets.only(bottom: size.height * 0.005)),
