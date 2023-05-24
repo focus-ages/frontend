@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:front/validators/number_validator.dart';
 import 'package:front/resources/text_styles.dart';
-
 import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
 import '../mensagens_personalizadas/add_text.dart';
@@ -39,9 +39,12 @@ class _NotificationButtonState extends State<NotificationButton> {
               showDialog(
                 context: context,
                 builder: (context) => AddText(
-                  onSave: userModel.changeNotificationTime,
-                  placeholder: 'Escreva seu novo tempo de notificação',
-                ),
+                    onSave: userModel.changeNotificationTime,
+                    placeholder: 'Escreva seu novo tempo de notificação',
+                    validator: (String? v) {
+                      if (v == null) return null;
+                      return NumberValidator.validateNotificationTime(v);
+                    }),
               )
             },
         child: Row(children: [
