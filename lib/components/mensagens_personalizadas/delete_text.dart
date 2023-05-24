@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import '../../model/user_model.dart';
-import '../../resources/color_pattern.dart';
+  import 'package:flutter/material.dart';
+  import 'package:flutter/rendering.dart';
+  import '../../model/user_model.dart';
+  import '../../resources/color_pattern.dart';
 
 class DeleteText extends StatefulWidget {
   final String message;
@@ -18,7 +18,6 @@ class DeleteText extends StatefulWidget {
   @override
   _DeleteTextState createState() => _DeleteTextState();
 }
-
 class _DeleteTextState extends State<DeleteText> {
   final User_model userModel = User_model();
   final TextEditingController _messageController = TextEditingController();
@@ -27,7 +26,7 @@ class _DeleteTextState extends State<DeleteText> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+Size size = MediaQuery.of(context).size;
 
     return LayoutBuilder(builder: (context, constraints) {
       final double fontSize = constraints.maxWidth * 0.05;

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:front/components/home_componenets/card_frases/card_frases.dart';
 import 'package:front/components/home_componenets/countdown_timer.dart';
 import 'package:front/components/home_componenets/switch_button.dart';
+import 'package:front/resources/text_styles.dart';
 import 'package:front/model/user_model.dart';
 import '../../model/screen_time_model.dart';
 // teste
@@ -64,12 +65,16 @@ class _HomePageState extends State<HomePage> {
                               fontSize: displayWidth(context) * 0.08,
                               fontWeight: FontWeight.bold),
                           children: [
-                        const TextSpan(
+                        TextSpan(
                             text: 'Olá, ',
-                            style: TextStyle(color: ColorPattern.white)),
+                            style: CustomTextStylesBuilder()
+                                .withColor(ColorPattern.white)
+                                .header1()),
                         TextSpan(
                             text: user.name! + "👋",
-                            style: TextStyle(color: ColorPattern.green))
+                            style: CustomTextStylesBuilder()
+                                .withColor(ColorPattern.green)
+                                .header1()),
                       ])),
                 ),
               ),
@@ -85,11 +90,9 @@ class _HomePageState extends State<HomePage> {
                 height: size.height * 0.025,
               ),
               Text('Tempo Usado',
-                  style: TextStyle(
-                    color: ColorPattern.white,
-                    fontSize: displayWidth(context) * 0.05,
-                    fontWeight: FontWeight.bold,
-                  )),
+                  style: CustomTextStylesBuilder()
+                      .withColor(ColorPattern.white)
+                      .title1()),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -107,14 +110,14 @@ class _HomePageState extends State<HomePage> {
                         child: RichText(
                           text: TextSpan(
                               text: 'Meta Diária ',
-                              style: TextStyle(
-                                  fontSize: displayWidth(context) * 0.04,
-                                  color: const Color(0x30E3E3E3)),
+                              style: CustomTextStylesBuilder()
+                                  .withColor(ColorPattern.gray)
+                                  .body3(),
                               children: [
                                 WidgetSpan(
                                   child: Icon(
                                     Icons.create_outlined,
-                                    color: const Color(0x30E3E3E3),
+                                    color: ColorPattern.gray,
                                     size: displayWidth(context) * 0.04,
                                   ),
                                 ),
@@ -135,11 +138,9 @@ class _HomePageState extends State<HomePage> {
                     Flexible(
                       child: Text(
                         'Modo Focus',
-                        style: TextStyle(
-                          color: ColorPattern.white,
-                          fontSize: displayWidth(context) * 0.05,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: CustomTextStylesBuilder()
+                        .withColor(ColorPattern.white)
+                        .title1(),
                       ),
                     ),
                     Padding(
@@ -155,11 +156,9 @@ class _HomePageState extends State<HomePage> {
                     Flexible(
                       child: Text(
                         'Barra de\nProgresso',
-                        style: TextStyle(
-                          color: ColorPattern.white,
-                          fontSize: displayWidth(context) * 0.05,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: CustomTextStylesBuilder()
+                        .withColor(ColorPattern.white)
+                        .title1(),
                       ),
                     ),
                     Padding(
@@ -175,11 +174,9 @@ class _HomePageState extends State<HomePage> {
                     Flexible(
                       child: Text(
                         "Tempo de \nNotificação",
-                        style: TextStyle(
-                          fontSize: displayWidth(context) * 0.05,
-                          fontWeight: FontWeight.bold,
-                          color: ColorPattern.white,
-                        ),
+                        style: CustomTextStylesBuilder()
+                        .withColor(ColorPattern.white)
+                        .title1(),
                       ),
                     ),
                     Padding(
@@ -197,11 +194,9 @@ class _HomePageState extends State<HomePage> {
                     Flexible(
                       child: Text(
                         "Objetivos",
-                        style: TextStyle(
-                          fontSize: displayWidth(context) * 0.048,
-                          fontWeight: FontWeight.bold,
-                          color: ColorPattern.white,
-                        ),
+                        style: CustomTextStylesBuilder()
+                        .withColor(ColorPattern.white)
+                        .title1(),
                       ),
                     ),
                     Padding(

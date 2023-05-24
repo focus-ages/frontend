@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/resources/text_styles.dart';
 
 import '../../resources/color_pattern.dart';
 
@@ -68,10 +69,12 @@ class _InputTextState extends State<InputText> {
                 fontSize: 28,
               ),
               keyboardType: widget.keyboardType,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 filled: true,
                 fillColor: ColorPattern.darkCard,
-                hintStyle: TextStyle(color: ColorPattern.gray, fontSize: 24),
+                hintStyle: CustomTextStylesBuilder()
+                .withColor(ColorPattern.gray)
+                .body2(),
                 border: UnderlineInputBorder(
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.all(Radius.circular(50)),
