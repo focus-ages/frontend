@@ -150,7 +150,7 @@ class _CadastroState extends State<Cadastro> {
               Icon(
                 Icons.chevron_left_outlined,
                 size: 40,
-                color: customizedGreen,
+                color: ColorPattern.green,
               ),
               Text(
                 'Voltar',
