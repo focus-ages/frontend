@@ -8,6 +8,8 @@ import '../../entity/user.dart';
 import '../../model/cadastro_model.dart';
 import '../../model/user_model.dart';
 import '../../resources/color_pattern.dart';
+import 'package:front/validators/number_validator.dart';
+import 'package:front/validators/name_validator.dart';
 
 class Cadastro extends StatefulWidget {
   const Cadastro({Key? key}) : super(key: key);
@@ -133,7 +135,17 @@ class _CadastroState extends State<Cadastro> {
           done: ElevatedButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor: ColorPattern.darkMode),
-            onPressed: register,
+            //onPressed: register,
+            onPressed: () => {
+              if (NumberValidator.validateDailyGoal(_dailyGoal.text) == null &&
+                  NumberValidator.validateNotificationTime(
+                          _notificationTime.text) ==
+                      null &&
+                  NameValidator.nameValidator(_name.text) == null)
+                {
+                  register(),
+                }
+            },
             child: Text(
               'PRONTO',
               style: TextStyle(
