@@ -90,7 +90,7 @@ class _CadastroState extends State<Cadastro> {
                   const LogoFocus(),
                   const SizedBox(height: 145),
                   Text(
-                    ' Após quantos minutos\n devo lhe lembrar de\n sair do celular? ',
+                    ' Devo lhe lembrar de\n sair do celular após \n quantos minutos? ',
                     textAlign: TextAlign.left,
                     style: CustomTextStylesBuilder().whiteTextForm()),
 
@@ -111,7 +111,7 @@ class _CadastroState extends State<Cadastro> {
                   const LogoFocus(),
                   const SizedBox(height: 145),
                   Text(
-                    ' Qual a sua meta diária\n ideal para passar\n no celular? ',
+                    ' Qual a sua meta diária\n ideal para passar no\n celular em horas? ',
                     textAlign: TextAlign.left,
                     style: CustomTextStylesBuilder().whiteTextForm()),
 
